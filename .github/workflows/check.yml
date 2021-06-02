@@ -20,11 +20,11 @@ jobs:
       name: Checkout
 
     - name: Install dependencies
-      working-directory: ./project
+      working-directory: '.'
       run: |
         npm install
 
     - name: Run checks
-      working-directory: ./project
+      working-directory: '.'
       run: |
         npm test
