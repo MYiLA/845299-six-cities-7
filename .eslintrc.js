@@ -28,7 +28,6 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': ['error'],
     'react/jsx-filename-extension': ['warn', { extensions: ['.tsx'] }],
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
-    'max-len': ['warn', { code: 80 }],
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'import/extensions': [
