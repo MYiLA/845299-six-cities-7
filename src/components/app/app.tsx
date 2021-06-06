@@ -1,12 +1,8 @@
 import React from 'react';
 import MainPage from '../main-page/main-page';
+import { PageMainProps } from '../pages/types';
 
-interface Props {
-  cardCount: number,
-  placesToStay: number,
-}
-
-function App({ cardCount, placesToStay }: Props): React.ReactElement {
+export default function App({ cardCount, placesToStay }: PageMainProps): React.ReactElement {
   return (
     <MainPage
       cardCount={cardCount}
@@ -14,5 +10,3 @@ function App({ cardCount, placesToStay }: Props): React.ReactElement {
     />
   );
 }
-
-export default App;

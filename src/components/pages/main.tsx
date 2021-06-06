@@ -1,12 +1,10 @@
 import React from 'react';
 import CardPage from './card';
+import { PageMainProps } from './types';
 
-interface Props {
-  cardCount: number,
-  placesToStay: number,
-}
+const isEmpty = false;
 
-function Main({ cardCount, placesToStay }: Props): React.ReactElement {
+export default function Main({ cardCount, placesToStay }: PageMainProps): React.ReactElement {
   return (
     <>
       <div style={{ display: 'none' }}>
@@ -43,7 +41,7 @@ function Main({ cardCount, placesToStay }: Props): React.ReactElement {
             </div>
           </div>
         </header>
-        <main className="page__main page__main--index">
+        <main className={`page__main page__main--index ${isEmpty ? 'page__main--index-empty' : ''}`}>
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
             <section className="locations container">
@@ -82,60 +80,73 @@ function Main({ cardCount, placesToStay }: Props): React.ReactElement {
             </section>
           </div>
           <div className="cities">
-            <div className="cities__places-container container">
-              <section className="cities__places places">
-                <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">
-                  {placesToStay}
-                  {' '}
-                  places to stay in Amsterdam
-                </b>
-                <form className="places__sorting" action="#" method="get">
-                  <span className="places__sorting-caption">Sort by</span>
-                  <span className="places__sorting-type" role="button" tabIndex={0}>
-                    Popular
-                    <svg className="places__sorting-arrow" width={7} height={4}>
-                      <use xlinkHref="#icon-arrow-select" />
-                    </svg>
-                  </span>
-                  <ul className="places__options places__options--custom places__options--opened">
-                    <li className="places__option places__option--active">
-                      <div role="button" tabIndex={0}>
-                        Popular
-                      </div>
-                    </li>
-                    <li className="places__option">
-                      <div role="button" tabIndex={0}>
-                        Price: low to high
-                      </div>
-                    </li>
-                    <li className="places__option">
-                      <div role="button" tabIndex={0}>
-                        Price: high to low
-                      </div>
-                    </li>
-                    <li className="places__option">
-                      <div role="button" tabIndex={0}>
-                        Top rated first
-                      </div>
-                    </li>
-                  </ul>
-                </form>
-                <div className="cities__places-list places__list tabs__content">
-                  {new Array(cardCount).fill('card').map((item, id) => (
-                    <CardPage key={`${item}-${id + 1}`} />
-                  ))}
+            {!isEmpty
+            && (
+              <div className="cities__places-container container">
+                <section className="cities__places places">
+                  <h2 className="visually-hidden">Places</h2>
+                  <b className="places__found">
+                    {placesToStay}
+                    {' '}
+                    places to stay in Amsterdam
+                  </b>
+                  <form className="places__sorting" action="#" method="get">
+                    <span className="places__sorting-caption">Sort by</span>
+                    <span className="places__sorting-type" role="button" tabIndex={0}>
+                      Popular
+                      <svg className="places__sorting-arrow" width={7} height={4}>
+                        <use xlinkHref="#icon-arrow-select" />
+                      </svg>
+                    </span>
+                    <ul className="places__options places__options--custom places__options--opened">
+                      <li className="places__option places__option--active">
+                        <div role="button" tabIndex={0}>
+                          Popular
+                        </div>
+                      </li>
+                      <li className="places__option">
+                        <div role="button" tabIndex={0}>
+                          Price: low to high
+                        </div>
+                      </li>
+                      <li className="places__option">
+                        <div role="button" tabIndex={0}>
+                          Price: high to low
+                        </div>
+                      </li>
+                      <li className="places__option">
+                        <div role="button" tabIndex={0}>
+                          Top rated first
+                        </div>
+                      </li>
+                    </ul>
+                  </form>
+                  <div className="cities__places-list places__list tabs__content">
+                    {new Array(cardCount).fill('card').map((item, id) => (
+                      <CardPage key={`${item}-${id + 1}`} />
+                    ))}
+                  </div>
+                </section>
+                <div className="cities__right-section">
+                  <section className="cities__map map" />
                 </div>
-              </section>
-              <div className="cities__right-section">
-                <section className="cities__map map" />
               </div>
-            </div>
+            )}
+            {isEmpty
+            && (
+              <div className="cities__places-container cities__places-container--empty container">
+                <section className="cities__no-places">
+                  <div className="cities__status-wrapper tabs__content">
+                    <b className="cities__status">No places to stay available</b>
+                    <p className="cities__status-description">We could not find any property available at the moment in Dusseldorf</p>
+                  </div>
+                </section>
+                <div className="cities__right-section" />
+              </div>
+            )}
           </div>
         </main>
       </div>
     </>
   );
 }
-
-export default Main;
