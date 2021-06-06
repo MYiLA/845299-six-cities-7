@@ -44,6 +44,14 @@ module.exports = {
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': 'error',
     'jsx-a11y/label-has-associated-control': 'off',
+    'no-console': 'off',
+    'no-restricted-syntax': [
+      'error',
+      {
+        selector: 'CallExpression[callee.object.name=\'console\'][callee.property.name!=/^(log|warn|error|info|trace)$/]',
+        message: 'Unexpected property on console object was called',
+      },
+    ],
   },
   settings: {
     'import/resolver': {

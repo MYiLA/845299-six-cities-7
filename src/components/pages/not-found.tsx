@@ -1,17 +1,18 @@
 import * as React from 'react';
-// import { NavLink } from 'react-router-dom';
-// import { Urls } from 'src/constants';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 export default function NotFound(): React.ReactElement {
   return (
-    <div>
-      <h1>404 Not Found</h1>
-      <p>
-        do you want to
-        <a href="/">go back?</a>
-      </p>
+    <div className="page page--gray page--login">
+      <main className="page__main page__main--login">
+        <div className="page__login-container container">
+          <section className="login">
+            <h1>404 Not Found</h1>
+            <Link className="form__submit button" to={AppRoute.MAIN}>Go back</Link>
+          </section>
+        </div>
+      </main>
     </div>
   );
 }
-
-// NotFoundPage.displayName = 'NotFoundPage';
