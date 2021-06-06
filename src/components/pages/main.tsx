@@ -4,7 +4,7 @@ import { AppRoute } from '../../const';
 import { PageMainProps } from './types';
 import CardPage from '../features/card/card';
 
-const isEmpty = false;
+const isEmpty = false; // TODO переделать на внутреннюю проверку после получения данных
 
 export default function Main({ cardCount, placesToStay }: PageMainProps): React.ReactElement {
   return (

@@ -100,6 +100,8 @@ export default function Room(): React.ReactElement {
                 </div>
                 <div className="property__inside">
                   <h2 className="property__inside-title">What&lsquo;s inside</h2>
+                  {/* TODO списки заменить на мапы и вынести повторяющиеся части кода
+                   после изучения хуков */}
                   <ul className="property__inside-list">
                     <li className="property__inside-item">
                       Wi-Fi

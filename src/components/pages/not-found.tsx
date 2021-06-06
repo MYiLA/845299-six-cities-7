@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
+// TODO перепроверить классы, возможно есть что то лишнее
 export default function NotFound(): React.ReactElement {
   return (
     <div className="page page--gray page--login">
