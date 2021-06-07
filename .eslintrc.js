@@ -4,9 +4,9 @@ module.exports = {
     es2021: true,
   },
   extends: [
+    'airbnb',
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
-    'airbnb',
     'htmlacademy/react',
   ],
   parser: '@typescript-eslint/parser',
@@ -23,10 +23,11 @@ module.exports = {
     'react-hooks',
   ],
   rules: {
+    'import/prefer-default-export': 'off',
     'linebreak-style': ['error', 'unix'],
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
-    'react/jsx-filename-extension': ['warn', { extensions: ['.tsx'] }],
+    'react/jsx-filename-extension': ['warn', { extensions: ['.tsx', '.ts'] }],
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
@@ -40,6 +41,17 @@ module.exports = {
     ],
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': ['error'],
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': 'error',
+    'jsx-a11y/label-has-associated-control': 'off',
+    'no-console': 'off',
+    'no-restricted-syntax': [
+      'error',
+      {
+        selector: 'CallExpression[callee.object.name=\'console\'][callee.property.name!=/^(log|warn|error|info|trace)$/]',
+        message: 'Unexpected property on console object was called',
+      },
+    ],
   },
   settings: {
     'import/resolver': {
