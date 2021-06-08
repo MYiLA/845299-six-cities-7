@@ -7,6 +7,11 @@ import { AppRoute } from '../../const';
 //   <CardPage key={`${item}-${id + 1}`} />
 // ))}
 
+// TODO поправить форматирование
+// из "очень" важного - interface - ы в отдельные файлы
+// из best practice
+// import (что нужно) from 'react'
+// и export const My:FC<MyProps> = (p)=>{ const {propA, propB} = p;}
 const isEmpty = false;
 
 export default function Favorites(): React.ReactElement {
