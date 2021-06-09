@@ -1,5 +1,5 @@
 import { Hotel } from '../../data-type';
 
-export interface MainPageProps {
+export interface AppProps {
   hotelsData: Array<Hotel>,
 }

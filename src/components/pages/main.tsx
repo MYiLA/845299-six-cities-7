@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { PageMainProps } from './types';
+import { MainPageProps } from './types';
 import CardPage from '../features/card/card';
 
-const isEmpty = false; // TODO переделать на внутреннюю проверку после получения данных
+const isEmpty = false;
+// TODO переделать на внутреннюю проверку после получения данных
+// пока не очень понимаю, как это отформатировать
 // export const My:FC<MyProps> = (p)=>{ const {propA, propB} = p;}
-export default function Main({ cardCount, placesToStay }: PageMainProps): React.ReactElement {
+export default function Main({ hotelsData }:MainPageProps): React.ReactElement {
   return (
     <>
       <div style={{ display: 'none' }}>
@@ -88,7 +90,7 @@ export default function Main({ cardCount, placesToStay }: PageMainProps): React.
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
                   <b className="places__found">
-                    {placesToStay}
+                    300
                     {' '}
                     places to stay in Amsterdam
                   </b>
@@ -124,7 +126,7 @@ export default function Main({ cardCount, placesToStay }: PageMainProps): React.
                     </ul>
                   </form>
                   <div className="cities__places-list places__list tabs__content">
-                    {new Array(cardCount).fill('card').map((item, id) => (
+                    {new Array(hotelsData.length).fill('card').map((item, id) => (
                       <CardPage key={`${item}-${id + 1}`} />
                     ))}
                   </div>

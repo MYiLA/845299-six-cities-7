@@ -6,16 +6,15 @@ import FavoritesPage from '../pages/favorites';
 import RoomPage from '../pages/room';
 import SignInPage from '../pages/sign-in';
 import NotFoundPage from '../pages/not-found';
-import { PageMainProps } from '../pages/types';
+import { AppProps } from './types';
 
-export default function App({ cardCount, placesToStay }: PageMainProps): React.ReactElement {
+export default function App({ hotelsData }: AppProps): React.ReactElement {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.MAIN}>
           <MainPage
-            cardCount={cardCount}
-            placesToStay={placesToStay}
+            hotelsData={hotelsData}
           />
         </Route>
         <Route exact path={AppRoute.FAVORITES}>
