@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { MainPageProps } from './types';
-import CardPage from '../features/card/card';
+import CardPage from '../features/card';
 
 const isEmpty = false;
 // TODO переделать на внутреннюю проверку после получения данных
@@ -126,8 +126,8 @@ export default function Main({ hotelsData }:MainPageProps): React.ReactElement {
                     </ul>
                   </form>
                   <div className="cities__places-list places__list tabs__content">
-                    {new Array(hotelsData.length).fill('card').map((item, id) => (
-                      <CardPage key={`${item}-${id + 1}`} />
+                    {hotelsData.map((item) => (
+                      <CardPage key={item.id} cardData={item} />
                     ))}
                   </div>
                 </section>

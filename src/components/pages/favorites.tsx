@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 // TODO импортировать карточки и заменить их после лекции про хуки
-// import CardPage from '../features/card/card';
+// import CardPage from '../features/card';
 // {new Array(cardCount).fill('card').map((item, id) => (
 //   <CardPage key={`${item}-${id + 1}`} />
 // ))}

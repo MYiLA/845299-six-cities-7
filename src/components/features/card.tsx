@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../../const';
+import { AppRoute } from '../../const';
+import { CardProps } from './types';
 
 // TODO пропсами нужно настраивать вид компонента.
 // Сам компонент не знает, где его рендерят. Обёртка передаёт необходимые пераметры через пропсы
@@ -14,15 +15,20 @@ import { AppRoute } from '../../../const';
 // Компонент никогда не должен что-то записывать в свои пропсы —
 // вне зависимости от того, функциональный он или классовый.
 
-function Card(): React.ReactElement {
+function Card({ cardData }: CardProps): React.ReactElement {
+  const { isPremium, previewImage } = cardData;
+
   return (
     <article className="cities__place-card place-card">
-      <div className="place-card__mark">
-        <span>Premium</span>
-      </div>
+      {isPremium
+      && (
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>
+      )}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={AppRoute.OFFER}>
-          <img className="place-card__image" src="img/apartment-01.jpg" width={260} height={200} alt="Place" />
+          <img className="place-card__image" src={process.env.PUBLIC_URL + previewImage} width={260} height={200} alt="Place" />
         </Link>
       </div>
       <div className="place-card__info">
