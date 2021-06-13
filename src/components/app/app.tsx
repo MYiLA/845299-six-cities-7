@@ -18,13 +18,17 @@ export default function App({ hotelsData }: AppProps): React.ReactElement {
           />
         </Route>
         <Route exact path={AppRoute.FAVORITES}>
-          <FavoritesPage />
+          <FavoritesPage
+            hotelsData={hotelsData.filter((item) => item.isFavorite)}
+          />
         </Route>
         <Route exact path={AppRoute.LOGIN}>
           <SignInPage />
         </Route>
         <Route exact path={AppRoute.OFFER}>
-          <RoomPage />
+          <RoomPage
+            hotelsData={hotelsData}
+          />
         </Route>
         <Route>
           <NotFoundPage />

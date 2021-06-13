@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { CardType, AppRoute } from '../../const';
 import { CardProps } from './types';
+import { getRating } from '../../utils/common';
 
 // TODO пропсами нужно настраивать вид компонента.
 // Сам компонент не знает, где его рендерят. Обёртка передаёт необходимые пераметры через пропсы
@@ -15,29 +16,50 @@ import { CardProps } from './types';
 // Компонент никогда не должен что-то записывать в свои пропсы —
 // вне зависимости от того, функциональный он или классовый.
 
-function Card({ cardData }: CardProps): React.ReactElement {
-  const { isPremium, previewImage } = cardData;
+function Card(props: CardProps): React.ReactElement {
+  const { cardData, cardType = CardType.CITIES } = props;
+  const {
+    isPremium, isFavorite, previewImage, price, rating, title, type,
+  } = cardData;
+
+  const getArticleClass = () => {
+    switch (cardType) {
+      case CardType.CITIES:
+        return 'cities__place-card';
+      case CardType.FAVORITES:
+        return 'favorites__card';
+      case CardType.NEAR_PLACES:
+        return 'near-places__card';
+      default:
+        console.error(`Error, unknown card type ${cardType}.`);
+        return null;
+    }
+  };
 
   return (
-    <article className="cities__place-card place-card">
-      {isPremium
+    <article className={`${getArticleClass()} place-card`}>
+      {(isPremium && cardType === CardType.CITIES)
       && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${cardType}__image-wrapper place-card__image-wrapper`}>
         <Link to={AppRoute.OFFER}>
-          <img className="place-card__image" src={process.env.PUBLIC_URL + previewImage} width={260} height={200} alt="Place" />
+          <img className="place-card__image" src={previewImage} width={260} height={200} alt="Place" />
         </Link>
       </div>
-      <div className="place-card__info">
+      <div className={`place-card__info ${cardType === CardType.FAVORITES ? 'favorites__card-info' : ''}`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">€120</b>
+            <b className="place-card__price-value">
+              €
+              {price}
+            </b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
+          {/* TODO isFavorite стейт */}
+          <button className={`place-card__bookmark-button button ${isFavorite ? 'place-card__bookmark-button--active' : ''}`} type="button">
             <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark" />
             </svg>
@@ -46,14 +68,14 @@ function Card({ cardData }: CardProps): React.ReactElement {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: '80%' }} />
+            <span style={{ width: getRating(rating) }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={AppRoute.OFFER}>Beautiful &amp; luxurious apartment at great location</Link>
+          <Link to={AppRoute.OFFER}>{title}</Link>
         </h2>
-        <p className="place-card__type">Apartment</p>
+        <p className="place-card__type">{type}</p>
       </div>
     </article>
   );
