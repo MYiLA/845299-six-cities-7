@@ -32,3 +32,15 @@ export interface Hotel {
   title: string,
   type: string,
 }
+
+export interface CommentGet {
+  comment: string,
+  date: string,
+  id: number,
+  rating: number
+}
+
+export interface CommentPost {
+  comment: string,
+  rating: number
+}

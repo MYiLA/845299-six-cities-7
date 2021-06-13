@@ -66,6 +66,7 @@ function OffersList(props : OffersListProps): React.ReactElement {
             >
               <Card
                 cardData={item}
+                cardType={CardType.CITIES}
               />
             </div>
           ))}
