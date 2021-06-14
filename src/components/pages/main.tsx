@@ -1,12 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { PageMainProps } from './types';
-import CardPage from '../features/card/card';
+import { MainPageProps } from './types';
+import Header from '../features/header';
+import OffersList from '../features/offersList';
 
-const isEmpty = false; // TODO переделать на внутреннюю проверку после получения данных
+const isEmpty = false;
+// TODO переделать на внутреннюю проверку после получения данных
+// пока не очень понимаю, как это отформатировать
+// export const My:FC<MyProps> = (p)=>{ const {propA, propB} = p;}
+export default function Main(props: MainPageProps): React.ReactElement {
+  const { hotelsData } = props;
 
-export default function Main({ cardCount, placesToStay }: PageMainProps): React.ReactElement {
   return (
     <>
       <div style={{ display: 'none' }}>
@@ -17,32 +22,7 @@ export default function Main({ cardCount, placesToStay }: PageMainProps): React.
         </svg>
       </div>
       <div className="page page--gray page--main">
-        <header className="header">
-          <div className="container">
-            <div className="header__wrapper">
-              <div className="header__left">
-                <Link className="header__logo-link header__logo-link--active" to={AppRoute.MAIN}>
-                  <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width={81} height={41} />
-                </Link>
-              </div>
-              <nav className="header__nav">
-                <ul className="header__nav-list">
-                  <li className="header__nav-item user">
-                    <Link className="header__nav-link header__nav-link--profile" to={AppRoute.FAVORITES}>
-                      <div className="header__avatar-wrapper user__avatar-wrapper" />
-                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    </Link>
-                  </li>
-                  <li className="header__nav-item">
-                    <Link className="header__nav-link" to={AppRoute.LOGIN}>
-                      <span className="header__signout">Sign out</span>
-                    </Link>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-        </header>
+        <Header />
         <main className={`page__main page__main--index ${isEmpty ? 'page__main--index-empty' : ''}`}>
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
@@ -84,55 +64,7 @@ export default function Main({ cardCount, placesToStay }: PageMainProps): React.
           <div className="cities">
             {!isEmpty
             && (
-              <div className="cities__places-container container">
-                <section className="cities__places places">
-                  <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">
-                    {placesToStay}
-                    {' '}
-                    places to stay in Amsterdam
-                  </b>
-                  <form className="places__sorting" action="#" method="get">
-                    <span className="places__sorting-caption">Sort by</span>
-                    <span className="places__sorting-type" role="button" tabIndex={0}>
-                      Popular
-                      <svg className="places__sorting-arrow" width={7} height={4}>
-                        <use xlinkHref="#icon-arrow-select" />
-                      </svg>
-                    </span>
-                    <ul className="places__options places__options--custom places__options--opened">
-                      <li className="places__option places__option--active">
-                        <div role="button" tabIndex={0}>
-                          Popular
-                        </div>
-                      </li>
-                      <li className="places__option">
-                        <div role="button" tabIndex={0}>
-                          Price: low to high
-                        </div>
-                      </li>
-                      <li className="places__option">
-                        <div role="button" tabIndex={0}>
-                          Price: high to low
-                        </div>
-                      </li>
-                      <li className="places__option">
-                        <div role="button" tabIndex={0}>
-                          Top rated first
-                        </div>
-                      </li>
-                    </ul>
-                  </form>
-                  <div className="cities__places-list places__list tabs__content">
-                    {new Array(cardCount).fill('card').map((item, id) => (
-                      <CardPage key={`${item}-${id + 1}`} />
-                    ))}
-                  </div>
-                </section>
-                <div className="cities__right-section">
-                  <section className="cities__map map" />
-                </div>
-              </div>
+              <OffersList hotelsData={hotelsData} />
             )}
             {isEmpty
             && (
@@ -148,6 +80,7 @@ export default function Main({ cardCount, placesToStay }: PageMainProps): React.
             )}
           </div>
         </main>
+
       </div>
     </>
   );
