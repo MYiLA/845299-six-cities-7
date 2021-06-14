@@ -16,10 +16,12 @@ import { getRating } from '../../utils/common';
 // Компонент никогда не должен что-то записывать в свои пропсы —
 // вне зависимости от того, функциональный он или классовый.
 
+// воспользоваться useHistory чтобы убрать пропс с типом карточки
+
 function Card(props: CardProps): React.ReactElement {
   const { cardData, cardType = CardType.CITIES } = props;
   const {
-    isPremium, isFavorite, previewImage, price, rating, title, type,
+    isPremium, isFavorite, previewImage, price, rating, title, type, id,
   } = cardData;
 
   const getArticleClass = () => {
@@ -45,8 +47,14 @@ function Card(props: CardProps): React.ReactElement {
         </div>
       )}
       <div className={`${cardType}__image-wrapper place-card__image-wrapper`}>
-        <Link to={AppRoute.OFFER}>
-          <img className="place-card__image" src={previewImage} width={260} height={200} alt="Place" />
+        <Link to={`${AppRoute.OFFER}/:${id}`}>
+          <img
+            className="place-card__image"
+            src={previewImage}
+            width={260}
+            height={200}
+            alt="Place"
+          />
         </Link>
       </div>
       <div className={`place-card__info ${cardType === CardType.FAVORITES ? 'favorites__card-info' : ''}`}>
@@ -73,7 +81,7 @@ function Card(props: CardProps): React.ReactElement {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={AppRoute.OFFER}>{title}</Link>
+          <Link to={`${AppRoute.OFFER}/:${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

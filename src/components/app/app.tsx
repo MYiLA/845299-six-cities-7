@@ -25,7 +25,7 @@ export default function App({ hotelsData }: AppProps): React.ReactElement {
         <Route exact path={AppRoute.LOGIN}>
           <SignInPage />
         </Route>
-        <Route exact path={AppRoute.OFFER}>
+        <Route exact path={`${AppRoute.OFFER}/:id`}>
           <RoomPage
             hotelsData={hotelsData}
           />

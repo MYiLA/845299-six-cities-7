@@ -9,15 +9,15 @@ const hotel1 = {
     name: 'Amsterdam',
   },
   description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
-  goods: ['Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
+  goods: ['Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher', 'Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat', 'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge'],
   host: {
     avatarUrl: 'img/avatar-angelina.jpg',
     id: 3,
-    isPro: true,
+    isPro: false,
     name: 'Angelina',
   },
   id: 1,
-  images: ['img/apartment-01.jpg', 'img/apartment-02.jpg'],
+  images: ['img/apartment-01.jpg'],
   isFavorite: false,
   isPremium: false,
   location: {
@@ -30,7 +30,7 @@ const hotel1 = {
   price: 120,
   rating: 2.8,
   title: 'Beautiful & luxurious studio at great location',
-  type: 'apartment',
+  type: 'Apartment',
 };
 
 const hotel2 = {
@@ -48,11 +48,11 @@ const hotel2 = {
   host: {
     avatarUrl: 'img/avatar-angelina.jpg',
     id: 3,
-    isPro: true,
+    isPro: false,
     name: 'Angelina',
   },
   id: 2,
-  images: ['img/apartment-03.jpg', 'img/apartment-01.jpg'],
+  images: ['img/apartment-03.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-02.jpg'],
   isFavorite: false,
   isPremium: true,
   location: {
@@ -65,7 +65,7 @@ const hotel2 = {
   price: 420,
   rating: 5,
   title: 'Beautiful',
-  type: 'apartment',
+  type: 'Apartment',
 };
 
 const hotel3 = {
@@ -87,7 +87,7 @@ const hotel3 = {
     name: 'Angelina',
   },
   id: 3,
-  images: ['img/apartment-03.jpg', 'img/apartment-02.jpg'],
+  images: [],
   isFavorite: true,
   isPremium: true,
   location: {
@@ -98,9 +98,9 @@ const hotel3 = {
   maxAdults: 10,
   previewImage: 'img/apartment-02.jpg',
   price: 1020,
-  rating: 4.8,
+  rating: 4.5,
   title: 'Beautiful & luxurious studio at great location Beautiful & luxurious studio at great location',
-  type: 'private room',
+  type: 'Private room',
 };
 
 const hotel4 = {
@@ -122,7 +122,7 @@ const hotel4 = {
     name: 'Max',
   },
   id: 4,
-  images: ['img/studio-01.jpg', 'img/room.jpg'],
+  images: ['img/studio-01.jpg', 'img/room.jpg', 'img/apartment-01.jpg'],
   isFavorite: true,
   isPremium: false,
   location: {
@@ -135,7 +135,7 @@ const hotel4 = {
   price: 20,
   rating: 0.8,
   title: '',
-  type: 'apartment',
+  type: 'Apartment',
 };
 
 export const hotelsData = [hotel1, hotel2, hotel3, hotel4];
