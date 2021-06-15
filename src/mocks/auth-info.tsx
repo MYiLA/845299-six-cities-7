@@ -1,4 +1,4 @@
-export const authInfoData = {
+export const authInfo = {
   avatar_url: 'img/1.png',
   email: 'Oliver.conner@gmail.com',
   id: 1,

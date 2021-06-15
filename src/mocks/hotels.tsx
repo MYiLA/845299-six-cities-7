@@ -138,4 +138,4 @@ const hotel4 = {
   type: 'Apartment',
 };
 
-export const hotelsData = [hotel1, hotel2, hotel3, hotel4];
+export const hotels = [hotel1, hotel2, hotel3, hotel4];

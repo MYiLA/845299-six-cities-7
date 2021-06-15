@@ -9,7 +9,7 @@ export interface Hotel {
     name: string,
   },
   description: string,
-  goods: Array<string>,
+  goods: string[],
   host: {
     avatarUrl: string,
     id: number,
@@ -17,7 +17,7 @@ export interface Hotel {
     name: string,
   },
   id: number,
-  images: Array<string>,
+  images: string[],
   isFavorite: boolean,
   isPremium: boolean,
   location: {

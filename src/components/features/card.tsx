@@ -17,6 +17,25 @@ import { getRating } from '../../utils/common';
 // вне зависимости от того, функциональный он или классовый.
 
 // воспользоваться useHistory чтобы убрать пропс с типом карточки
+// getArticleClass разумно вынести в отдельную настройку.
+// Дополнительно, вся эта функция напрашивается в отдельный модуль.
+// Кажется, что компилятор не должен вызывать данную функцию каждый рез при рендеринге карточки.
+// Если карточка отрендерена, то она уже должна знать, какого она вида.
+// То есть настройка идёт извне. Тут мы только пользуемся этой настройкой. В лекции такое было
+
+const getArticleClass = (cardType:string) => {
+  switch (cardType) {
+    case CardType.CITIES:
+      return 'cities__place-card';
+    case CardType.FAVORITES:
+      return 'favorites__card';
+    case CardType.NEAR_PLACES:
+      return 'near-places__card';
+    default:
+      console.error(`Error, unknown card type ${cardType}.`);
+      return null;
+  }
+};
 
 function Card(props: CardProps): React.ReactElement {
   const { cardData, cardType = CardType.CITIES } = props;
@@ -24,22 +43,8 @@ function Card(props: CardProps): React.ReactElement {
     isPremium, isFavorite, previewImage, price, rating, title, type, id,
   } = cardData;
 
-  const getArticleClass = () => {
-    switch (cardType) {
-      case CardType.CITIES:
-        return 'cities__place-card';
-      case CardType.FAVORITES:
-        return 'favorites__card';
-      case CardType.NEAR_PLACES:
-        return 'near-places__card';
-      default:
-        console.error(`Error, unknown card type ${cardType}.`);
-        return null;
-    }
-  };
-
   return (
-    <article className={`${getArticleClass()} place-card`}>
+    <article className={`${getArticleClass(cardType)} place-card`}>
       {(isPremium && cardType === CardType.CITIES)
       && (
         <div className="place-card__mark">

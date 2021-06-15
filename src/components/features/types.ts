@@ -6,5 +6,5 @@ export interface CardProps {
 }
 
 export interface OffersListProps {
-  hotelsData: Array<Hotel>
+  hotelsData: Hotel[]
 }

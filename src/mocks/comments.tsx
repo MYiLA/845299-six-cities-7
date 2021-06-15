@@ -79,11 +79,11 @@ const comments3 = [
   },
 ];
 
-const commentsData = new Map();
+const comments = new Map();
 
-commentsData.set(1, comments1);
-commentsData.set(2, comments2);
-commentsData.set(3, comments3);
-commentsData.set(4, []);
+comments.set(1, comments1);
+comments.set(2, comments2);
+comments.set(3, comments3);
+comments.set(4, []);
 
-export const getCommentsData = (id:number):void => commentsData.get(id);
+export const getCommentsData = (id:number):void => comments.get(id);
