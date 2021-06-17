@@ -138,7 +138,7 @@ export default function Room(props: RoomPageProps): React.ReactElement {
                     {' '}
                     <span className="reviews__amount">1</span>
                   </h2>
-                  {/* TODO подключить комментарии */}
+                  {/* TODO подключить данные для комментариев */}
                   <ul className="reviews__list">
                     <Comment />
                   </ul>

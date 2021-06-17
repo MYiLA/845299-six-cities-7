@@ -4,7 +4,7 @@ import { CardType } from '../../../const';
 import Card from './card';
 
 function CardCities(props: CardProps): React.ReactElement {
-  const { className = '', cardData } = props;
+  const { className = '', cardData, onMouseOver } = props;
   const { isPremium } = cardData;
 
   return (
@@ -12,6 +12,7 @@ function CardCities(props: CardProps): React.ReactElement {
       className={`cities__place-card ${className}`}
       cardData={cardData}
       cardType={CardType.CITIES}
+      onMouseOver={onMouseOver}
     >
       {isPremium
         ? (

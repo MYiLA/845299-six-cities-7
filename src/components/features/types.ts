@@ -3,6 +3,7 @@ import { Hotel } from '../../data-type';
 
 export interface CardProps {
   cardData: Hotel,
+  onMouseOver?: () => void,
   cardType?: string,
   className?: string,
   children?: React.ReactElement,

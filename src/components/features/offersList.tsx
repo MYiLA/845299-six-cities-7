@@ -50,25 +50,14 @@ function OffersList(props : OffersListProps): React.ReactElement {
         </form>
         <div className="cities__places-list places__list tabs__content">
           {hotelsData.map((item) => (
-            // TODO пока сделала лишнюю обёртку. На артикль не дает вешать события еслинт -
-            // типа не интеррактивный элемент
-            <div
+            <CardCities
               key={item.id}
-              role="button"
-              tabIndex={0}
               onMouseOver={() => {
-                // TODO слишком часто вызывается, когда курсор перемещается
-                // между интеррактивными внутренними элементами. Нужно подумать, как избежать этого
+                console.log(item);
                 setActiveCard(item);
               }}
-              onFocus={() => {
-                setActiveCard(item);
-              }}
-            >
-              <CardCities
-                cardData={item}
-              />
-            </div>
+              cardData={item}
+            />
           ))}
         </div>
       </section>
