@@ -1,18 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AppRoute, CardType } from '../../const';
+import { AppRoute } from '../../const';
 import { FavoritesPageProps } from './types';
 import Header from '../features/header';
 import Footer from '../features/footer';
-import Card from '../features/card';
-// TODO импортировать карточки и заменить их после лекции про хуки
-// import CardPage from '../features/card';
-// {new Array(cardCount).fill('card').map((item, id) => (
-//   <CardPage key={`${item}-${id + 1}`} />
-// ))}
+import CardFavorites from '../features/card/card-favorites';
 
-// TODO поправить форматирование
-// из "очень" важного - interface - ы в отдельные файлы
+// TODO
 // из best practice
 // import (что нужно) from 'react'
 // и export const My:FC<MyProps> = (p)=>{ const {propA, propB} = p;}
@@ -51,10 +45,9 @@ export default function Favorites(props: FavoritesPageProps): React.ReactElement
                     </div>
                     <div className="favorites__places">
                       {hotelsData.map((item) => (
-                        <Card
+                        <CardFavorites
                           key={item.id}
                           cardData={item}
-                          cardType={CardType.FAVORITES}
                         />
                       ))}
                     </div>
@@ -69,10 +62,9 @@ export default function Favorites(props: FavoritesPageProps): React.ReactElement
                     </div>
                     <div className="favorites__places">
                       {hotelsData.map((item) => (
-                        <Card
+                        <CardFavorites
                           key={item.id}
                           cardData={item}
-                          cardType={CardType.FAVORITES}
                         />
                       ))}
                     </div>

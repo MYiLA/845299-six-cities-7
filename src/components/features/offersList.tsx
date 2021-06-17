@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { CardType } from '../../const';
 import { Hotel } from '../../data-type';
 import { OffersListProps } from './types';
-import Card from './card';
+import CardCities from './card/card-cities';
 
 function OffersList(props : OffersListProps): React.ReactElement {
   const { hotelsData } = props;
@@ -66,9 +65,8 @@ function OffersList(props : OffersListProps): React.ReactElement {
                 setActiveCard(item);
               }}
             >
-              <Card
+              <CardCities
                 cardData={item}
-                cardType={CardType.CITIES}
               />
             </div>
           ))}

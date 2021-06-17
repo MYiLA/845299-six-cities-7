@@ -1,11 +1,10 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { CardType } from '../../const';
 import { RoomPageProps } from './types';
 import { getRating } from '../../utils/common';
 import Header from '../features/header';
 import Comment from '../features/comment';
-import Card from '../features/card';
+import CardNearPlaces from '../features/card/card-near-places';
 import NewComment from '../features/new-comment';
 
 const isLogged = true;
@@ -156,10 +155,9 @@ export default function Room(props: RoomPageProps): React.ReactElement {
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
                 {hotelsData.slice(0, 3).map((item) => (
-                  <Card
+                  <CardNearPlaces
                     key={item.id}
                     cardData={item}
-                    cardType={CardType.NEAR_PLACES}
                   />
                 ))}
               </div>
