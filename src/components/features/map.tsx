@@ -4,9 +4,6 @@ import 'leaflet/dist/leaflet.css';
 import { MapProps } from './types';
 import useMap from '../../hooks/useMap';
 
-// TODO доделать по скринкасту карту, так как она не может найти контейнер из-за того,
-// что это пытается делать в неправильном жизненном цикле компонента
-
 function Map(props: MapProps): React.ReactElement {
   const { city, points, selectedPoint } = props;
   const mapRef = React.useRef<HTMLDivElement>(null);
