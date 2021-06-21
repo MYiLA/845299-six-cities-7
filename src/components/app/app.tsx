@@ -8,18 +8,18 @@ import SignInPage from '../pages/sign-in';
 import NotFoundPage from '../pages/not-found';
 import { AppProps } from './types';
 
-export default function App({ hotelsData }: AppProps): React.ReactElement {
+export default function App({ hotels }: AppProps): React.ReactElement {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.MAIN}>
           <MainPage
-            hotelsData={hotelsData}
+            hotelsData={hotels}
           />
         </Route>
         <Route exact path={AppRoute.FAVORITES}>
           <FavoritesPage
-            hotelsData={hotelsData.filter((item) => item.isFavorite)}
+            hotelsData={hotels.filter((item) => item.isFavorite)}
           />
         </Route>
         <Route exact path={AppRoute.LOGIN}>
@@ -27,7 +27,7 @@ export default function App({ hotelsData }: AppProps): React.ReactElement {
         </Route>
         <Route exact path={`${AppRoute.OFFER}/:id`}>
           <RoomPage
-            hotelsData={hotelsData}
+            hotelsData={hotels}
           />
         </Route>
         <Route>

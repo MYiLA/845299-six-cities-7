@@ -1,13 +1,9 @@
 import { Hotel } from '../../data-type';
 
 export interface MainPageProps {
-  hotelsData: Array<Hotel>,
+  hotelsData: Hotel[],
 }
 
-export interface FavoritesPageProps {
-  hotelsData: Array<Hotel>,
-}
+export type FavoritesPageProps = MainPageProps;
 
-export interface RoomPageProps {
-  hotelsData: Array<Hotel>,
-}
+export type RoomPageProps = MainPageProps;

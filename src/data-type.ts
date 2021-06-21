@@ -1,15 +1,16 @@
+export interface City {
+  location: {
+    latitude: number,
+    longitude: number,
+    zoom: number,
+  },
+  name: string,
+}
 export interface Hotel {
   bedrooms: number,
-  city: {
-    location: {
-      latitude: number,
-      longitude: number,
-      zoom: number,
-    },
-    name: string,
-  },
+  city: City,
   description: string,
-  goods: Array<string>,
+  goods: string[],
   host: {
     avatarUrl: string,
     id: number,
@@ -17,7 +18,7 @@ export interface Hotel {
     name: string,
   },
   id: number,
-  images: Array<string>,
+  images: string[],
   isFavorite: boolean,
   isPremium: boolean,
   location: {

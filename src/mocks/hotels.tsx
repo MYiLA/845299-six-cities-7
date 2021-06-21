@@ -2,8 +2,8 @@ const hotel1 = {
   bedrooms: 3,
   city: {
     location: {
-      latitude: 152.370216,
-      longitude: 40.895168,
+      latitude: 52.370216,
+      longitude: 4.895168,
       zoom: 10,
     },
     name: 'Amsterdam',
@@ -21,8 +21,8 @@ const hotel1 = {
   isFavorite: false,
   isPremium: false,
   location: {
-    latitude: 152.35514938496378,
-    longitude: 40.673877537499948,
+    latitude: 52.3909553943508,
+    longitude: 4.85309666406198,
     zoom: 8,
   },
   maxAdults: 3,
@@ -37,11 +37,11 @@ const hotel2 = {
   bedrooms: 2,
   city: {
     location: {
-      latitude: 132.370216,
-      longitude: 14.895168,
+      latitude: 52.370216,
+      longitude: 4.895168,
       zoom: 10,
     },
-    name: 'Paris',
+    name: 'Amsterdam',
   },
   description: '',
   goods: ['Heating', 'Kitchen', 'Cable TV'],
@@ -56,8 +56,8 @@ const hotel2 = {
   isFavorite: false,
   isPremium: true,
   location: {
-    latitude: 132.35514938496378,
-    longitude: 14.673877537499948,
+    latitude: 52.369553943508,
+    longitude: 4.85309666406198,
     zoom: 8,
   },
   maxAdults: 4,
@@ -72,11 +72,11 @@ const hotel3 = {
   bedrooms: 5,
   city: {
     location: {
-      latitude: 42.370216,
-      longitude: 47.895168,
+      latitude: 52.370216,
+      longitude: 4.895168,
       zoom: 10,
     },
-    name: 'Brussels',
+    name: 'Amsterdam',
   },
   description: 'A quiet cozy and of Amsterdam.',
   goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
@@ -91,8 +91,8 @@ const hotel3 = {
   isFavorite: true,
   isPremium: true,
   location: {
-    latitude: 42.35514938496378,
-    longitude: 47.673877537499948,
+    latitude: 52.3909553943508,
+    longitude: 4.929309666406198,
     zoom: 8,
   },
   maxAdults: 10,
@@ -126,8 +126,8 @@ const hotel4 = {
   isFavorite: true,
   isPremium: false,
   location: {
-    latitude: 52.35514938496378,
-    longitude: 4.673877537499948,
+    latitude: 52.3809553943508,
+    longitude: 4.939309666406198,
     zoom: 8,
   },
   maxAdults: 1,
@@ -138,4 +138,4 @@ const hotel4 = {
   type: 'Apartment',
 };
 
-export const hotelsData = [hotel1, hotel2, hotel3, hotel4];
+export const hotels = [hotel1, hotel2, hotel3, hotel4];

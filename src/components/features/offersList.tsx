@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { CardType } from '../../const';
 import { Hotel } from '../../data-type';
 import { OffersListProps } from './types';
-import Card from './card';
+import CardCities from './card/card-cities';
+import Map from './map';
 
 function OffersList(props : OffersListProps): React.ReactElement {
   const { hotelsData } = props;
   const [activeCard, setActiveCard] = useState<Hotel>();
+  // TODO далее переделать для всех городов. Сейчас это только амстердам
+  const { city } = hotelsData[0];
+  const points = hotelsData.filter((point) => (point.city.name === city.name));
 
   return (
     <div className="cities__places-container container">
@@ -51,31 +54,20 @@ function OffersList(props : OffersListProps): React.ReactElement {
         </form>
         <div className="cities__places-list places__list tabs__content">
           {hotelsData.map((item) => (
-            // TODO пока сделала лишнюю обёртку. На артикль не дает вешать события еслинт -
-            // типа не интеррактивный элемент
-            <div
+            <CardCities
               key={item.id}
-              role="button"
-              tabIndex={0}
               onMouseOver={() => {
-                // TODO слишком часто вызывается, когда курсор перемещается
-                // между интеррактивными внутренними элементами. Нужно подумать, как избежать этого
                 setActiveCard(item);
               }}
-              onFocus={() => {
-                setActiveCard(item);
-              }}
-            >
-              <Card
-                cardData={item}
-                cardType={CardType.CITIES}
-              />
-            </div>
+              cardData={item}
+            />
           ))}
         </div>
       </section>
       <div className="cities__right-section">
-        <section className="cities__map map" />
+        <section className="cities__map map">
+          <Map city={city} points={points} selectedPoint={activeCard} />
+        </section>
       </div>
     </div>
   );
