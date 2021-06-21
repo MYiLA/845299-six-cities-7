@@ -15,7 +15,7 @@ export default function Room(props: RoomPageProps): React.ReactElement {
   const hotel = hotelsData.find((item) => item.id === parseInt(id.split(':')[1], 10));
   // TODO Беда с декомпозицией свойств отеля. Тайпскрипт ругается.
   // Надо подумать, как можно заменить запись типа hotel?
-  // console.log(hotel);
+
   return (
     <>
       <div style={{ display: 'none' }}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Hotel } from '../../data-type';
+import { Hotel, City } from '../../data-type';
 
 export interface CardProps {
   cardData: Hotel,
@@ -11,4 +11,10 @@ export interface CardProps {
 
 export interface OffersListProps {
   hotelsData: Hotel[]
+}
+
+export interface MapProps {
+  city: City,
+  points: Hotel[],
+  selectedPoint?: Hotel
 }
