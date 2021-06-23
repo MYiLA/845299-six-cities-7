@@ -8,7 +8,9 @@ import SignInPage from '../pages/sign-in';
 import NotFoundPage from '../pages/not-found';
 import { AppProps } from './types';
 
-export default function App({ hotels }: AppProps): React.ReactElement {
+function App(props: AppProps): React.ReactElement {
+  const { hotels } = props;
+
   return (
     <BrowserRouter>
       <Switch>
@@ -37,3 +39,5 @@ export default function App({ hotels }: AppProps): React.ReactElement {
     </BrowserRouter>
   );
 }
+
+export default App;

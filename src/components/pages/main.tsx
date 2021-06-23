@@ -9,7 +9,7 @@ const isEmpty = false;
 // TODO переделать на внутреннюю проверку после получения данных
 // пока не очень понимаю, как это отформатировать
 // export const My:FC<MyProps> = (p)=>{ const {propA, propB} = p;}
-export default function Main(props: MainPageProps): React.ReactElement {
+function Main(props: MainPageProps): React.ReactElement {
   const { hotelsData } = props;
 
   return (
@@ -85,3 +85,5 @@ export default function Main(props: MainPageProps): React.ReactElement {
     </>
   );
 }
+
+export default Main;

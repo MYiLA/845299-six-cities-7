@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
 // TODO перепроверить классы, возможно есть что то лишнее
-export default function NotFound(): React.ReactElement {
+function NotFound(): React.ReactElement {
   return (
     <div className="page page--gray page--login">
       <main className="page__main page__main--login">
@@ -17,3 +17,5 @@ export default function NotFound(): React.ReactElement {
     </div>
   );
 }
+
+export default NotFound;

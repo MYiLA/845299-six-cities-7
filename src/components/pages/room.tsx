@@ -9,7 +9,7 @@ import NewComment from '../features/new-comment';
 
 const isLogged = true;
 
-export default function Room(props: RoomPageProps): React.ReactElement {
+function Room(props: RoomPageProps): React.ReactElement {
   const { hotelsData } = props;
   const { id }: { id:string } = useParams();
   const hotel = hotelsData.find((item) => item.id === parseInt(id.split(':')[1], 10));
@@ -168,3 +168,5 @@ export default function Room(props: RoomPageProps): React.ReactElement {
     </>
   );
 }
+
+export default Room;

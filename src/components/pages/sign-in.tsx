@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import Header from '../features/header';
 
-export default function SignIn(): React.ReactElement {
+function SignIn(): React.ReactElement {
   return (
     <>
       <div style={{ display: 'none' }}>
@@ -44,3 +44,5 @@ export default function SignIn(): React.ReactElement {
     </>
   );
 }
+
+export default SignIn;

@@ -11,7 +11,7 @@ import CardFavorites from '../features/card/card-favorites';
 // import (что нужно) from 'react'
 // и export const My:FC<MyProps> = (p)=>{ const {propA, propB} = p;}
 
-export default function Favorites(props: FavoritesPageProps): React.ReactElement {
+function Favorites(props: FavoritesPageProps): React.ReactElement {
   const { hotelsData } = props;
   const isEmpty = (hotelsData.length === 0);
 
@@ -90,3 +90,5 @@ export default function Favorites(props: FavoritesPageProps): React.ReactElement
     </>
   );
 }
+
+export default Favorites;
