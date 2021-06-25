@@ -17,12 +17,12 @@ const initialState: State = {
 // TODO переделать действия
 export const reducer = (state = initialState, action: Action): State => {
   switch (action.type) {
-    case ActionType.ACTION_1:
+    case ActionType.CHANGE_CITY:
       return {
         ...state,
         // step: state.step + action.payload,
       };
-    case ActionType.ACTION_2:
+    case ActionType.FILLING_HOTELS:
       return {
         ...state,
         // mistakes: state.mistakes + action.payload,

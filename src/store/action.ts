@@ -1,4 +1,4 @@
 export const ActionType = {
-  CHANGE_CITY: 'game/incrementMistake',
-  FILLING_HOTELS: 'game/incrementStep',
+  CHANGE_CITY: 'hotels/changeCity',
+  FILLING_HOTELS: 'hotels/fillingHotels',
 };
