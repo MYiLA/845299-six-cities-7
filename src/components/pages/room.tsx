@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { RoomPageProps } from './types';
+import { shallowEqual, useSelector } from 'react-redux';
+import { State } from '../../store/types';
 import { getRating } from '../../utils/common';
 import Header from '../features/header';
 import Comment from '../features/comment';
@@ -9,12 +10,20 @@ import NewComment from '../features/new-comment';
 
 const isLogged = true;
 
-function Room(props: RoomPageProps): React.ReactElement {
-  const { hotelsData } = props;
+function Room(): React.ReactElement {
   const { id }: { id:string } = useParams();
-  const hotel = hotelsData.find((item) => item.id === parseInt(id.split(':')[1], 10));
+
+  const { hotels, hotel } = useSelector((state: State) => (
+    {
+      hotels: state.hotels.filter(
+        (item) => (item.city.name === state.activeCity.name),
+      ),
+      hotel: state.hotels.find((item) => item.id === parseInt(id.split(':')[1], 10)),
+    }
+  ), shallowEqual);
+
   // TODO Беда с декомпозицией свойств отеля. Тайпскрипт ругается.
-  // Надо подумать, как можно заменить запись типа hotel?
+  // Надо подумать, как можно заменить запись типа hotel с вопросом?
 
   return (
     <>
@@ -153,8 +162,9 @@ function Room(props: RoomPageProps): React.ReactElement {
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
+              {/* TODO если карточка в этом городе одна, то её и показывает. нужна заглушка */}
               <div className="near-places__list places__list">
-                {hotelsData.slice(0, 3).map((item) => (
+                {hotels.slice(0, 3).map((item) => (
                   <CardNearPlaces
                     key={item.id}
                     cardData={item}

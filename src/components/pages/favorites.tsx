@@ -1,19 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { shallowEqual, useSelector } from 'react-redux';
 import { AppRoute } from '../../const';
-import { FavoritesPageProps } from './types';
+import { State } from '../../store/types';
 import Header from '../features/header';
 import Footer from '../features/footer';
 import CardFavorites from '../features/card/card-favorites';
 
-// TODO
-// из best practice
-// import (что нужно) from 'react'
-// и export const My:FC<MyProps> = (p)=>{ const {propA, propB} = p;}
+function Favorites(): React.ReactElement {
+  const { hotels } = useSelector((state: State) => ({
+    hotels: state.hotels.filter(
+      (item) => item.isFavorite,
+    ),
+  }), shallowEqual);
 
-function Favorites(props: FavoritesPageProps): React.ReactElement {
-  const { hotelsData } = props;
-  const isEmpty = (hotelsData.length === 0);
+  const isEmpty = (hotels.length === 0);
 
   return (
     <>
@@ -44,7 +45,7 @@ function Favorites(props: FavoritesPageProps): React.ReactElement {
                       </div>
                     </div>
                     <div className="favorites__places">
-                      {hotelsData.map((item) => (
+                      {hotels.map((item) => (
                         <CardFavorites
                           key={item.id}
                           cardData={item}
@@ -61,7 +62,7 @@ function Favorites(props: FavoritesPageProps): React.ReactElement {
                       </div>
                     </div>
                     <div className="favorites__places">
-                      {hotelsData.map((item) => (
+                      {hotels.map((item) => (
                         <CardFavorites
                           key={item.id}
                           cardData={item}

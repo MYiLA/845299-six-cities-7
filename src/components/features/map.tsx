@@ -1,11 +1,21 @@
 import React from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { shallowEqual, useSelector } from 'react-redux';
 import { MapProps } from './types';
 import useMap from '../../hooks/useMap';
+import { State } from '../../store/types';
 
 function Map(props: MapProps): React.ReactElement {
-  const { city, points, selectedPoint } = props;
+  const { selectedPoint } = props;
+
+  const { points, city } = useSelector((state: State) => ({
+    points: state.hotels.filter(
+      (hotel) => (hotel.city.name === state.activeCity.name),
+    ),
+    city: state.activeCity,
+  }), shallowEqual);
+
   const mapRef = React.useRef<HTMLDivElement>(null);
   const map = useMap(mapRef.current, city);
 

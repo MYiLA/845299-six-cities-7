@@ -1,16 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
-import { MainPageProps } from './types';
+import { shallowEqual, useSelector } from 'react-redux';
+import { State } from '../../store/types';
 import Header from '../features/header';
-import OffersList from '../features/offersList';
+import OffersList from '../features/offers-list';
+import CitiesList from '../features/cities-list';
 
-const isEmpty = false;
-// TODO переделать на внутреннюю проверку после получения данных
-// пока не очень понимаю, как это отформатировать
-// export const My:FC<MyProps> = (p)=>{ const {propA, propB} = p;}
-function Main(props: MainPageProps): React.ReactElement {
-  const { hotelsData } = props;
+// TODO сделать кастомный хук useListIds(),
+// который будет принимать параметры сортировок/фильтров/пагинации
+// и возвращать актуальный список id предложений
+function Main(): React.ReactElement {
+  const { isEmpty } = useSelector((state: State) => (
+    {
+      isEmpty: state.hotels.filter(
+        (hotel) => (hotel.city.name === state.activeCity.name),
+      ).length === 0,
+    }
+  ), shallowEqual);
 
   return (
     <>
@@ -25,60 +30,8 @@ function Main(props: MainPageProps): React.ReactElement {
         <Header />
         <main className={`page__main page__main--index ${isEmpty ? 'page__main--index-empty' : ''}`}>
           <h1 className="visually-hidden">Cities</h1>
-          <div className="tabs">
-            <section className="locations container">
-              <ul className="locations__list tabs__list">
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to={AppRoute.MAIN}>
-                    <span>Paris</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to={AppRoute.MAIN}>
-                    <span>Cologne</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to={AppRoute.MAIN}>
-                    <span>Brussels</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item tabs__item--active" to={AppRoute.MAIN}>
-                    <span>Amsterdam</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to={AppRoute.MAIN}>
-                    <span>Hamburg</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to={AppRoute.MAIN}>
-                    <span>Dusseldorf</span>
-                  </Link>
-                </li>
-              </ul>
-            </section>
-          </div>
-          <div className="cities">
-            {!isEmpty
-            && (
-              <OffersList hotelsData={hotelsData} />
-            )}
-            {isEmpty
-            && (
-              <div className="cities__places-container cities__places-container--empty container">
-                <section className="cities__no-places">
-                  <div className="cities__status-wrapper tabs__content">
-                    <b className="cities__status">No places to stay available</b>
-                    <p className="cities__status-description">We could not find any property available at the moment in Dusseldorf</p>
-                  </div>
-                </section>
-                <div className="cities__right-section" />
-              </div>
-            )}
-          </div>
+          <CitiesList />
+          <OffersList />
         </main>
 
       </div>
