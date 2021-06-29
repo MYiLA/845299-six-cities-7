@@ -11,16 +11,16 @@ function App(): React.ReactElement {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path={AppRoute.MAIN}>
-          <MainPage />
-        </Route>
         <Route exact path={AppRoute.FAVORITES}>
           <FavoritesPage />
         </Route>
         <Route exact path={AppRoute.LOGIN}>
           <SignInPage />
         </Route>
-        <Route exact path={`${AppRoute.OFFER}/:id`}>
+        <Route exact path={`${AppRoute.MAIN}/:city`}>
+          <MainPage />
+        </Route>
+        <Route exact path={`${AppRoute.OFFER}/:city/:id`}>
           <RoomPage />
         </Route>
         <Route>

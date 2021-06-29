@@ -1,21 +1,14 @@
 import React from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
-import { State } from '../../store/types';
 import Header from '../features/header';
 import OffersList from '../features/offers-list';
 import CitiesList from '../features/cities-list';
+import { useMainData } from '../../utils/selectors';
 
 // TODO сделать кастомный хук useListIds(),
 // который будет принимать параметры сортировок/фильтров/пагинации
 // и возвращать актуальный список id предложений
 function Main(): React.ReactElement {
-  const { isEmpty } = useSelector((state: State) => (
-    {
-      isEmpty: state.hotels.filter(
-        (hotel) => (hotel.city.name === state.activeCity.name),
-      ).length === 0,
-    }
-  ), shallowEqual);
+  const { isEmpty } = useMainData();
 
   return (
     <>

@@ -1,26 +1,15 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
-import { shallowEqual, useSelector } from 'react-redux';
-import { State } from '../../store/types';
 import { getRating } from '../../utils/common';
 import Header from '../features/header';
 import Comment from '../features/comment';
 import CardNearPlaces from '../features/card/card-near-places';
 import NewComment from '../features/new-comment';
+import { useRoomData } from '../../utils/selectors';
 
 const isLogged = true;
 
 function Room(): React.ReactElement {
-  const { id }: { id:string } = useParams();
-
-  const { hotels, hotel } = useSelector((state: State) => (
-    {
-      hotels: state.hotels.filter(
-        (item) => (item.city.name === state.activeCity.name),
-      ),
-      hotel: state.hotels.find((item) => item.id === parseInt(id.split(':')[1], 10)),
-    }
-  ), shallowEqual);
+  const { hotels, hotel } = useRoomData();
 
   // TODO Беда с декомпозицией свойств отеля. Тайпскрипт ругается.
   // Надо подумать, как можно заменить запись типа hotel с вопросом?

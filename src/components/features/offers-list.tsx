@@ -1,28 +1,21 @@
 import React, { useState } from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
 import { Hotel } from '../../data-type';
-import { State } from '../../store/types';
 import CardCities from './card/card-cities';
 import Map from './map';
+import { useCurrentHotelsData } from '../../utils/selectors';
 
 function OffersList(): React.ReactElement {
-  const { shownHotels, city } = useSelector((state: State) => ({
-    shownHotels: state.hotels.filter(
-      (hotel) => (hotel.city.name === state.activeCity.name),
-    ),
-    city: state.activeCity,
-  }), shallowEqual);
-
+  const { currentHotels, city } = useCurrentHotelsData();
   const [activeCard, setActiveCard] = useState<Hotel>();
 
   return (
     <div className="cities">
-      {shownHotels.length !== 0 && (
+      {currentHotels.length !== 0 && (
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">
-              {shownHotels.length}
+              {currentHotels.length}
               {' '}
               places to stay in
               {' '}
@@ -61,7 +54,7 @@ function OffersList(): React.ReactElement {
               </ul>
             </form>
             <div className="cities__places-list places__list tabs__content">
-              {shownHotels.map((item) => (
+              {currentHotels.map((item) => (
                 <CardCities
                   key={item.id}
                   onMouseOver={() => {
@@ -79,7 +72,7 @@ function OffersList(): React.ReactElement {
           </div>
         </div>
       )}
-      {shownHotels.length === 0 && (
+      {currentHotels.length === 0 && (
         <div className="cities__places-container cities__places-container--empty container">
           <section className="cities__no-places">
             <div className="cities__status-wrapper tabs__content">

@@ -2,7 +2,6 @@ import { Hotel, City } from '../data-type';
 
 export interface State {
   cities: City[],
-  activeCity: City,
   hotels: Hotel[],
 }
 

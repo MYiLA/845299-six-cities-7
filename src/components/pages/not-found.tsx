@@ -10,7 +10,7 @@ function NotFound(): React.ReactElement {
         <div className="page__login-container container">
           <section className="login">
             <h1>404 Not Found</h1>
-            <Link className="form__submit button" to={AppRoute.MAIN}>Go back</Link>
+            <Link className="form__submit button" to={`${AppRoute.MAIN}/:Paris`}>Go back</Link>
           </section>
         </div>
       </main>

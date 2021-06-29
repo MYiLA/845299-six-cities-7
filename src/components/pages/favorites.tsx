@@ -1,19 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { shallowEqual, useSelector } from 'react-redux';
 import { AppRoute } from '../../const';
-import { State } from '../../store/types';
 import Header from '../features/header';
 import Footer from '../features/footer';
 import CardFavorites from '../features/card/card-favorites';
+import { useFavoritesData } from '../../utils/selectors';
 
 function Favorites(): React.ReactElement {
-  const { hotels } = useSelector((state: State) => ({
-    hotels: state.hotels.filter(
-      (item) => item.isFavorite,
-    ),
-  }), shallowEqual);
-
+  const { hotels } = useFavoritesData();
   const isEmpty = (hotels.length === 0);
 
   return (
@@ -39,7 +33,7 @@ function Favorites(): React.ReactElement {
                   <li className="favorites__locations-items">
                     <div className="favorites__locations locations locations--current">
                       <div className="locations__item">
-                        <Link className="locations__item-link" to={AppRoute.MAIN}>
+                        <Link className="locations__item-link" to={`${AppRoute.MAIN}/:Paris`}>
                           <span>Amsterdam</span>
                         </Link>
                       </div>

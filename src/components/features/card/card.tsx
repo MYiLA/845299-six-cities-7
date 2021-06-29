@@ -14,7 +14,7 @@ function Card(props: CardProps): React.ReactElement {
     cardData, cardType = CardType.CITIES, className, children, onMouseOver,
   } = props;
   const {
-    isFavorite, previewImage, price, rating, title, type, id,
+    isFavorite, previewImage, price, rating, title, type, id, city,
   } = cardData;
 
   return (
@@ -29,7 +29,7 @@ function Card(props: CardProps): React.ReactElement {
       >
         {children}
         <div className={`${cardType}__image-wrapper place-card__image-wrapper`}>
-          <Link to={`${AppRoute.OFFER}/:${id}`}>
+          <Link to={`${AppRoute.OFFER}/:${city.name}/:${id}`}>
             <img
               className="place-card__image"
               src={previewImage}
@@ -63,7 +63,7 @@ function Card(props: CardProps): React.ReactElement {
             </div>
           </div>
           <h2 className="place-card__name">
-            <Link to={`${AppRoute.OFFER}/:${id}`}>{title}</Link>
+            <Link to={`${AppRoute.OFFER}/:${city.name}/:${id}`}>{title}</Link>
           </h2>
           <p className="place-card__type">{type}</p>
         </div>

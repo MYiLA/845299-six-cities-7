@@ -58,14 +58,6 @@ const cities = [
 
 const initialState: State = {
   cities,
-  activeCity: {
-    location: {
-      latitude: 48.85,
-      longitude: 2.35,
-      zoom: 10,
-    },
-    name: 'Paris',
-  },
   hotels,
 };
 
@@ -77,7 +69,8 @@ export const reducer = (state = initialState, action: ActionChangeCity): State =
     case ActionType.CHANGE_CITY:
       return {
         ...state,
-        activeCity: action.activeCity,
+        // TODO не очень понимаю что делает экшн, если изменён активный город
+        // activeCity: action.activeCity,
       };
     case ActionType.FILLING_HOTELS:
       return {

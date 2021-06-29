@@ -1,20 +1,13 @@
 import React from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { shallowEqual, useSelector } from 'react-redux';
 import { MapProps } from './types';
 import useMap from '../../hooks/useMap';
-import { State } from '../../store/types';
+import { useCurrentHotelsData } from '../../utils/selectors';
 
 function Map(props: MapProps): React.ReactElement {
   const { selectedPoint } = props;
-
-  const { points, city } = useSelector((state: State) => ({
-    points: state.hotels.filter(
-      (hotel) => (hotel.city.name === state.activeCity.name),
-    ),
-    city: state.activeCity,
-  }), shallowEqual);
+  const { currentHotels, city } = useCurrentHotelsData();
 
   const mapRef = React.useRef<HTMLDivElement>(null);
   const map = useMap(mapRef.current, city);
@@ -33,7 +26,7 @@ function Map(props: MapProps): React.ReactElement {
 
   React.useEffect(() => {
     if (map) {
-      points.forEach((point) => {
+      currentHotels.forEach((point) => {
         leaflet
           .marker({
             lat: point.location.latitude,
@@ -44,7 +37,7 @@ function Map(props: MapProps): React.ReactElement {
           .addTo(map);
       });
     }
-  }, [map, points, pin, pinActive, selectedPoint]);
+  }, [map, currentHotels, pin, pinActive, selectedPoint]);
 
   return (
     <div
