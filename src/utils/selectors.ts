@@ -39,6 +39,7 @@ export const useCitiesListData = (): {
   // тут много дублирования c activeCityName. Нужно рефакторить
   // учесть момент, когда города нет в списке (выбросить ошибку)
   // и подумать над более изящным решением получения города по умолчанию
+  // возможно нужно удалить действия для стора, связанные со сменой активного города
   return useSelector((state: State) => {
     const activeCity = (
       state.cities.find((item) => item.name === activeCityName)
