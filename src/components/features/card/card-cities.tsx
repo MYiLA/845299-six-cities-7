@@ -1,9 +1,9 @@
-import React from 'react';
+import { ReactElement } from 'react';
 import { CardProps } from '../types';
 import { CardType } from '../../../const';
 import Card from './card';
 
-function CardCities(props: CardProps): React.ReactElement {
+function CardCities(props: CardProps): ReactElement {
   const { className = '', cardData, onMouseOver } = props;
   const { isPremium } = cardData;
 

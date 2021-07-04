@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { ReactElement, useState } from 'react';
 import { Hotel } from '../../data-type';
 import CardCities from './card/card-cities';
 import Map from './map';
 import { useCurrentHotelsData } from '../../utils/selectors';
 
-function OffersList(): React.ReactElement {
+function OffersList(): ReactElement {
   const { currentHotels, city } = useCurrentHotelsData();
   const [activeCard, setActiveCard] = useState<Hotel>();
 

@@ -1,10 +1,10 @@
-const homeRoute = '/6-cities';
+const homeRoute = '/';
 
 export const AppRoute = {
   MAIN: homeRoute,
-  LOGIN: `${homeRoute}/login`,
-  FAVORITES: `${homeRoute}/favorites`,
-  OFFER: `${homeRoute}/offer`,
+  LOGIN: `${homeRoute}login`,
+  FAVORITES: `${homeRoute}favorites`,
+  OFFER: `${homeRoute}offer`,
 };
 
 export const APIRoute = {

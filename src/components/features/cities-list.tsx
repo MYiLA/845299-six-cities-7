@@ -1,12 +1,16 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { useCityChanger } from './model';
-import { useCitiesListData } from '../../utils/selectors';
+import { ReactElement } from 'react';
+import { PropsWithChildren } from 'react';
+import { City } from '../../data-type';
 
-function CitiesList(): React.ReactElement {
-  const { activeCity, cities } = useCitiesListData();
-  const onChangeCity = useCityChanger();
+interface CitiesListParams {
+  activeCity: City,
+  cities: City[]
+}
+
+function CitiesList(params: PropsWithChildren<CitiesListParams> ): ReactElement {
+  const { activeCity, cities } = params
 
   return (
     <div className="tabs">
@@ -16,8 +20,7 @@ function CitiesList(): React.ReactElement {
             <li key={city.name} className="locations__item">
               <Link
                 className={`locations__item-link tabs__item ${city.name === activeCity.name ? 'tabs__item--active' : ''}`}
-                to={`${AppRoute.MAIN}/:${city.name}`}
-                onClick={() => { onChangeCity(city); }}
+                to={`${AppRoute.MAIN}${city.name}`}
               >
                 <span>{city.name}</span>
               </Link>

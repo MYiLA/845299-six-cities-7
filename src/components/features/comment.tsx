@@ -1,6 +1,6 @@
-import React from 'react';
+import { ReactElement } from 'react';
 
-function Comment(): React.ReactElement {
+function Comment(): ReactElement {
   return (
     <li className="reviews__item">
       <div className="reviews__user user">

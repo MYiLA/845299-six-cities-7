@@ -1,9 +1,9 @@
-import React from 'react';
+import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import Header from '../features/header';
 
-function SignIn(): React.ReactElement {
+function SignIn(): ReactElement {
   return (
     <>
       <div style={{ display: 'none' }}>

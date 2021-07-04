@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import Header from '../features/header';
@@ -6,7 +6,7 @@ import Footer from '../features/footer';
 import CardFavorites from '../features/card/card-favorites';
 import { useFavoritesData } from '../../utils/selectors';
 
-function Favorites(): React.ReactElement {
+function Favorites(): ReactElement {
   const { hotels } = useFavoritesData();
   const isEmpty = (hotels.length === 0);
 

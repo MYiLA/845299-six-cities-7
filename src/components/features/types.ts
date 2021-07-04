@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactElement } from 'react';
 import { Hotel } from '../../data-type';
 
 export interface CardProps {
@@ -6,7 +6,7 @@ export interface CardProps {
   onMouseOver?: () => void,
   cardType?: string,
   className?: string,
-  children?: React.ReactElement,
+  children?: ReactElement,
 }
 
 export interface OffersListProps {

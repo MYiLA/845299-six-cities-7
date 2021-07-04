@@ -1,14 +1,27 @@
-import React from 'react';
+import { ReactElement } from 'react';
 import Header from '../features/header';
 import OffersList from '../features/offers-list';
 import CitiesList from '../features/cities-list';
-import { useMainData } from '../../utils/selectors';
+import { useCitiesListData, useIsEmpty } from '../../utils/selectors';
+import { useParams, Redirect } from 'react-router-dom';
+import NotFound from './not-found';
+import { AppRoute } from '../../const';
 
 // TODO сделать кастомный хук useListIds(),
 // который будет принимать параметры сортировок/фильтров/пагинации
 // и возвращать актуальный список id предложений
-function Main(): React.ReactElement {
-  const { isEmpty } = useMainData();
+function Main(): ReactElement {
+  const { city } = useParams<{ city:string | undefined }>();
+  const isEmpty = useIsEmpty();
+  const { activeCity, cities } = useCitiesListData(city);
+
+  if ( typeof city === 'undefined' || city === '') {
+    return <Redirect to={`${AppRoute.MAIN}Paris`} />
+  }
+
+  if ( typeof activeCity === 'undefined') {
+    return <NotFound/>
+  }
 
   return (
     <>
@@ -23,7 +36,7 @@ function Main(): React.ReactElement {
         <Header />
         <main className={`page__main page__main--index ${isEmpty ? 'page__main--index-empty' : ''}`}>
           <h1 className="visually-hidden">Cities</h1>
-          <CitiesList />
+          <CitiesList activeCity={activeCity} cities={cities} />
           <OffersList />
         </main>
 

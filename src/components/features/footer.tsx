@@ -1,8 +1,9 @@
-import React from 'react';
+
+import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
-function Footer(): React.ReactElement {
+function Footer(): ReactElement {
   return (
     <footer className="footer container">
       <Link className="footer__logo-link" to={`${AppRoute.MAIN}/:Paris`}>

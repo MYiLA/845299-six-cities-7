@@ -2,7 +2,6 @@ import { useParams } from 'react-router-dom';
 import { shallowEqual, useSelector } from 'react-redux';
 import { InitialStateType } from '../store/types';
 import { City, Hotel } from '../data-type';
-// const { city }: { city:string } = useParams();
 
 export const useRoomData = (): {
   hotels: Hotel[];
@@ -10,14 +9,14 @@ export const useRoomData = (): {
 } => {
   const { id }: { id:string } = useParams();
   const { city }: { city:string } = useParams();
-  const activeCityName = city.split(':')[1];
+  const activeCityName = city;
 
   return useSelector((state: InitialStateType) => (
     {
       hotels: state.hotels.filter(
         (item) => (item.city.name === activeCityName),
       ),
-      hotel: state.hotels.find((item) => item.id === parseInt(id.split(':')[1], 10)),
+      hotel: state.hotels.find((item) => item.id === parseInt(id, 10)),
     }
   ), shallowEqual);
 };
@@ -30,26 +29,17 @@ export const useFavoritesData = (): {
   ),
 }), shallowEqual);
 
-export const useCitiesListData = (): {
-  activeCity: City;
+export const useCitiesListData = (activeCityName: string | undefined): {
+  activeCity?: City | undefined;
   cities: City[];
 } => {
-  const { city }: { city:string } = useParams();
-  const activeCityName = city.split(':')[1];
-  // тут много дублирования c activeCityName. Нужно рефакторить
-  // учесть момент, когда города нет в списке (выбросить ошибку)
-  // и подумать над более изящным решением получения города по умолчанию
-  // возможно нужно удалить действия для стора, связанные со сменой активного города
-  return useSelector((state: InitialStateType) => {
-    const activeCity = (
-      state.cities.find((item) => item.name === activeCityName)
-    ) || state.cities[0];
+  const activeCity = useSelector((state: InitialStateType) => {
+    return state.cities.find((item) => item.name === activeCityName)
+  })
 
-    return ({
-      activeCity,
-      cities: state.cities,
-    });
-  }, shallowEqual);
+  const cities = useSelector((state: InitialStateType) => state.cities)
+
+  return { activeCity, cities }
 };
 
 export const useCurrentHotelsData = (): {
@@ -57,7 +47,7 @@ export const useCurrentHotelsData = (): {
   city: City;
 } => {
   const { city }: { city:string } = useParams();
-  const activeCityName = city.split(':')[1];
+  const activeCityName = city;
 
   return useSelector((state: InitialStateType) => {
     const activeCity = (
@@ -73,16 +63,13 @@ export const useCurrentHotelsData = (): {
   }, shallowEqual);
 };
 
-export const useMainData = (): {
-  isEmpty: boolean
-} => {
-  const { city }: { city:string } = useParams();
-  const activeCityName = city.split(':')[1];
+export const useIsEmpty = (): boolean => {
+  const { city } = useParams<{ city:string | undefined }>();
+  const activeCityName = city;
 
-  return useSelector((state: InitialStateType) => ({
-    isEmpty: state.hotels.filter(
+  return useSelector((state: InitialStateType) => (
+    state.hotels.some(
       (hotel) => (hotel.city.name === activeCityName),
-    ).length === 0,
-  }),
+    )),
   shallowEqual);
 };

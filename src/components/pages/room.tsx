@@ -1,14 +1,14 @@
-import React from 'react';
+import { ReactElement } from 'react';
 import { getRating } from '../../utils/common';
+import { useRoomData } from '../../utils/selectors';
 import Header from '../features/header';
 import Comment from '../features/comment';
 import CardNearPlaces from '../features/card/card-near-places';
 import NewComment from '../features/new-comment';
-import { useRoomData } from '../../utils/selectors';
 
 const isLogged = true;
 
-function Room(): React.ReactElement {
+function Room(): ReactElement {
   const { hotels, hotel } = useRoomData();
 
   // TODO Беда с декомпозицией свойств отеля. Тайпскрипт ругается.
