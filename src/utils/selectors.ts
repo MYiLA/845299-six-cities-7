@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { shallowEqual, useSelector } from 'react-redux';
-import { State } from '../store/types';
+import { InitialStateType } from '../store/types';
 import { City, Hotel } from '../data-type';
 // const { city }: { city:string } = useParams();
 
@@ -12,7 +12,7 @@ export const useRoomData = (): {
   const { city }: { city:string } = useParams();
   const activeCityName = city.split(':')[1];
 
-  return useSelector((state: State) => (
+  return useSelector((state: InitialStateType) => (
     {
       hotels: state.hotels.filter(
         (item) => (item.city.name === activeCityName),
@@ -24,7 +24,7 @@ export const useRoomData = (): {
 
 export const useFavoritesData = (): {
   hotels: Hotel[];
-} => useSelector((state: State) => ({
+} => useSelector((state: InitialStateType) => ({
   hotels: state.hotels.filter(
     (item) => item.isFavorite,
   ),
@@ -40,7 +40,7 @@ export const useCitiesListData = (): {
   // учесть момент, когда города нет в списке (выбросить ошибку)
   // и подумать над более изящным решением получения города по умолчанию
   // возможно нужно удалить действия для стора, связанные со сменой активного города
-  return useSelector((state: State) => {
+  return useSelector((state: InitialStateType) => {
     const activeCity = (
       state.cities.find((item) => item.name === activeCityName)
     ) || state.cities[0];
@@ -59,7 +59,7 @@ export const useCurrentHotelsData = (): {
   const { city }: { city:string } = useParams();
   const activeCityName = city.split(':')[1];
 
-  return useSelector((state: State) => {
+  return useSelector((state: InitialStateType) => {
     const activeCity = (
       state.cities.find((item) => item.name === activeCityName)
     ) || state.cities[0];
@@ -79,7 +79,7 @@ export const useMainData = (): {
   const { city }: { city:string } = useParams();
   const activeCityName = city.split(':')[1];
 
-  return useSelector((state: State) => ({
+  return useSelector((state: InitialStateType) => ({
     isEmpty: state.hotels.filter(
       (hotel) => (hotel.city.name === activeCityName),
     ).length === 0,

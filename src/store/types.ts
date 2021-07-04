@@ -1,15 +1,7 @@
 import { Hotel, City } from '../data-type';
 
-export interface State {
+export interface InitialStateType {
   cities: City[],
   hotels: Hotel[],
-}
-
-export interface Action {
-  type: string,
-}
-
-export interface ActionChangeCity {
-  type: string,
-  activeCity: City,
+  authorizationStatus: string
 }
