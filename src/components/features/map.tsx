@@ -1,13 +1,13 @@
-import { ReactElement, useEffect, useRef } from 'react';
+import { PropsWithChildren, ReactElement, useEffect, useRef } from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { MapProps } from './types';
+import { MapParams } from './types';
 import useMap from '../../hooks/useMap';
 import { useCurrentHotelsData } from '../../utils/selectors';
 
-function Map(props: MapProps): ReactElement {
-  const { selectedPoint } = props;
-  const { currentHotels, activeCity } = useCurrentHotelsData();
+function Map(params: PropsWithChildren<MapParams>): ReactElement {
+  const { selectedPoint, activeCity } = params;
+  const { currentHotels } = useCurrentHotelsData(activeCity);
 
   const mapRef = useRef<HTMLDivElement>(null);
   const map = useMap(mapRef.current, activeCity);

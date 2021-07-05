@@ -46,20 +46,15 @@ export const useCitiesListData = (activeCityName: string | undefined): {
 };
 
 
-export const useCurrentHotelsData = (): {
+export const useCurrentHotelsData = (activeCity: City): {
   currentHotels: Hotel[];
-  activeCity: City;
 } => {
 
-  const { city } = useParams<{ city:string | undefined }>();
   const currentHotels = useSelector((state: InitialStateType) => state.hotels.filter(
-    (hotel) => (hotel.city.name === city),
+    (hotel) => (hotel.city.name === activeCity.name),
   ))
-  const activeCity = useSelector((state: InitialStateType) => state.cities.find(
-    (item) => item.name === city
-    ) || state.cities[0])
 
-  return { activeCity, currentHotels }
+  return { currentHotels }
 };
 
 

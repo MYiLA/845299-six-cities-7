@@ -38,7 +38,7 @@ function Main(): ReactElement {
         <main className={`page__main page__main--index ${isEmpty ? 'page__main--index-empty' : ''}`}>
           <h1 className="visually-hidden">Cities</h1>
           <CitiesList activeCity={activeCity} cities={cities} />
-          <OffersList />
+          <OffersList activeCity={activeCity} />
         </main>
 
       </div>

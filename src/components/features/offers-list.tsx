@@ -1,11 +1,16 @@
-import { ReactElement, useState } from 'react';
-import { Hotel } from '../../data-type';
+import { PropsWithChildren, ReactElement, useState } from 'react';
+import { City, Hotel } from '../../data-type';
 import CardCities from './card/card-cities';
 import Map from './map';
 import { useCurrentHotelsData } from '../../utils/selectors';
 
-function OffersList(): ReactElement {
-  const { currentHotels, activeCity } = useCurrentHotelsData();
+interface OffersListParams {
+  activeCity: City,
+}
+
+function OffersList(params: PropsWithChildren<OffersListParams>): ReactElement {
+  const { activeCity } = params
+  const { currentHotels } = useCurrentHotelsData(activeCity);
   const [activeCard, setActiveCard] = useState<Hotel>();
 
   return (
@@ -67,7 +72,7 @@ function OffersList(): ReactElement {
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">
-              <Map selectedPoint={activeCard} />
+              <Map activeCity={activeCity} selectedPoint={activeCard} />
             </section>
           </div>
         </div>
