@@ -10,7 +10,7 @@ export const getRoute = (target: string, id?: number) => {
     case AppRoute.MAIN:
       return '/';
     case AppRoute.OFFER:
-      return `/${target}/${id}`;
+      return `/${target}${id ? `/${id}` : '' }`;
     default:
       return `/${target}`;
   }
