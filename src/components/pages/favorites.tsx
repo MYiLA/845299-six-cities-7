@@ -4,11 +4,11 @@ import { AppRoute } from '../../const';
 import Header from '../features/header';
 import Footer from '../features/footer';
 import CardFavorites from '../features/card/card-favorites';
-import { useFavoritesData } from '../../utils/selectors';
+import { useFavoritesHotels } from '../../utils/selectors';
 import { getRoute } from '../../utils/common';
 
 function Favorites(): ReactElement {
-  const { hotels } = useFavoritesData();
+  const { hotels } = useFavoritesHotels();
   const isEmpty = (hotels.length === 0);
 
   return (

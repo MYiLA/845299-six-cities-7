@@ -7,36 +7,36 @@ export const useRoomData = (): {
   hotels: Hotel[];
   hotel?: Hotel
 } => {
-  const { id }: { id:string } = useParams();
-  const { city }: { city:string } = useParams();
-  const activeCityName = city;
+  const { id } = useParams<{ id:string }>();
 
-  return useSelector((state: InitialStateType) => (
-    {
-      hotels: state.hotels.filter(
-        (item) => (item.city.name === activeCityName),
-      ),
-      hotel: state.hotels.find((item) => item.id === parseInt(id, 10)),
-    }
-  ), shallowEqual);
+  const hotels = useSelector((state: InitialStateType) => state.hotelsNearby);
+  const hotel = useSelector((state: InitialStateType) => state.hotels.find(
+    (item) => item.id === parseInt(id, 10)
+  ));
+
+  return { hotels, hotel }
 };
 
-export const useFavoritesData = (): {
+export const useFavoritesHotels = (): {
   hotels: Hotel[];
-} => useSelector((state: InitialStateType) => ({
-  hotels: state.hotels.filter(
-    (item) => item.isFavorite,
-  ),
-}), shallowEqual);
+} => {
 
+  const hotels = useSelector((state: InitialStateType) => state.hotels.filter(
+    (item) => item.isFavorite,
+  ))
+
+  return { hotels }
+};
+
+// TODO поправить остальные селекторы под этот эталон
 export const useCitiesListData = (activeCityName: string | undefined): {
   activeCity?: City | undefined;
   cities: City[];
 } => {
-  const activeCity = useSelector((state: InitialStateType) => {
-    return state.cities.find((item) => item.name === activeCityName)
-  })
 
+  const activeCity = useSelector((state: InitialStateType) => state.cities.find(
+    (item) => item.name === activeCityName)
+  )
   const cities = useSelector((state: InitialStateType) => state.cities)
 
   return { activeCity, cities }
@@ -44,32 +44,26 @@ export const useCitiesListData = (activeCityName: string | undefined): {
 
 export const useCurrentHotelsData = (): {
   currentHotels: Hotel[];
-  city: City;
+  activeCity: City;
 } => {
-  const { city }: { city:string } = useParams();
-  const activeCityName = city;
+  const { city } = useParams<{ city:string | undefined }>();
+  const currentHotels = useSelector((state: InitialStateType) => state.hotels.filter(
+    (hotel) => (hotel.city.name === city),
+  ))
+  const activeCity = useSelector((state: InitialStateType) => state.cities.find(
+    (item) => item.name === city
+    ) || state.cities[0])
 
-  return useSelector((state: InitialStateType) => {
-    const activeCity = (
-      state.cities.find((item) => item.name === activeCityName)
-    ) || state.cities[0];
-
-    return ({
-      currentHotels: state.hotels.filter(
-        (hotel) => (hotel.city.name === activeCityName),
-      ),
-      city: activeCity,
-    });
-  }, shallowEqual);
+  return { activeCity, currentHotels }
 };
 
 export const useIsEmpty = (): boolean => {
   const { city } = useParams<{ city:string | undefined }>();
-  const activeCityName = city;
+  const isEmpty = useSelector((state: InitialStateType) => (
+    !state.hotels.some(
+      (hotel) => (hotel.city.name === city),
+    )
+  ))
 
-  return useSelector((state: InitialStateType) => (
-    state.hotels.some(
-      (hotel) => (hotel.city.name === activeCityName),
-    )),
-  shallowEqual);
+  return isEmpty;
 };

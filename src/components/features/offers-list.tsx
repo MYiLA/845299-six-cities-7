@@ -5,7 +5,7 @@ import Map from './map';
 import { useCurrentHotelsData } from '../../utils/selectors';
 
 function OffersList(): ReactElement {
-  const { currentHotels, city } = useCurrentHotelsData();
+  const { currentHotels, activeCity } = useCurrentHotelsData();
   const [activeCard, setActiveCard] = useState<Hotel>();
 
   return (
@@ -19,7 +19,7 @@ function OffersList(): ReactElement {
               {' '}
               places to stay in
               {' '}
-              {city.name}
+              {activeCity.name}
             </b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by</span>

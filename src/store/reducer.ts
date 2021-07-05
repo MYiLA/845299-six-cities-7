@@ -60,6 +60,8 @@ const cities = [
 export const initialState: InitialStateType = {
   cities,
   hotels: [],
+  hotelsNearby: [],
+  comments: [],
   authorizationStatus: AuthorizationStatus.UNKNOWN,
 };
 

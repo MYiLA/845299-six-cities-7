@@ -7,10 +7,10 @@ import { useCurrentHotelsData } from '../../utils/selectors';
 
 function Map(props: MapProps): ReactElement {
   const { selectedPoint } = props;
-  const { currentHotels, city } = useCurrentHotelsData();
+  const { currentHotels, activeCity } = useCurrentHotelsData();
 
   const mapRef = useRef<HTMLDivElement>(null);
-  const map = useMap(mapRef.current, city);
+  const map = useMap(mapRef.current, activeCity);
 
   const pin = leaflet.icon({
     iconUrl: 'img/pin.svg',
