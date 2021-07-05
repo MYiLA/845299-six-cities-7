@@ -1,12 +1,14 @@
 import { useParams } from 'react-router-dom';
-import { shallowEqual, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { InitialStateType } from '../store/types';
 import { City, Hotel } from '../data-type';
+
 
 export const useRoomData = (): {
   hotels: Hotel[];
   hotel?: Hotel
 } => {
+
   const { id } = useParams<{ id:string }>();
 
   const hotels = useSelector((state: InitialStateType) => state.hotelsNearby);
@@ -16,6 +18,7 @@ export const useRoomData = (): {
 
   return { hotels, hotel }
 };
+
 
 export const useFavoritesHotels = (): {
   hotels: Hotel[];
@@ -28,7 +31,7 @@ export const useFavoritesHotels = (): {
   return { hotels }
 };
 
-// TODO поправить остальные селекторы под этот эталон
+
 export const useCitiesListData = (activeCityName: string | undefined): {
   activeCity?: City | undefined;
   cities: City[];
@@ -42,10 +45,12 @@ export const useCitiesListData = (activeCityName: string | undefined): {
   return { activeCity, cities }
 };
 
+
 export const useCurrentHotelsData = (): {
   currentHotels: Hotel[];
   activeCity: City;
 } => {
+
   const { city } = useParams<{ city:string | undefined }>();
   const currentHotels = useSelector((state: InitialStateType) => state.hotels.filter(
     (hotel) => (hotel.city.name === city),
@@ -57,7 +62,9 @@ export const useCurrentHotelsData = (): {
   return { activeCity, currentHotels }
 };
 
+
 export const useIsEmpty = (): boolean => {
+
   const { city } = useParams<{ city:string | undefined }>();
   const isEmpty = useSelector((state: InitialStateType) => (
     !state.hotels.some(
