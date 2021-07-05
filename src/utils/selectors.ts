@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 import { InitialStateType } from '../store/types';
 import { City, Hotel } from '../data-type';
 
@@ -20,16 +20,10 @@ export const useRoomData = (): {
 };
 
 
-export const useFavoritesHotels = (): {
-  hotels: Hotel[];
-} => {
-
-  const hotels = useSelector((state: InitialStateType) => state.hotels.filter(
+export const useFavoritesHotels = (): Hotel[] => useSelector(
+  (state: InitialStateType) => state.hotels.filter(
     (item) => item.isFavorite,
-  ))
-
-  return { hotels }
-};
+  ), shallowEqual)
 
 
 export const useCitiesListData = (activeCityName: string | undefined): {
@@ -45,7 +39,7 @@ export const useCitiesListData = (activeCityName: string | undefined): {
   return { activeCity, cities }
 };
 
-
+// TODO поправить обёртки
 export const useCurrentHotelsData = (activeCity: City): {
   currentHotels: Hotel[];
 } => {

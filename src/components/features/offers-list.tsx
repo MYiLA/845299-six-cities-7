@@ -4,6 +4,7 @@ import CardCities from './card/card-cities';
 import Map from './map';
 import { useCurrentHotelsData } from '../../utils/selectors';
 
+//TODO вынести интерфейсы в отдельный файл
 interface OffersListParams {
   activeCity: City,
 }

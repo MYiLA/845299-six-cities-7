@@ -8,7 +8,7 @@ import { useFavoritesHotels } from '../../utils/selectors';
 import { getRoute } from '../../utils/common';
 
 function Favorites(): ReactElement {
-  const { hotels } = useFavoritesHotels();
+  const hotels = useFavoritesHotels();
   const isEmpty = (hotels.length === 0);
 
   return (
