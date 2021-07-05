@@ -2,6 +2,7 @@
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import { getRoute } from '../../utils/common';
 
 function Header(): ReactElement {
   return (
@@ -9,20 +10,20 @@ function Header(): ReactElement {
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <Link className="header__logo-link header__logo-link--active" to={`${AppRoute.MAIN}Paris`}>
+            <Link className="header__logo-link header__logo-link--active" to={getRoute(AppRoute.DEFAULT_CITY)}>
               <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width={81} height={41} />
             </Link>
           </div>
           <nav className="header__nav">
             <ul className="header__nav-list">
               <li className="header__nav-item user">
-                <Link className="header__nav-link header__nav-link--profile" to={AppRoute.FAVORITES}>
+                <Link className="header__nav-link header__nav-link--profile" to={getRoute(AppRoute.FAVORITES)}>
                   <div className="header__avatar-wrapper user__avatar-wrapper" />
                   <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
                 </Link>
               </li>
               <li className="header__nav-item">
-                <Link className="header__nav-link" to={AppRoute.LOGIN}>
+                <Link className="header__nav-link" to={getRoute(AppRoute.LOGIN)}>
                   <span className="header__signout">Sign out</span>
                 </Link>
               </li>

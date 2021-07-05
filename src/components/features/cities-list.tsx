@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
 import { ReactElement } from 'react';
 import { PropsWithChildren } from 'react';
 import { City } from '../../data-type';
+import { getRoute } from '../../utils/common';
 
 interface CitiesListParams {
   activeCity: City,
@@ -20,7 +20,7 @@ function CitiesList(params: PropsWithChildren<CitiesListParams> ): ReactElement 
             <li key={city.name} className="locations__item">
               <Link
                 className={`locations__item-link tabs__item ${city.name === activeCity.name ? 'tabs__item--active' : ''}`}
-                to={`${AppRoute.MAIN}${city.name}`}
+                to={getRoute(city.name)}
               >
                 <span>{city.name}</span>
               </Link>

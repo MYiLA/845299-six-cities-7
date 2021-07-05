@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import { getRoute } from '../../utils/common';
 
 // TODO перепроверить классы, возможно есть что то лишнее
 function NotFound(): ReactElement {
@@ -10,7 +11,7 @@ function NotFound(): ReactElement {
         <div className="page__login-container container">
           <section className="login">
             <h1>404 Not Found</h1>
-            <Link className="form__submit button" to={`${AppRoute.MAIN}Paris`}>Go back</Link>
+            <Link className="form__submit button" to={getRoute(AppRoute.DEFAULT_CITY)}>Go back</Link>
           </section>
         </div>
       </main>

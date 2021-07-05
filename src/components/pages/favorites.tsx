@@ -5,6 +5,7 @@ import Header from '../features/header';
 import Footer from '../features/footer';
 import CardFavorites from '../features/card/card-favorites';
 import { useFavoritesData } from '../../utils/selectors';
+import { getRoute } from '../../utils/common';
 
 function Favorites(): ReactElement {
   const { hotels } = useFavoritesData();
@@ -33,7 +34,7 @@ function Favorites(): ReactElement {
                   <li className="favorites__locations-items">
                     <div className="favorites__locations locations locations--current">
                       <div className="locations__item">
-                        <Link className="locations__item-link" to={`${AppRoute.MAIN}/:Paris`}>
+                        <Link className="locations__item-link" to={getRoute(AppRoute.DEFAULT_CITY)}>
                           <span>Amsterdam</span>
                         </Link>
                       </div>
@@ -50,7 +51,7 @@ function Favorites(): ReactElement {
                   <li className="favorites__locations-items">
                     <div className="favorites__locations locations locations--current">
                       <div className="locations__item">
-                        <Link className="locations__item-link" to={AppRoute.OFFER}>
+                        <Link className="locations__item-link" to={getRoute(AppRoute.OFFER)}>
                           <span>Cologne</span>
                         </Link>
                       </div>

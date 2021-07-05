@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { CardType, AppRoute } from '../../../const';
 import { CardProps } from '../types';
-import { getRating } from '../../../utils/common';
+import { getRating, getRoute } from '../../../utils/common';
 
 // TODO
 // Если какая-то часть интерфейса многократно в нём повторяется (Button, Panel, Avatar)
@@ -14,7 +14,7 @@ function Card(props: CardProps): ReactElement {
     cardData, cardType = CardType.CITIES, className, children, onMouseOver,
   } = props;
   const {
-    isFavorite, previewImage, price, rating, title, type, id, city,
+    isFavorite, previewImage, price, rating, title, type, id,
   } = cardData;
 
   return (
@@ -29,7 +29,7 @@ function Card(props: CardProps): ReactElement {
       >
         {children}
         <div className={`${cardType}__image-wrapper place-card__image-wrapper`}>
-          <Link to={`${AppRoute.OFFER}/${id}`}>
+          <Link to={getRoute(AppRoute.OFFER, id)}>
             <img
               className="place-card__image"
               src={previewImage}
@@ -63,7 +63,7 @@ function Card(props: CardProps): ReactElement {
             </div>
           </div>
           <h2 className="place-card__name">
-            <Link to={`${AppRoute.OFFER}/${id}`}>{title}</Link>
+            <Link to={getRoute(AppRoute.OFFER, id)}>{title}</Link>
           </h2>
           <p className="place-card__type">{type}</p>
         </div>

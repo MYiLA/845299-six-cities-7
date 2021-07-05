@@ -6,21 +6,22 @@ import FavoritesPage from '../pages/favorites';
 import RoomPage from '../pages/room';
 import SignInPage from '../pages/sign-in';
 import NotFoundPage from '../pages/not-found';
+import { getRoute } from '../../utils/common';
 
 function App(): ReactElement {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path={AppRoute.FAVORITES}>
+        <Route exact path={getRoute(AppRoute.FAVORITES)}>
           <FavoritesPage />
         </Route>
-        <Route exact path={AppRoute.LOGIN}>
+        <Route exact path={getRoute(AppRoute.LOGIN)}>
           <SignInPage />
         </Route>
-        <Route exact path={`${AppRoute.MAIN}:city?`}>
+        <Route exact path={`${getRoute(AppRoute.MAIN)}:city?`}>
           <MainPage />
         </Route>
-        <Route exact path={`${AppRoute.OFFER}/:id`}>
+        <Route exact path={`${getRoute(AppRoute.OFFER)}/:id`}>
           <RoomPage />
         </Route>
         <Route>

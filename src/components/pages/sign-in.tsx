@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import { getRoute } from '../../utils/common';
 import Header from '../features/header';
 
 function SignIn(): ReactElement {
@@ -33,8 +34,8 @@ function SignIn(): ReactElement {
             </section>
             <section className="locations locations--login locations--current">
               <div className="locations__item">
-                <Link className="locations__item-link" to={`${AppRoute.MAIN}/:Amsterdam`}>
-                  <span>Amsterdam</span>
+                <Link className="locations__item-link" to={getRoute(AppRoute.DEFAULT_CITY)}>
+                  <span>{AppRoute.DEFAULT_CITY}</span>
                 </Link>
               </div>
             </section>

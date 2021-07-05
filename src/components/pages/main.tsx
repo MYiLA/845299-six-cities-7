@@ -6,6 +6,7 @@ import { useCitiesListData, useIsEmpty } from '../../utils/selectors';
 import { useParams, Redirect } from 'react-router-dom';
 import NotFound from './not-found';
 import { AppRoute } from '../../const';
+import { getRoute } from '../../utils/common';
 
 // TODO сделать кастомный хук useListIds(),
 // который будет принимать параметры сортировок/фильтров/пагинации
@@ -16,7 +17,7 @@ function Main(): ReactElement {
   const { activeCity, cities } = useCitiesListData(city);
 
   if ( typeof city === 'undefined' || city === '') {
-    return <Redirect to={`${AppRoute.MAIN}Paris`} />
+    return <Redirect to={getRoute(AppRoute.DEFAULT_CITY)} />
   }
 
   if ( typeof activeCity === 'undefined') {
