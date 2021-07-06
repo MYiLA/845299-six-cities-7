@@ -2,11 +2,13 @@ import { ReactElement } from 'react';
 import Header from '../features/header';
 import OffersList from '../features/offers-list';
 import CitiesList from '../features/cities-list';
-import { useCitiesListData, useIsEmpty } from '../../utils/selectors';
+import { useCitiesList } from '../../utils/selectors/use-cities-list';
+import { useIsEmpty } from '../../utils/selectors/use-is-empty';
 import { useParams, Redirect } from 'react-router-dom';
 import NotFound from './not-found';
 import { AppRoute } from '../../const';
 import { getRoute } from '../../utils/common';
+import { useGetHotelsQuery } from '../../services/rtk-api'
 
 // TODO сделать кастомный хук useListIds(),
 // который будет принимать параметры сортировок/фильтров/пагинации
@@ -14,7 +16,9 @@ import { getRoute } from '../../utils/common';
 function Main(): ReactElement {
   const { city } = useParams<{ city:string | undefined }>();
   const isEmpty = useIsEmpty();
-  const { activeCity, cities } = useCitiesListData(city);
+  const { activeCity, cities } = useCitiesList(city);
+  const { data } = useGetHotelsQuery();
+  console.log(data)
 
   if ( typeof city === 'undefined' || city === '') {
     return <Redirect to={getRoute(AppRoute.DEFAULT_CITY)} />

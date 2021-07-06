@@ -3,11 +3,11 @@ import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { MapParams } from './types';
 import useMap from '../../hooks/useMap';
-import { useCurrentHotelsData } from '../../utils/selectors';
+import { useCurrentHotels } from '../../utils/selectors/use-current-hotels';
 
 function Map(params: PropsWithChildren<MapParams>): ReactElement {
   const { selectedPoint, activeCity } = params;
-  const { currentHotels } = useCurrentHotelsData(activeCity);
+  const { currentHotels } = useCurrentHotels(activeCity);
 
   const mapRef = useRef<HTMLDivElement>(null);
   const map = useMap(mapRef.current, activeCity);

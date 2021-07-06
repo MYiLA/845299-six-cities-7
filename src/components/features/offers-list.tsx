@@ -2,7 +2,7 @@ import { PropsWithChildren, ReactElement, useState } from 'react';
 import { City, Hotel } from '../../data-type';
 import CardCities from './card/card-cities';
 import Map from './map';
-import { useCurrentHotelsData } from '../../utils/selectors';
+import { useCurrentHotels } from '../../utils/selectors/use-current-hotels';
 
 //TODO вынести интерфейсы в отдельный файл
 interface OffersListParams {
@@ -11,7 +11,7 @@ interface OffersListParams {
 
 function OffersList(params: PropsWithChildren<OffersListParams>): ReactElement {
   const { activeCity } = params
-  const { currentHotels } = useCurrentHotelsData(activeCity);
+  const { currentHotels } = useCurrentHotels(activeCity);
   const [activeCard, setActiveCard] = useState<Hotel>();
 
   return (

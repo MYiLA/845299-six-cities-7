@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 import { getRating } from '../../utils/common';
-import { useRoomData } from '../../utils/selectors';
+import { useHotel } from '../../utils/selectors/use-hotel';
 import Header from '../features/header';
 import Comment from '../features/comment';
 import CardNearPlaces from '../features/card/card-near-places';
@@ -9,7 +9,7 @@ import NewComment from '../features/new-comment';
 const isLogged = true;
 
 function Room(): ReactElement {
-  const { hotels, hotel } = useRoomData();
+  const { hotels, hotel } = useHotel();
 
   // TODO Беда с декомпозицией свойств отеля. Тайпскрипт ругается.
   // Надо подумать, как можно заменить запись типа hotel с вопросом?

@@ -4,7 +4,7 @@ import { AppRoute } from '../../const';
 import Header from '../features/header';
 import Footer from '../features/footer';
 import CardFavorites from '../features/card/card-favorites';
-import { useFavoritesHotels } from '../../utils/selectors';
+import { useFavoritesHotels } from '../../utils/selectors/use-favorites-hotels';
 import { getRoute } from '../../utils/common';
 
 function Favorites(): ReactElement {

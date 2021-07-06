@@ -1,10 +1,7 @@
-// import { AnyAction } from 'redux';
-// import { ActionTypeName } from './action';
-import { InitialStateType } from './types';
 import { AuthorizationStatus } from '../const';
-
-// // TODO сейчас отели захардкожены в стейте.
-// // Возможно нужно будет их брать с помощью запросов к серверу
+import { configureStore } from '@reduxjs/toolkit';
+import { api } from '../services/rtk-api';
+import { City, Hotel } from '../data-type';
 
 const cities = [
   {
@@ -57,7 +54,7 @@ const cities = [
   },
 ];
 
-export const initialState: InitialStateType = {
+export const initialState = {
   cities,
   hotels: [],
   hotelsNearby: [],
@@ -65,34 +62,14 @@ export const initialState: InitialStateType = {
   authorizationStatus: AuthorizationStatus.UNKNOWN,
 };
 
-// // TODO
-// // карта сильно тупит, не переключается вовремя
+export const store = configureStore({
+  reducer: {
+    cities: (state: City[] = cities) => state,
+    hotels: (state: Hotel[] = []) => state,
+    hotelsNearby: (state: Hotel[] = []) => state,
+    [api.reducerPath]: api.reducer,
+  },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(api.middleware)
+})
 
-// export const reducer = (state = initialState,
-//   action: AnyAction): State => {
-//   switch (action.type) {
-//     case ActionTypeName.CHANGE_CITY:
-//       return {
-//         ...state,
-//         // TODO не очень понимаю что делает экшн, если изменён активный город
-//         // activeCity: action.activeCity,
-//       };
-//     case ActionTypeName.LOAD_HOTELS:
-//       return {
-//         ...state,
-//         // TODO заполнение отелей данными с сервера (если я правильно понимаю)
-//       };
-//     case ActionTypeName.REQUIRED_AUTHORIZATION:
-//       return {
-//         ...state,
-//         authorizationStatus: action.payload,
-//       };
-//     case ActionTypeName.LOGOUT:
-//       return {
-//         ...state,
-//         authorizationStatus: AuthorizationStatus.NO_AUTH,
-//       };
-//     default:
-//       return state;
-//   }
-// };
+export type InitialStateType = ReturnType<typeof store.getState>
