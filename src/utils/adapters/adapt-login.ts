@@ -1,6 +1,6 @@
-import { AuthInfo } from "../../data-type";
+import { LoginGet } from "../../data-type";
 
-const itemToLogin = (item: any): AuthInfo => {
+const itemToLogin = (item: any): LoginGet => {
   const login = Object.assign(
     {},
     item,
@@ -15,7 +15,7 @@ const itemToLogin = (item: any): AuthInfo => {
   return login;
 }
 
-export const adaptLoginToClient = (data: any): AuthInfo => {
+export const adaptLoginToClient = (data: any): LoginGet => {
   if (data.constructor.name === 'Object') {
     throw new Error('Пришли подозрительные данные с сервера. Это НЕ логин')
   };

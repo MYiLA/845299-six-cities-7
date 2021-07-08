@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { AuthInfo, CommentGet, Hotel } from '../data-type';
+import { LoginGet, CommentGet, Hotel } from '../data-type';
 import { adaptHotelsToClient, adaptHotelIdToClient } from '../utils/adapters/adapt-hotels';
 import { adaptCommentsToClient } from '../utils/adapters/adapt-comments';
 import { adaptLoginToClient } from '../utils/adapters/adapt-login';
@@ -32,12 +32,33 @@ export const api = createApi({
       query: (id) => `comments/${id}`,
       transformResponse: (data: any) => adaptCommentsToClient(data)
     }),
-    getLogin: builder.query<AuthInfo, void>({
+    getLogin: builder.query<LoginGet, void>({
       query: () => 'login',
       transformResponse: (data: any) => adaptLoginToClient(data)
     }),
+
+    // TODO на сервер должен прийти не булин, а цифра 0 или 1
+    // postFavoriteStatus: builder.query<Hotel, void>({
+    //   query: (id: number, status: number) => `favorites/:${id}/:${status}`,
+    //   transformResponse: (data: any) => adaptHotelIdToClient(data)
+    // }),
+    // postComment: builder.query<CommentGet[], void>({
+    //   query: (id: number) => `comments/:${id}`,
+    //   // Request: структура CommentPost
+    //   transformResponse: (data: any) => adaptCommentsToClient(data)
+    // }),
+    // postLogin: builder.query<LoginGet, void>({
+    //   query: (id: number, status: number) => `favorites/:${id}/:${status}`,
+    //   // Request: структура LoginPost. Где и как будем хранить сессии?
+    //   transformResponse: (data: any) => adaptLoginToClient(data)
+    // }),
+    deleteLogout: builder.query<void, void>({
+      query: () => 'delete/logout'
+      // какая тут типизация?
+      // Response: Status: 204 No Content
+    })
   })
-})
+});
 
 export const {
   reducer,
@@ -47,5 +68,6 @@ export const {
   useGetHotelIdNearbyQuery,
   useGetFavoritesQuery,
   useGetCommentsQuery,
-  useGetLoginQuery
+  useGetLoginQuery,
+  useDeleteLogoutQuery
 } = api;

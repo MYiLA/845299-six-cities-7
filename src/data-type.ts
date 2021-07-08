@@ -46,11 +46,16 @@ export interface CommentPost {
   rating: number
 }
 
-export interface AuthInfo {
+export interface LoginGet {
   avatarUrl: string,
   email: string,
   id: number,
   isPro: boolean,
   name: string,
   token: string,
+}
+
+export interface LoginPost {
+  email: string,
+  password: string
 }
