@@ -1,3 +1,4 @@
+// TODO удалить после настройки работы сервера через тулкит
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 
 const BACKEND_URL = 'https://7.react.pages.academy/six-cities';

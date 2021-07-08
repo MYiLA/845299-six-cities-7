@@ -1,14 +1,17 @@
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 import { City, Hotel } from "../../data-type";
-import { InitialStateType } from "../../store/reducer";
+import { api } from "../../services/rtk-api";
 
-export const useCurrentHotels = (activeCity: City): {
-  currentHotels: Hotel[];
-} => {
+export const useCurrentHotels = (activeCity: City): Hotel[] => useSelector(
+  () => {
+    const hotels = api.endpoints.getHotels.useQuery().data ?? [];
 
-  const currentHotels = useSelector((state: InitialStateType) => state.hotels.filter(
-    (hotel) => (hotel.city.name === activeCity.name),
-  ))
+    if (hotels.length === 0) {
+      return hotels
+    }
 
-  return { currentHotels }
-};
+    return hotels.filter(
+      (hotel) => (hotel.city.name === activeCity.name),
+    )
+  }, shallowEqual
+);

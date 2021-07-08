@@ -11,7 +11,7 @@ interface OffersListParams {
 
 function OffersList(params: PropsWithChildren<OffersListParams>): ReactElement {
   const { activeCity } = params
-  const { currentHotels } = useCurrentHotels(activeCity);
+  const currentHotels = useCurrentHotels(activeCity);
   const [activeCard, setActiveCard] = useState<Hotel>();
 
   return (

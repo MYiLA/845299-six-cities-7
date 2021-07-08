@@ -7,7 +7,7 @@ import { useCurrentHotels } from '../../utils/selectors/use-current-hotels';
 
 function Map(params: PropsWithChildren<MapParams>): ReactElement {
   const { selectedPoint, activeCity } = params;
-  const { currentHotels } = useCurrentHotels(activeCity);
+  const currentHotels = useCurrentHotels(activeCity);
 
   const mapRef = useRef<HTMLDivElement>(null);
   const map = useMap(mapRef.current, activeCity);

@@ -30,5 +30,13 @@ export const adaptHotelsToClient = (data: any): Hotel[] => {
     throw new Error('Пришли подозрительные данные с сервера. Это НЕ список отелей')
   };
 
-  return data.map((item) => itemToHotel(item))
+  return data.map((item) => itemToHotel(item));
+}
+
+export const adaptHotelIdToClient = (data: any): Hotel => {
+  if (data.constructor.name === 'Object') {
+    throw new Error('Пришли подозрительные данные с сервера. Это НЕ отель')
+  };
+
+  return itemToHotel(data);
 }
