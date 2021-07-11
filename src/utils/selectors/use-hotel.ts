@@ -6,9 +6,7 @@ export const useHotel = (): {
   hotels: Hotel[];
   hotel?: Hotel
 } => {
-
     const { id } = useParams<{ id: string }>();
-
     const hotel = api.endpoints.getHotelId.useQuery(Number(id)).data;
     const hotels = api.endpoints.getHotelIdNearby.useQuery(Number(id)).data ?? [];
 

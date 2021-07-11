@@ -33,7 +33,8 @@ export const api = createApi({
     }),
     postFavoriteStatus: builder.mutation<Hotel, {id: number, status: number}>({
       query: ({id, status}) => ({
-        url: `${APIRoute.FAVORITE}/:${id}/:${status}`
+        url: `${APIRoute.FAVORITE}/:${id}/:${status}`,
+        method: 'POST',
       }),
     }),
 
@@ -41,11 +42,12 @@ export const api = createApi({
       query: (id) => `${APIRoute.COMMENTS}/${id}`,
       transformResponse: (data: any) => adaptCommentsToClient(data)
     }),
-    postComment: builder.mutation<CommentGet[], {id: number, commentData: CommentPost}>({
-      query: ({id, commentData}) => ({
-        url: `${APIRoute.COMMENTS}/:${id}`
+    postComment: builder.mutation<CommentGet[], {id: number, body: CommentPost}>({
+      query: ({id, body}) => ({
+        url: `${APIRoute.COMMENTS}/:${id}`,
+        method: 'POST',
+        body,
       }),
-      transformResponse: (data: any) => adaptCommentsToClient(data)
     }),
 
     getLogin: builder.query<LoginGet, void>({
@@ -54,11 +56,12 @@ export const api = createApi({
       transformResponse: (data: any) => adaptLoginToClient(data)
     }),
     postLogin: builder.mutation<LoginGet, LoginPost>({
-      query: (formData) => ({
+      query: (body) => ({
         url: APIRoute.LOGIN,
+        method: 'POST',
+        body,
       }),
       invalidatesTags: ['login'],
-      transformResponse: (data: any) => adaptLoginToClient(data),
     }),
     deleteLogout: builder.mutation({
       query: () => ({

@@ -6,7 +6,6 @@ export const useCitiesList = (activeCityName: string | undefined): {
   activeCity?: City | undefined;
   cities: City[];
 } => {
-
   const activeCity = useSelector((state: InitialStateType) => state.cities.find(
     (item) => item.name === activeCityName)
   )
