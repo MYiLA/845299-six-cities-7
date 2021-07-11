@@ -1,10 +1,27 @@
-import { ReactElement } from 'react';
+import { FormEvent, ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import { usePostLoginMutation } from '../../services/rtk-api';
 import { getRoute } from '../../utils/common';
 import Header from '../features/header';
 
 function SignIn(): ReactElement {
+  const [postLogin] = usePostLoginMutation();
+
+  const onSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    const formData = new FormData(evt.currentTarget);
+    // TODO валидация формы
+    const data = {
+      email: formData.get('email') as string,
+      password: formData.get('password') as string,
+    }
+    const apiResult = postLogin(data);
+    apiResult.unwrap().then(() => {
+      // TODO если всё хорошо отправить на домашнюю страницу. См ТЗ
+    })
+  }
+
   return (
     <>
       <div style={{ display: 'none' }}>
@@ -20,7 +37,7 @@ function SignIn(): ReactElement {
           <div className="page__login-container container">
             <section className="login">
               <h1 className="login__title">Sign in</h1>
-              <form className="login__form form" action="#" method="post">
+              <form className="login__form form" action="#" method="post" onSubmit={onSubmit}>
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">E-mail</label>
                   <input className="login__input form__input" type="email" name="email" placeholder="Email" required />

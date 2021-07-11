@@ -11,13 +11,8 @@ export const useHotel = (): {
 
   const { id } = useParams<{ id: string }>();
 
-  // const uniqueId = Symbol(id);
-
   const hotels = useSelector((state: InitialStateType) => state.hotelsNearby);
-  const hotel = useSelector((state: InitialStateType) => state.hotels.find(
-    (item) => item.id === parseInt(id, 10)
-  ));
-  // const hotel = useSelector(() => api.endpoints.getHotelId.useQuery(id).data);
+  const hotel = api.endpoints.getHotelId.useQuery(id).data;
 
   return { hotels, hotel }
 };
