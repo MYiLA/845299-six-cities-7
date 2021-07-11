@@ -9,7 +9,7 @@ import NewComment from '../features/new-comment';
 const isLogged = true;
 
 function Room(): ReactElement {
-  const { hotels, hotel } = useHotel();
+  const { hotels = [], hotel } = useHotel();
 
   // TODO Беда с декомпозицией свойств отеля. Тайпскрипт ругается.
   // Надо подумать, как можно заменить запись типа hotel с вопросом?

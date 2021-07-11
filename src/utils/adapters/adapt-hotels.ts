@@ -34,7 +34,7 @@ export const adaptHotelsToClient = (data: any): Hotel[] => {
 }
 
 export const adaptHotelIdToClient = (data: any): Hotel => {
-  if (data.constructor.name === 'Object') {
+  if (data.constructor.name !== 'Object') {
     throw new Error('Пришли подозрительные данные с сервера. Это НЕ отель')
   };
 

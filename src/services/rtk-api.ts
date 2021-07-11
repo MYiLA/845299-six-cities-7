@@ -3,6 +3,7 @@ import { LoginGet, CommentGet, Hotel, LoginPost, CommentPost } from '../data-typ
 import { adaptHotelsToClient, adaptHotelIdToClient } from '../utils/adapters/adapt-hotels';
 import { adaptCommentsToClient } from '../utils/adapters/adapt-comments';
 import { adaptLoginToClient } from '../utils/adapters/adapt-login';
+import { APIRoute } from '../const';
 
 const BACKEND_URL = 'https://7.react.pages.academy/six-cities';
 const REQUEST_TIMEOUT = 5000;
@@ -14,54 +15,54 @@ export const api = createApi({
   tagTypes: ['login'],
   endpoints: (builder) => ({
     getHotels: builder.query<Hotel[], void>({
-      query: () => '/hotels',
+      query: () => APIRoute.HOTELS,
       transformResponse: (data: any) => adaptHotelsToClient(data)
     }),
-    getHotelId: builder.query<Hotel, string>({
-      query: (id) => `/hotel/${id}`,
+    getHotelId: builder.query<Hotel, number>({
+      query: (id) => `${APIRoute.HOTELS}/${id}`,
       transformResponse: (data: any) => adaptHotelIdToClient(data)
     }),
-    getHotelIdNearby: builder.query<Hotel[], void>({
-      query: (id) => `/hotel/${id}/nearby`,
+    getHotelIdNearby: builder.query<Hotel[], number>({
+      query: (id) => `${APIRoute.HOTELS}/${id}/nearby`,
       transformResponse: (data: any) => adaptHotelsToClient(data)
     }),
 
     getFavorites: builder.query<Hotel[], void>({
-      query: () => '/favorites',
+      query: () => APIRoute.FAVORITE,
       transformResponse: (data: any) => adaptHotelsToClient(data)
     }),
     postFavoriteStatus: builder.mutation<Hotel, {id: number, status: number}>({
       query: ({id, status}) => ({
-        url: `favorites/:${id}/:${status}`
+        url: `${APIRoute.FAVORITE}/:${id}/:${status}`
       }),
     }),
 
-    getComments: builder.query<CommentGet[], void>({
-      query: (id) => `/comments/${id}`,
+    getComments: builder.query<CommentGet[], number>({
+      query: (id) => `${APIRoute.COMMENTS}/${id}`,
       transformResponse: (data: any) => adaptCommentsToClient(data)
     }),
     postComment: builder.mutation<CommentGet[], {id: number, commentData: CommentPost}>({
       query: ({id, commentData}) => ({
-        url: `comments/:${id}`
+        url: `${APIRoute.COMMENTS}/:${id}`
       }),
       transformResponse: (data: any) => adaptCommentsToClient(data)
     }),
 
     getLogin: builder.query<LoginGet, void>({
-      query: () => '/login',
+      query: () => APIRoute.LOGIN,
       providesTags: ['login'],
       transformResponse: (data: any) => adaptLoginToClient(data)
     }),
     postLogin: builder.mutation<LoginGet, LoginPost>({
       query: (formData) => ({
-        url: '/login'
+        url: APIRoute.LOGIN,
       }),
       invalidatesTags: ['login'],
       transformResponse: (data: any) => adaptLoginToClient(data),
     }),
     deleteLogout: builder.mutation({
       query: () => ({
-        url: `/logout`,
+        url: APIRoute.LOGOUT,
         method: 'DELETE',
       }),
       invalidatesTags: ['login'],

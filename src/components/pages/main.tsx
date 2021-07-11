@@ -18,7 +18,6 @@ function Main(): ReactElement {
   const isEmpty = useIsEmpty();
   const { activeCity, cities } = useCitiesList(city);
   const { data } = useGetHotelsQuery();
-  console.log(data)
 
   if ( typeof city === 'undefined' || city === '') {
     return <Redirect to={getRoute(AppRoute.DEFAULT_CITY)} />

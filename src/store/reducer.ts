@@ -54,14 +54,6 @@ const cities = [
   },
 ];
 
-export const initialState = {
-  cities,
-  hotels: [],
-  hotelsNearby: [],
-  comments: [],
-  authorizationStatus: AuthorizationStatus.UNKNOWN,
-};
-
 export const store = configureStore({
   reducer: {
     cities: (state: City[] = cities) => state,

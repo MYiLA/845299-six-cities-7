@@ -16,7 +16,7 @@ const itemToLogin = (item: any): LoginGet => {
 }
 
 export const adaptLoginToClient = (data: any): LoginGet => {
-  if (data.constructor.name === 'Object') {
+  if (data.constructor.name !== 'Object') {
     throw new Error('Пришли подозрительные данные с сервера. Это НЕ логин')
   };
 
