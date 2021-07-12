@@ -1,31 +1,81 @@
-import { FormEvent, ReactElement } from 'react';
-import { Link } from 'react-router-dom';
+import { FormEvent, ReactElement, useEffect, useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { usePostLoginMutation } from '../../services/rtk-api';
 import { getRoute } from '../../utils/common';
 import Header from '../features/header';
 
+interface InputCheckType {
+  data: string,
+  message: string,
+  success: boolean
+};
+
 function SignIn(): ReactElement {
   const [postLogin] = usePostLoginMutation();
+  const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
+  const [emailCheck, setEmailCheck] = useState<InputCheckType>({
+    data: '',
+    message: '',
+    success: false
+  });
+  const [passwordCheck, setPasswordCheck] = useState<InputCheckType>({
+    data: '',
+    message: '',
+    success: false
+  });
 
   const onSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     const formData = new FormData(evt.currentTarget);
-    // TODO валидация формы
-    const data = {
-      email: formData.get('email') as string,
-      password: formData.get('password') as string,
-    }
-    const apiResult = postLogin(data);
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
 
-    apiResult.unwrap().then(() => {
-      console.log('если всё хорошо отправить на домашнюю страницу')
-      // TODO если всё хорошо отправить на домашнюю страницу. См ТЗ
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    ? setEmailCheck({
+      data: email,
+      message: '',
+      success: true
     })
-    .catch(({data}) => {
-      // TODO вывести сообщение с ошибкой
-      throw new Error(data.error);
+    : setEmailCheck({
+      data: email,
+      message: 'В емейле опечатка',
+      success: false
+    });
+
+    /\S/.test(password)
+    ? setPasswordCheck({
+      data: password,
+      message: '',
+      success: true
     })
+    : setPasswordCheck({
+      data: password,
+      message: 'Пароль не должен состоять из одних пробелов',
+      success: false
+    });
+  }
+
+  useEffect(()=>{
+    if (emailCheck.success && passwordCheck.success) {
+      const data = {
+        email: emailCheck.data,
+        password: passwordCheck.data,
+      }
+      const apiResult = postLogin(data);
+
+      apiResult.unwrap().then(() => {
+        setIsAuthorized(true);
+      })
+      .catch(({data}) => {
+        // TODO вывести сообщение с ошибкой
+        throw new Error(data.error);
+      })
+    }
+  }, [emailCheck, passwordCheck]);
+
+  if (isAuthorized) {
+    return <Redirect to={getRoute(AppRoute.DEFAULT_CITY)} />
   }
 
   return (
@@ -45,10 +95,12 @@ function SignIn(): ReactElement {
               <h1 className="login__title">Sign in</h1>
               <form className="login__form form" action="#" method="post" onSubmit={onSubmit}>
                 <div className="login__input-wrapper form__input-wrapper">
+                  {(emailCheck.message && <div>{emailCheck.message}</div>)}
                   <label className="visually-hidden">E-mail</label>
                   <input className="login__input form__input" type="email" name="email" placeholder="Email" required />
                 </div>
                 <div className="login__input-wrapper form__input-wrapper">
+                  {(passwordCheck.message && <div>{passwordCheck.message}</div>)}
                   <label className="visually-hidden">Password</label>
                   <input className="login__input form__input" type="password" name="password" placeholder="Password" required />
                 </div>

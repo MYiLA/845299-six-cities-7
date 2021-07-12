@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement } from 'react';
 import { getRating } from '../../utils/common';
 import { useHotel } from '../../utils/selectors/use-hotel';
 import Header from '../features/header';
@@ -7,13 +7,11 @@ import CardNearPlaces from '../features/card/card-near-places';
 import NewComment from '../features/new-comment';
 import Map from '../features/map';
 import NotFoundPage from './not-found';
-import { Hotel } from '../../data-type';
 
 const isLogged = true;
 
 function Room(): ReactElement {
   const { hotels = [], hotel } = useHotel();
-  const [activeCard, setActiveCard] = useState<Hotel>();
 
   if (hotel === undefined) {
     return <NotFoundPage />
@@ -152,7 +150,7 @@ function Room(): ReactElement {
               </div>
             </div>
             <section className="property__map map" >
-              <Map activeCity={hotel.city} selectedPoint={activeCard} hotels={hotels} />
+              <Map activeCity={hotel.city} hotels={hotels} />
             </section>
           </section>
           <div className="container">
@@ -163,9 +161,6 @@ function Room(): ReactElement {
                 {hotels.slice(0, 3).map((item) => (
                   <CardNearPlaces
                     key={item.id}
-                    onMouseOver={() => {
-                      setActiveCard(item);
-                    }}
                     cardData={item}
                   />
                 ))}
