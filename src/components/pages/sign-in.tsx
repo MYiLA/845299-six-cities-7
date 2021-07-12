@@ -17,7 +17,7 @@ function SignIn(): ReactElement {
       password: formData.get('password') as string,
     }
     const apiResult = postLogin(data);
-    console.log(apiResult.unwrap())
+
     apiResult.unwrap().then(() => {
       console.log('если всё хорошо отправить на домашнюю страницу')
       // TODO если всё хорошо отправить на домашнюю страницу. См ТЗ

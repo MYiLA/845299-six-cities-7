@@ -13,8 +13,6 @@ function OffersList(params: PropsWithChildren<OffersListParams>): ReactElement {
   const { activeCity, hotels } = params
   const [activeCard, setActiveCard] = useState<Hotel>();
 
-  console.log(activeCard)
-
   if (hotels.length === 0) {
     return (
       <div className="cities">

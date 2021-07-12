@@ -13,7 +13,6 @@ const BACKEND_URL = 'https://7.react.pages.academy/six-cities';
 //   const real = fetchBaseQuery(baseArg);
 
 //   const result: ReturnType<typeof fetchBaseQuery> = (request) => {
-//     console.log(request)
 //     const { args, { signal, dispatch, getState }, extraOptions } = request;
 
 //     const customController = new AbortController();
