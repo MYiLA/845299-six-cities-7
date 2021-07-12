@@ -30,12 +30,19 @@ function Map(params: PropsWithChildren<MapParams>): ReactElement {
             lat: point.location.latitude,
             lng: point.location.longitude,
           }, {
-            icon: (point.title === selectedPoint?.title) ? pinActive : pin,
+            icon: (point.id === selectedPoint?.id) ? pinActive : pin,
           })
           .addTo(map);
       });
     }
   }, [map, hotels, pin, pinActive, selectedPoint]);
+
+  useEffect(() => {
+    map?.setView(
+      leaflet.latLng(activeCity.location.latitude, activeCity.location.longitude),
+      activeCity.location.zoom
+    )
+  }, [activeCity])
 
   return (
     <div

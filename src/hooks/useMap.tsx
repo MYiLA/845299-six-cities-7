@@ -13,7 +13,6 @@ function useMap(mapRef: HTMLDivElement | null, city: City): leaflet.Map | null {
           lng: city.location.longitude,
         },
         zoom: city.location.zoom,
-        zoomControl: false,
       });
 
       leaflet
