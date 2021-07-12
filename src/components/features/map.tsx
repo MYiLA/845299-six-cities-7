@@ -3,7 +3,6 @@ import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { MapParams } from './types';
 import useMap from '../../hooks/useMap';
-import Spinner from './spinner';
 
 function Map(params: PropsWithChildren<MapParams>): ReactElement {
   const { selectedPoint, activeCity, hotels } = params;
