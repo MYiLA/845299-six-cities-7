@@ -6,12 +6,31 @@ import { adaptLoginToClient } from '../utils/adapters/adapt-login';
 import { APIRoute } from '../const';
 
 const BACKEND_URL = 'https://7.react.pages.academy/six-cities';
+// TODO заменить базовый fetchBaseQuery на кастом с подмешенным таймаутом
 // const REQUEST_TIMEOUT = 5000;
+
+// const customFetchBaseQuery: typeof fetchBaseQuery = (baseArg) => {
+//   const real = fetchBaseQuery(baseArg);
+
+//   const result: ReturnType<typeof fetchBaseQuery> = (request) => {
+//     console.log(request)
+//     const { args, { signal, dispatch, getState }, extraOptions } = request;
+
+//     const customController = new AbortController();
+//     const customSignal = customController.signal;
+
+//     customSignal.addEventListener("abort", () => customController.abort());
+//     setTimeout(() => { customController.abort }, REQUEST_TIMEOUT);
+
+//     return real(args, { signal: customSignal, dispatch, getState }, extraOptions);
+//   }
+
+//   return result(baseArg);
+// };
 
 export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: BACKEND_URL,
-    // TODO настроить таймаут более очевидно timeout: REQUEST_TIMEOUT,
   }),
   tagTypes: ['login'],
   endpoints: (builder) => ({
