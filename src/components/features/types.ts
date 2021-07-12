@@ -15,5 +15,6 @@ export interface OffersListProps {
 
 export interface MapParams {
   activeCity: City,
-  selectedPoint?: Hotel
+  selectedPoint?: Hotel,
+  hotels: Hotel[]
 }

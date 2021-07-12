@@ -6,11 +6,12 @@ import { adaptLoginToClient } from '../utils/adapters/adapt-login';
 import { APIRoute } from '../const';
 
 const BACKEND_URL = 'https://7.react.pages.academy/six-cities';
-const REQUEST_TIMEOUT = 5000;
+// const REQUEST_TIMEOUT = 5000;
 
 export const api = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: BACKEND_URL
+    baseUrl: BACKEND_URL,
+    // TODO настроить таймаут более очевидно timeout: REQUEST_TIMEOUT,
   }),
   tagTypes: ['login'],
   endpoints: (builder) => ({

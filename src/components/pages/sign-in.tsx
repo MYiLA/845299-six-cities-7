@@ -23,8 +23,8 @@ function SignIn(): ReactElement {
       // TODO если всё хорошо отправить на домашнюю страницу. См ТЗ
     })
     .catch(({data}) => {
-      console.log('всё плохо с регой')
-      // throw new Error(data.error);
+      // TODO вывести сообщение с ошибкой
+      throw new Error(data.error);
     })
   }
 

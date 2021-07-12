@@ -9,7 +9,7 @@ interface CitiesListParams {
   cities: City[]
 }
 
-function CitiesList(params: PropsWithChildren<CitiesListParams> ): ReactElement {
+function CitiesList( params: PropsWithChildren<CitiesListParams> ): ReactElement {
   const { activeCity, cities } = params
 
   return (

@@ -8,7 +8,8 @@ import { useParams, Redirect } from 'react-router-dom';
 import NotFound from './not-found';
 import { AppRoute } from '../../const';
 import { getRoute } from '../../utils/common';
-import { useGetHotelsQuery } from '../../services/rtk-api'
+import { useCurrentHotels } from '../../utils/selectors/use-current-hotels';
+import Spinner from '../features/spinner';
 
 // TODO сделать кастомный хук useListIds(),
 // который будет принимать параметры сортировок/фильтров/пагинации
@@ -17,7 +18,6 @@ function Main(): ReactElement {
   const { city } = useParams<{ city:string | undefined }>();
   const isEmpty = useIsEmpty();
   const { activeCity, cities } = useCitiesList(city);
-  const { data } = useGetHotelsQuery();
 
   if ( typeof city === 'undefined' || city === '') {
     return <Redirect to={getRoute(AppRoute.DEFAULT_CITY)} />
@@ -26,6 +26,8 @@ function Main(): ReactElement {
   if ( typeof activeCity === 'undefined') {
     return <NotFound/>
   }
+
+  const { hotels, isLoading } = useCurrentHotels(activeCity);
 
   return (
     <>
@@ -41,9 +43,13 @@ function Main(): ReactElement {
         <main className={`page__main page__main--index ${isEmpty ? 'page__main--index-empty' : ''}`}>
           <h1 className="visually-hidden">Cities</h1>
           <CitiesList activeCity={activeCity} cities={cities} />
-          <OffersList activeCity={activeCity} />
+          {isLoading && (
+            <Spinner />
+          )}
+          {!isLoading && (
+            <OffersList activeCity={activeCity} hotels={hotels} />
+          )}
         </main>
-
       </div>
     </>
   );

@@ -2,26 +2,25 @@ import { PropsWithChildren, ReactElement, useState } from 'react';
 import { City, Hotel } from '../../data-type';
 import CardCities from './card/card-cities';
 import Map from './map';
-import { useCurrentHotels } from '../../utils/selectors/use-current-hotels';
 
 //TODO вынести интерфейсы в отдельный файл
 interface OffersListParams {
   activeCity: City,
+  hotels: Hotel[]
 }
 
 function OffersList(params: PropsWithChildren<OffersListParams>): ReactElement {
-  const { activeCity } = params
-  const currentHotels = useCurrentHotels(activeCity);
+  const { activeCity, hotels } = params
   const [activeCard, setActiveCard] = useState<Hotel>();
 
   return (
     <div className="cities">
-      {currentHotels.length !== 0 && (
+      {hotels.length !== 0 && (
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">
-              {currentHotels.length}
+              {hotels.length}
               {' '}
               places to stay in
               {' '}
@@ -60,7 +59,7 @@ function OffersList(params: PropsWithChildren<OffersListParams>): ReactElement {
               </ul>
             </form>
             <div className="cities__places-list places__list tabs__content">
-              {currentHotels.map((item) => (
+              {hotels.map((item) => (
                 <CardCities
                   key={item.id}
                   onMouseOver={() => {
@@ -73,12 +72,12 @@ function OffersList(params: PropsWithChildren<OffersListParams>): ReactElement {
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">
-              <Map activeCity={activeCity} selectedPoint={activeCard} />
+              <Map activeCity={activeCity} selectedPoint={activeCard} hotels={hotels} />
             </section>
           </div>
         </div>
       )}
-      {currentHotels.length === 0 && (
+      {hotels.length === 0 && (
         <div className="cities__places-container cities__places-container--empty container">
           <section className="cities__no-places">
             <div className="cities__status-wrapper tabs__content">
@@ -90,7 +89,6 @@ function OffersList(params: PropsWithChildren<OffersListParams>): ReactElement {
         </div>
       )}
     </div>
-
   );
 }
 

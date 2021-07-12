@@ -3,11 +3,10 @@ import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { MapParams } from './types';
 import useMap from '../../hooks/useMap';
-import { useCurrentHotels } from '../../utils/selectors/use-current-hotels';
+import Spinner from './spinner';
 
 function Map(params: PropsWithChildren<MapParams>): ReactElement {
-  const { selectedPoint, activeCity } = params;
-  const currentHotels = useCurrentHotels(activeCity);
+  const { selectedPoint, activeCity, hotels } = params;
 
   const mapRef = useRef<HTMLDivElement>(null);
   const map = useMap(mapRef.current, activeCity);
@@ -26,7 +25,7 @@ function Map(params: PropsWithChildren<MapParams>): ReactElement {
 
   useEffect(() => {
     if (map) {
-      currentHotels.forEach((point) => {
+      hotels.forEach((point) => {
         leaflet
           .marker({
             lat: point.location.latitude,
@@ -37,7 +36,7 @@ function Map(params: PropsWithChildren<MapParams>): ReactElement {
           .addTo(map);
       });
     }
-  }, [map, currentHotels, pin, pinActive, selectedPoint]);
+  }, [map, hotels, pin, pinActive, selectedPoint]);
 
   return (
     <div
