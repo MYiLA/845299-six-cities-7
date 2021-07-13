@@ -30,6 +30,15 @@ const BACKEND_URL = 'https://7.react.pages.academy/six-cities';
 export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: BACKEND_URL,
+    prepareHeaders: (headers) => {
+      const token = sessionStorage.getItem('token') ?? '';
+
+      if (token) {
+        headers.set('X-Token', token);
+      }
+
+      return headers;
+    }
   }),
   tagTypes: ['login'],
   endpoints: (builder) => ({

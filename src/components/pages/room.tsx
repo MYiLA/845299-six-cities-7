@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 import { getRating } from '../../utils/common';
-import { useHotel } from '../../utils/selectors/use-hotel';
+import { useHotel } from '../../hooks/selectors/use-hotel';
 import Header from '../features/header';
 import Comment from '../features/comment';
 import CardNearPlaces from '../features/card/card-near-places';

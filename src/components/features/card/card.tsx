@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { CardType, AppRoute } from '../../../const';
-import { CardProps } from '../types';
+import { CardParams } from '../types';
 import { getRating, getRoute } from '../../../utils/common';
 
 // TODO
@@ -9,7 +9,7 @@ import { getRating, getRoute } from '../../../utils/common';
 // или сама по себе достаточно сложная (App, FeedStory, Comment), имеет смысл её вынести
 // в независимый компонент.
 
-function Card(props: CardProps): ReactElement {
+function Card(props: CardParams): ReactElement {
   const {
     cardData, cardType = CardType.CITIES, className, children, onMouseOver,
   } = props;

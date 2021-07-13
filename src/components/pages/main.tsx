@@ -2,13 +2,13 @@ import { ReactElement } from 'react';
 import Header from '../features/header';
 import OffersList from '../features/offers-list';
 import CitiesList from '../features/cities-list';
-import { useCitiesList } from '../../utils/selectors/use-cities-list';
-import { useIsEmpty } from '../../utils/selectors/use-is-empty';
+import { useCitiesList } from '../../hooks/selectors/use-cities-list';
+import { useIsEmpty } from '../../hooks/selectors/use-is-empty';
 import { useParams, Redirect } from 'react-router-dom';
 import NotFound from './not-found';
 import { AppRoute } from '../../const';
 import { getRoute } from '../../utils/common';
-import { useCurrentHotels } from '../../utils/selectors/use-current-hotels';
+import { useCurrentHotels } from '../../hooks/selectors/use-current-hotels';
 import Spinner from '../features/spinner';
 
 // TODO сделать кастомный хук useListIds(),

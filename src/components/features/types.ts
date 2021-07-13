@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import { City, Hotel } from '../../data-type';
 
-export interface CardProps {
+export interface CardParams {
   cardData: Hotel,
   onMouseOver?: () => void,
   cardType?: string,
@@ -9,7 +9,7 @@ export interface CardProps {
   children?: ReactElement,
 }
 
-export interface OffersListProps {
+export interface OffersListParams {
   hotelsData: Hotel[]
 }
 
