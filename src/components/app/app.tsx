@@ -7,25 +7,18 @@ import FavoritesPage from '../pages/favorites';
 import RoomPage from '../pages/room';
 import SignInPage from '../pages/sign-in';
 import NotFoundPage from '../pages/not-found';
-import PrivateRoute, { PrivateRouteParams } from '../features/private-route';
+import PrivateRoute from '../features/private-route';
 import { useLogin } from '../../hooks/selectors/use-login';
 
 function App(): ReactElement {
   const { isAuth } = useLogin()
 
-  const defaultPrivateRouteProps: PrivateRouteParams = {
-    isAuth,
-    authPath: getRoute(AppRoute.LOGIN),
-  }
-
   return (
     <>
-    {/*TODO не уверена, когда нужно его показывать и нужно ли
-    {(!isAuth && <ErrorMessage text='You are not registered. Sign in' />)} */}
     <BrowserRouter>
       <Switch>
-        <PrivateRoute {...defaultPrivateRouteProps} path={getRoute(AppRoute.FAVORITES)} component={FavoritesPage}>
-          {/* <FavoritesPage /> */}
+        <PrivateRoute isAuth={isAuth} authPath={getRoute(AppRoute.LOGIN)} path={getRoute(AppRoute.FAVORITES)} >
+          <FavoritesPage />
         </PrivateRoute>
         <Route exact path={getRoute(AppRoute.LOGIN)}>
           <SignInPage />

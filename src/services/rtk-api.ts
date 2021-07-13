@@ -1,34 +1,37 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { BaseQueryFn, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { LoginGet, CommentGet, Hotel, LoginPost, CommentPost } from '../data-type';
 import { adaptHotelsToClient, adaptHotelIdToClient } from '../utils/adapters/adapt-hotels';
 import { adaptCommentsToClient } from '../utils/adapters/adapt-comments';
 import { adaptLoginToClient } from '../utils/adapters/adapt-login';
 import { APIRoute } from '../const';
+import { FetchArgs, FetchBaseQueryArgs, FetchBaseQueryError, FetchBaseQueryMeta } from '@reduxjs/toolkit/dist/query/fetchBaseQuery';
 
 const BACKEND_URL = 'https://7.react.pages.academy/six-cities';
-// TODO заменить базовый fetchBaseQuery на кастом с подмешенным таймаутом
-// const REQUEST_TIMEOUT = 5000;
+const REQUEST_TIMEOUT = 5000;
 
-// const customFetchBaseQuery: typeof fetchBaseQuery = (baseArg) => {
-//   const real = fetchBaseQuery(baseArg);
+type FetchBaseQuery = (p?: FetchBaseQueryArgs) => BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError, {}, FetchBaseQueryMeta>;
 
-//   const result: ReturnType<typeof fetchBaseQuery> = (request) => {
-//     const { args, { signal, dispatch, getState }, extraOptions } = request;
+const customFetchBaseQuery: FetchBaseQuery = (baseArg) => {
+  const real = fetchBaseQuery(baseArg);
 
-//     const customController = new AbortController();
-//     const customSignal = customController.signal;
+  const result: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError, {}, FetchBaseQueryMeta>
+  = (args, api, extraOptions) => {
 
-//     customSignal.addEventListener("abort", () => customController.abort());
-//     setTimeout(() => { customController.abort }, REQUEST_TIMEOUT);
+    const { signal, dispatch, getState } = api;
+    const customController = new AbortController();
+    const customSignal = customController.signal;
 
-//     return real(args, { signal: customSignal, dispatch, getState }, extraOptions);
-//   }
+    signal.addEventListener("abort", () => customController.abort());
+    setTimeout(() => { customController.abort }, REQUEST_TIMEOUT);
 
-//   return result(baseArg);
-// };
+    return real(args, { signal: customSignal, dispatch, getState }, extraOptions);
+  }
+
+  return result;
+};
 
 export const api = createApi({
-  baseQuery: fetchBaseQuery({
+  baseQuery: customFetchBaseQuery({
     baseUrl: BACKEND_URL,
     prepareHeaders: (headers) => {
       const token = sessionStorage.getItem('token') ?? '';
@@ -91,7 +94,7 @@ export const api = createApi({
       }),
       invalidatesTags: ['login'],
     }),
-    deleteLogout: builder.mutation({
+    deleteLogout: builder.mutation<void, void>({
       query: () => ({
         url: APIRoute.LOGOUT,
         method: 'DELETE',

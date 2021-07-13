@@ -13,7 +13,7 @@ interface InputCheckType {
 
 function SignIn(): ReactElement {
   const [postLogin] = usePostLoginMutation();
-  const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
+  const [isRedirect, setIsRedirect] = useState<boolean>(false);
   const [emailCheck, setEmailCheck] = useState<InputCheckType>({
     data: '',
     message: '',
@@ -66,7 +66,7 @@ function SignIn(): ReactElement {
 
       apiResult.unwrap().then((user) => {
         sessionStorage.setItem('token', user.token)
-        setIsAuthorized(true);
+        setIsRedirect(true);
       })
       .catch(({data}) => {
         // TODO вывести сообщение с ошибкой
@@ -75,7 +75,7 @@ function SignIn(): ReactElement {
     }
   }, [emailCheck, passwordCheck]);
 
-  if (isAuthorized) {
+  if (isRedirect) {
     return <Redirect to={getRoute(AppRoute.DEFAULT_CITY)} />
   }
 
