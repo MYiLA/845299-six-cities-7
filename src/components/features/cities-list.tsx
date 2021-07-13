@@ -1,22 +1,16 @@
-import React from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
-import { ActionCreator } from '../../store/action';
+import { ReactElement } from 'react';
+import { PropsWithChildren } from 'react';
 import { City } from '../../data-type';
-import { State } from '../../store/types';
+import { getRoute } from '../../utils/common';
 
-function CitiesList(): React.ReactElement {
-  const dispatch = useDispatch();
+interface CitiesListParams {
+  activeCity: City,
+  cities: City[]
+}
 
-  const { activeCity, cities } = useSelector((state: State) => ({
-    activeCity: state.activeCity,
-    cities: state.cities,
-  }), shallowEqual);
-
-  const onChangeCity = (city: City) => {
-    dispatch(ActionCreator.changeCity(city));
-  };
+function CitiesList( params: PropsWithChildren<CitiesListParams> ): ReactElement {
+  const { activeCity, cities } = params
 
   return (
     <div className="tabs">
@@ -26,8 +20,7 @@ function CitiesList(): React.ReactElement {
             <li key={city.name} className="locations__item">
               <Link
                 className={`locations__item-link tabs__item ${city.name === activeCity.name ? 'tabs__item--active' : ''}`}
-                to={AppRoute.MAIN}
-                onClick={() => { onChangeCity(city); }}
+                to={getRoute(city.name)}
               >
                 <span>{city.name}</span>
               </Link>

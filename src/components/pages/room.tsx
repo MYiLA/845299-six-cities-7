@@ -1,29 +1,21 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import { shallowEqual, useSelector } from 'react-redux';
-import { State } from '../../store/types';
+import { ReactElement } from 'react';
 import { getRating } from '../../utils/common';
+import { useHotel } from '../../utils/selectors/use-hotel';
 import Header from '../features/header';
 import Comment from '../features/comment';
 import CardNearPlaces from '../features/card/card-near-places';
 import NewComment from '../features/new-comment';
+import Map from '../features/map';
+import NotFoundPage from './not-found';
 
 const isLogged = true;
 
-function Room(): React.ReactElement {
-  const { id }: { id:string } = useParams();
+function Room(): ReactElement {
+  const { hotels = [], hotel } = useHotel();
 
-  const { hotels, hotel } = useSelector((state: State) => (
-    {
-      hotels: state.hotels.filter(
-        (item) => (item.city.name === state.activeCity.name),
-      ),
-      hotel: state.hotels.find((item) => item.id === parseInt(id.split(':')[1], 10)),
-    }
-  ), shallowEqual);
-
-  // TODO Беда с декомпозицией свойств отеля. Тайпскрипт ругается.
-  // Надо подумать, как можно заменить запись типа hotel с вопросом?
+  if (hotel === undefined) {
+    return <NotFoundPage />
+  }
 
   return (
     <>
@@ -40,7 +32,7 @@ function Room(): React.ReactElement {
           <section className="property">
             <div className="property__gallery-container container">
               <div className="property__gallery">
-                {hotel?.images.map((image, idImg) => {
+                {hotel.images.map((image, idImg) => {
                   const keyValue = `${idImg}-${image}`;
                   return (
                     <div key={keyValue} className="property__image-wrapper">
@@ -52,16 +44,16 @@ function Room(): React.ReactElement {
             </div>
             <div className="property__container container">
               <div className="property__wrapper">
-                {hotel?.isPremium && (
+                {hotel.isPremium && (
                   <div className="property__mark">
                     <span>Premium</span>
                   </div>
                 )}
                 <div className="property__name-wrapper">
                   <h1 className="property__name">
-                    {hotel?.title}
+                    {hotel.title}
                   </h1>
-                  <button className={`property__bookmark-button button ${hotel?.isFavorite ? 'property__bookmark-button--active' : ''}`} type="button">
+                  <button className={`property__bookmark-button button ${hotel.isFavorite ? 'property__bookmark-button--active' : ''}`} type="button">
                     <svg className="property__bookmark-icon" width={31} height={33}>
                       <use xlinkHref="#icon-bookmark" />
                     </svg>
@@ -70,26 +62,26 @@ function Room(): React.ReactElement {
                 </div>
                 <div className="property__rating rating">
                   <div className="property__stars rating__stars">
-                    <span style={{ width: getRating(hotel?.rating) }} />
+                    <span style={{ width: getRating(hotel.rating) }} />
                     <span className="visually-hidden">Rating</span>
                   </div>
-                  <span className="property__rating-value rating__value">{hotel?.rating}</span>
+                  <span className="property__rating-value rating__value">{hotel.rating}</span>
                 </div>
                 <ul className="property__features">
                   <li className="property__feature property__feature--entire">
                     {/* TODO подумать как красивее оформить различие текста.
                     Тип пишется с заглавной Apartment. Пока захардкодила */}
-                    {hotel?.type}
+                    {hotel.type}
                   </li>
                   <li className="property__feature property__feature--bedrooms">
-                    {hotel?.bedrooms}
+                    {hotel.bedrooms}
                     {' '}
                     Bedrooms
                   </li>
                   <li className="property__feature property__feature--adults">
                     Max
                     {' '}
-                    {hotel?.maxAdults}
+                    {hotel.maxAdults}
                     {' '}
                     adults
                   </li>
@@ -97,14 +89,14 @@ function Room(): React.ReactElement {
                 <div className="property__price">
                   <b className="property__price-value">
                     €
-                    {hotel?.price}
+                    {hotel.price}
                   </b>
                   <span className="property__price-text">&nbsp;night</span>
                 </div>
                 <div className="property__inside">
                   <h2 className="property__inside-title">What&lsquo;s inside</h2>
                   <ul className="property__inside-list">
-                    {hotel?.goods.map((item, idItem) => {
+                    {hotel.goods.map((item, idItem) => {
                       const keyValue = `${idItem}-${item}`;
                       return (
                         <li key={keyValue} className="property__inside-item">
@@ -117,13 +109,13 @@ function Room(): React.ReactElement {
                 <div className="property__host">
                   <h2 className="property__host-title">Meet the host</h2>
                   <div className="property__host-user user">
-                    <div className={`property__avatar-wrapper user__avatar-wrapper ${hotel?.host.isPro ? 'property__avatar-wrapper--pro' : ''}`}>
-                      <img className="property__avatar user__avatar" src={hotel?.host.avatarUrl} width={74} height={74} alt="Host avatar" />
+                    <div className={`property__avatar-wrapper user__avatar-wrapper ${hotel.host.isPro ? 'property__avatar-wrapper--pro' : ''}`}>
+                      <img className="property__avatar user__avatar" src={hotel.host.avatarUrl} width={74} height={74} alt="Host avatar" />
                     </div>
                     <span className="property__user-name">
-                      {hotel?.host.name}
+                      {hotel.host.name}
                     </span>
-                    {hotel?.host.isPro && (
+                    {hotel.host.isPro && (
                       <span className="property__user-status">
                         Pro
                       </span>
@@ -131,7 +123,7 @@ function Room(): React.ReactElement {
                   </div>
                   <div className="property__description">
                     <p className="property__text">
-                      {hotel?.description}
+                      {hotel.description}
                     </p>
                     {/* TODO возможно тут разбиение на абзацы, уточнить в ТЗ
                      <p className="property__text">
@@ -157,7 +149,9 @@ function Room(): React.ReactElement {
                 </section>
               </div>
             </div>
-            <section className="property__map map" />
+            <section className="property__map map" >
+              <Map activeCity={hotel.city} hotels={hotels} />
+            </section>
           </section>
           <div className="container">
             <section className="near-places places">

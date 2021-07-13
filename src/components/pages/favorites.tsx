@@ -1,19 +1,14 @@
-import React from 'react';
+import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
-import { shallowEqual, useSelector } from 'react-redux';
 import { AppRoute } from '../../const';
-import { State } from '../../store/types';
 import Header from '../features/header';
 import Footer from '../features/footer';
 import CardFavorites from '../features/card/card-favorites';
+import { useFavoritesHotels } from '../../utils/selectors/use-favorites-hotels';
+import { getRoute } from '../../utils/common';
 
-function Favorites(): React.ReactElement {
-  const { hotels } = useSelector((state: State) => ({
-    hotels: state.hotels.filter(
-      (item) => item.isFavorite,
-    ),
-  }), shallowEqual);
-
+function Favorites(): ReactElement {
+  const hotels = useFavoritesHotels();
   const isEmpty = (hotels.length === 0);
 
   return (
@@ -39,7 +34,7 @@ function Favorites(): React.ReactElement {
                   <li className="favorites__locations-items">
                     <div className="favorites__locations locations locations--current">
                       <div className="locations__item">
-                        <Link className="locations__item-link" to={AppRoute.MAIN}>
+                        <Link className="locations__item-link" to={getRoute(AppRoute.DEFAULT_CITY)}>
                           <span>Amsterdam</span>
                         </Link>
                       </div>
@@ -56,7 +51,7 @@ function Favorites(): React.ReactElement {
                   <li className="favorites__locations-items">
                     <div className="favorites__locations locations locations--current">
                       <div className="locations__item">
-                        <Link className="locations__item-link" to={AppRoute.OFFER}>
+                        <Link className="locations__item-link" to={getRoute(AppRoute.OFFER)}>
                           <span>Cologne</span>
                         </Link>
                       </div>

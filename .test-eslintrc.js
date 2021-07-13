@@ -25,8 +25,6 @@ module.exports = {
   rules: {
     'import/prefer-default-export': 'off',
     'linebreak-style': ['error', 'unix'],
-    'no-use-before-define': 'off',
-    '@typescript-eslint/no-use-before-define': ['error'],
     'react/jsx-filename-extension': ['warn', { extensions: ['.tsx', '.ts'] }],
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'react-hooks/rules-of-hooks': 'error',

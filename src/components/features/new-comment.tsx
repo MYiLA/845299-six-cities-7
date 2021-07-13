@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import { Fragment, ReactElement, useState } from 'react';
 import { CommentPost } from '../../data-type';
 
 const stars = [5, 4, 3, 2, 1];
 
-function NewComment(): React.ReactElement {
+function NewComment(): ReactElement {
   const [userComment, setUserComment] = useState<CommentPost>(
     {
       comment: '',
@@ -16,7 +16,7 @@ function NewComment(): React.ReactElement {
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {stars.map((star) => (
-          <React.Fragment key={`star-${star}`}>
+          <Fragment key={`star-${star}`}>
             <input
               className="form__rating-input visually-hidden"
               name="rating"
@@ -36,7 +36,7 @@ function NewComment(): React.ReactElement {
                 <use xlinkHref="#icon-star" />
               </svg>
             </label>
-          </React.Fragment>
+          </Fragment>
         ))}
       </div>
       <textarea

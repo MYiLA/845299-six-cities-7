@@ -1,23 +1,14 @@
-import React from 'react';
+import { PropsWithChildren, ReactElement, useEffect, useRef } from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { shallowEqual, useSelector } from 'react-redux';
-import { MapProps } from './types';
+import { MapParams } from './types';
 import useMap from '../../hooks/useMap';
-import { State } from '../../store/types';
 
-function Map(props: MapProps): React.ReactElement {
-  const { selectedPoint } = props;
+function Map(params: PropsWithChildren<MapParams>): ReactElement {
+  const { selectedPoint, activeCity, hotels } = params;
 
-  const { points, city } = useSelector((state: State) => ({
-    points: state.hotels.filter(
-      (hotel) => (hotel.city.name === state.activeCity.name),
-    ),
-    city: state.activeCity,
-  }), shallowEqual);
-
-  const mapRef = React.useRef<HTMLDivElement>(null);
-  const map = useMap(mapRef.current, city);
+  const mapRef = useRef<HTMLDivElement>(null);
+  const map = useMap(mapRef.current, activeCity);
 
   const pin = leaflet.icon({
     iconUrl: 'img/pin.svg',
@@ -31,20 +22,27 @@ function Map(props: MapProps): React.ReactElement {
     iconAnchor: [15, 45],
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (map) {
-      points.forEach((point) => {
+      hotels.forEach((point) => {
         leaflet
           .marker({
             lat: point.location.latitude,
             lng: point.location.longitude,
           }, {
-            icon: (point.title === selectedPoint?.title) ? pinActive : pin,
+            icon: (point.id === selectedPoint?.id) ? pinActive : pin,
           })
           .addTo(map);
       });
     }
-  }, [map, points, pin, pinActive, selectedPoint]);
+  }, [map, hotels, pin, pinActive, selectedPoint]);
+
+  useEffect(() => {
+    map?.setView(
+      leaflet.latLng(activeCity.location.latitude, activeCity.location.longitude),
+      activeCity.location.zoom
+    )
+  }, [activeCity])
 
   return (
     <div

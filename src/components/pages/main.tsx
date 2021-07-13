@@ -1,21 +1,33 @@
-import React from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
-import { State } from '../../store/types';
+import { ReactElement } from 'react';
 import Header from '../features/header';
 import OffersList from '../features/offers-list';
 import CitiesList from '../features/cities-list';
+import { useCitiesList } from '../../utils/selectors/use-cities-list';
+import { useIsEmpty } from '../../utils/selectors/use-is-empty';
+import { useParams, Redirect } from 'react-router-dom';
+import NotFound from './not-found';
+import { AppRoute } from '../../const';
+import { getRoute } from '../../utils/common';
+import { useCurrentHotels } from '../../utils/selectors/use-current-hotels';
+import Spinner from '../features/spinner';
 
 // TODO сделать кастомный хук useListIds(),
 // который будет принимать параметры сортировок/фильтров/пагинации
 // и возвращать актуальный список id предложений
-function Main(): React.ReactElement {
-  const { isEmpty } = useSelector((state: State) => (
-    {
-      isEmpty: state.hotels.filter(
-        (hotel) => (hotel.city.name === state.activeCity.name),
-      ).length === 0,
-    }
-  ), shallowEqual);
+function Main(): ReactElement {
+  const { city } = useParams<{ city:string | undefined }>();
+  const isEmpty = useIsEmpty();
+  const { activeCity, cities } = useCitiesList(city);
+
+  if ( typeof city === 'undefined' || city === '') {
+    return <Redirect to={getRoute(AppRoute.DEFAULT_CITY)} />
+  }
+
+  if ( typeof activeCity === 'undefined') {
+    return <NotFound/>
+  }
+
+  const { hotels, isLoading } = useCurrentHotels(activeCity);
 
   return (
     <>
@@ -30,10 +42,14 @@ function Main(): React.ReactElement {
         <Header />
         <main className={`page__main page__main--index ${isEmpty ? 'page__main--index-empty' : ''}`}>
           <h1 className="visually-hidden">Cities</h1>
-          <CitiesList />
-          <OffersList />
+          <CitiesList activeCity={activeCity} cities={cities} />
+          {isLoading && (
+            <Spinner />
+          )}
+          {!isLoading && (
+            <OffersList activeCity={activeCity} hotels={hotels} />
+          )}
         </main>
-
       </div>
     </>
   );

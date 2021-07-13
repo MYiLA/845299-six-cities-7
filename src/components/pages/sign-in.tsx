@@ -1,9 +1,83 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { FormEvent, ReactElement, useEffect, useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import { usePostLoginMutation } from '../../services/rtk-api';
+import { getRoute } from '../../utils/common';
 import Header from '../features/header';
 
-function SignIn(): React.ReactElement {
+interface InputCheckType {
+  data: string,
+  message: string,
+  success: boolean
+};
+
+function SignIn(): ReactElement {
+  const [postLogin] = usePostLoginMutation();
+  const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
+  const [emailCheck, setEmailCheck] = useState<InputCheckType>({
+    data: '',
+    message: '',
+    success: false
+  });
+  const [passwordCheck, setPasswordCheck] = useState<InputCheckType>({
+    data: '',
+    message: '',
+    success: false
+  });
+
+  const onSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    const formData = new FormData(evt.currentTarget);
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
+
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    ? setEmailCheck({
+      data: email,
+      message: '',
+      success: true
+    })
+    : setEmailCheck({
+      data: email,
+      message: 'В емейле опечатка',
+      success: false
+    });
+
+    /\S/.test(password)
+    ? setPasswordCheck({
+      data: password,
+      message: '',
+      success: true
+    })
+    : setPasswordCheck({
+      data: password,
+      message: 'Пароль не должен состоять из одних пробелов',
+      success: false
+    });
+  }
+
+  useEffect(()=>{
+    if (emailCheck.success && passwordCheck.success) {
+      const data = {
+        email: emailCheck.data,
+        password: passwordCheck.data,
+      }
+      const apiResult = postLogin(data);
+
+      apiResult.unwrap().then(() => {
+        setIsAuthorized(true);
+      })
+      .catch(({data}) => {
+        // TODO вывести сообщение с ошибкой
+        throw new Error(data.error);
+      })
+    }
+  }, [emailCheck, passwordCheck]);
+
+  if (isAuthorized) {
+    return <Redirect to={getRoute(AppRoute.DEFAULT_CITY)} />
+  }
+
   return (
     <>
       <div style={{ display: 'none' }}>
@@ -19,12 +93,14 @@ function SignIn(): React.ReactElement {
           <div className="page__login-container container">
             <section className="login">
               <h1 className="login__title">Sign in</h1>
-              <form className="login__form form" action="#" method="post">
+              <form className="login__form form" action="#" method="post" onSubmit={onSubmit}>
                 <div className="login__input-wrapper form__input-wrapper">
+                  {(emailCheck.message && <div>{emailCheck.message}</div>)}
                   <label className="visually-hidden">E-mail</label>
                   <input className="login__input form__input" type="email" name="email" placeholder="Email" required />
                 </div>
                 <div className="login__input-wrapper form__input-wrapper">
+                  {(passwordCheck.message && <div>{passwordCheck.message}</div>)}
                   <label className="visually-hidden">Password</label>
                   <input className="login__input form__input" type="password" name="password" placeholder="Password" required />
                 </div>
@@ -33,8 +109,8 @@ function SignIn(): React.ReactElement {
             </section>
             <section className="locations locations--login locations--current">
               <div className="locations__item">
-                <Link className="locations__item-link" to={AppRoute.MAIN}>
-                  <span>Amsterdam</span>
+                <Link className="locations__item-link" to={getRoute(AppRoute.DEFAULT_CITY)}>
+                  <span>{AppRoute.DEFAULT_CITY}</span>
                 </Link>
               </div>
             </section>

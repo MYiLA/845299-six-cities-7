@@ -1,10 +1,10 @@
-import React from 'react';
+import { ReactElement } from 'react';
 import { CardProps } from '../types';
 import { CardType } from '../../../const';
 import Card from './card';
 
-function CardCities(props: CardProps): React.ReactElement {
-  const { className = '', cardData } = props;
+function CardCities(props: CardProps): ReactElement {
+  const { className = '', cardData, onMouseOver } = props;
   const { isPremium } = cardData;
 
   return (
@@ -12,6 +12,7 @@ function CardCities(props: CardProps): React.ReactElement {
       className={`near-places__card ${className}`}
       cardData={cardData}
       cardType={CardType.NEAR_PLACES}
+      onMouseOver={onMouseOver}
     >
       {isPremium
         ? (
