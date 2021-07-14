@@ -76,7 +76,7 @@ function SignIn(): ReactElement {
         throw new Error(data.error);
       })
     }
-  }, [emailCheck, passwordCheck]);
+  }, [postLogin, emailCheck, passwordCheck]);
 
 
   return (

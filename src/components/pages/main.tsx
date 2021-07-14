@@ -19,6 +19,9 @@ function Main(): ReactElement {
   const isEmpty = useIsEmpty();
   const { activeCity, cities } = useCitiesList(city);
 
+  const { hotels, isLoading } = useCurrentHotels(activeCity);
+
+
   if ( typeof city === 'undefined' || city === '') {
     return <Redirect to={getRoute(AppRoute.DEFAULT_CITY)} />
   }
@@ -26,9 +29,6 @@ function Main(): ReactElement {
   if ( typeof activeCity === 'undefined') {
     return <NotFound/>
   }
-
-  const { hotels, isLoading } = useCurrentHotels(activeCity);
-
   return (
     <>
       <div style={{ display: 'none' }}>

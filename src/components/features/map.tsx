@@ -42,7 +42,7 @@ function Map(params: PropsWithChildren<MapParams>): ReactElement {
       leaflet.latLng(activeCity.location.latitude, activeCity.location.longitude),
       activeCity.location.zoom
     )
-  }, [activeCity])
+  }, [map, activeCity])
 
   return (
     <div
