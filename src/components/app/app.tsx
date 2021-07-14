@@ -26,7 +26,7 @@ function App(): ReactElement {
         <Route exact path={`${getRoute(AppRoute.OFFER)}/:id`}>
           <RoomPage />
         </Route>
-        <Route exact path={`${getRoute(AppRoute.MAIN)}:city?`}>
+        <Route exact path={`${getRoute(AppRoute.MAIN)}:city?/:sorting?`}>
           <MainPage />
         </Route>
         <Route>

@@ -87,9 +87,21 @@ export const RegularExpression = {
   ONE_SIMBOL: /\S/,
 }
 
-export enum SortingType {
-  POPULAR = 'Popular',
-  PRICE_LOW_TO_HIGH = 'Price: low to high',
-  PRICE_HIGH_TO_LOW = 'Price: high to low',
-  TOP_RATED_FIRST = 'Top rated first',
+export const SortingType = {
+  POPULAR: {
+    name: 'Popular',
+    path: 'popular',
+  },
+  PRICE_LOW_TO_HIGH: {
+    name: 'Price: low to high',
+    path: 'price-low-to-high',
+  },
+  PRICE_HIGH_TO_LOW: {
+    name: 'Price: high to low',
+    path: 'price-high-to-low',
+  },
+  TOP_RATED_FIRST: {
+    name: 'Top rated first',
+    path: 'top-rated-first',
+  },
 }

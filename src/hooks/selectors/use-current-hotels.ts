@@ -9,7 +9,7 @@ interface useCurrentHotelsParams {
 }
 
 export const useCurrentHotels = (params: useCurrentHotelsParams): { hotels: Hotel[] | any[], isLoading: boolean } => {
-  const { activeCity, sortingType = SortingType.POPULAR } = params;
+  const { activeCity, sortingType = SortingType.POPULAR.path } = params;
     if (activeCity === undefined) {
       // TODO показать ошибку, что такого города в меню сайта нет
       return { hotels: [], isLoading: false }

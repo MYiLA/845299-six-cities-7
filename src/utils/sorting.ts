@@ -10,8 +10,8 @@ type Sorting = {
 }
 
 export const sorting: Sorting = {
-  [SortingType.POPULAR]: (hotels) => hotels,
-  [SortingType.PRICE_HIGH_TO_LOW]: (hotels) => hotels.sort(sortByPriceHighToLow),
-  [SortingType.PRICE_LOW_TO_HIGH]: (hotels) => hotels.sort(sortByPriceLowToHigh),
-  [SortingType.TOP_RATED_FIRST]: (hotels) => hotels.sort(sortByRatedFirst),
+  [SortingType.POPULAR.path]: (hotels) => hotels,
+  [SortingType.PRICE_HIGH_TO_LOW.path]: (hotels) => hotels.sort(sortByPriceHighToLow),
+  [SortingType.PRICE_LOW_TO_HIGH.path]: (hotels) => hotels.sort(sortByPriceLowToHigh),
+  [SortingType.TOP_RATED_FIRST.path]: (hotels) => hotels.sort(sortByRatedFirst),
 }

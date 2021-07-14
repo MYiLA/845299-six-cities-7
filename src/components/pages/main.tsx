@@ -6,7 +6,7 @@ import { useCitiesList } from '../../hooks/selectors/use-cities-list';
 import { useIsEmpty } from '../../hooks/selectors/use-is-empty';
 import { useParams, Redirect } from 'react-router-dom';
 import NotFound from './not-found';
-import { AppRoute } from '../../const';
+import { AppRoute, SortingType } from '../../const';
 import { getRoute } from '../../utils/common';
 import { useCurrentHotels } from '../../hooks/selectors/use-current-hotels';
 import Spinner from '../features/spinner';
@@ -15,11 +15,11 @@ import Spinner from '../features/spinner';
 // который будет принимать параметры сортировок/фильтров/пагинации
 // и возвращать актуальный список id предложений
 function Main(): ReactElement {
-  const { city } = useParams<{ city:string | undefined }>();
+  const { city, sorting } = useParams<{ city:string | undefined, sorting: string | undefined }>();
   const isEmpty = useIsEmpty();
   const { activeCity, cities } = useCitiesList(city);
 
-  const { hotels, isLoading } = useCurrentHotels({activeCity});
+  const { hotels, isLoading } = useCurrentHotels({activeCity, sortingType: sorting});
 
   if ( typeof city === 'undefined' || city === '') {
     return <Redirect to={getRoute(AppRoute.DEFAULT_CITY)} />
