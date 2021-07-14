@@ -1,3 +1,5 @@
+export const maxImagesInRoomPage = 6;
+
 export enum AppRoute {
   MAIN = 'main',
   LOGIN = 'login',

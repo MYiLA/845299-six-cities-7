@@ -20,9 +20,9 @@ function App(): ReactElement {
         <PrivateRoute isAuth={isAuth} authPath={getRoute(AppRoute.LOGIN)} path={getRoute(AppRoute.FAVORITES)} >
           <FavoritesPage />
         </PrivateRoute>
-        <Route exact path={getRoute(AppRoute.LOGIN)}>
+        <PrivateRoute isAuth={!isAuth} authPath={getRoute(AppRoute.MAIN)} path={getRoute(AppRoute.LOGIN)} >
           <SignInPage />
-        </Route>
+        </PrivateRoute>
         <Route exact path={`${getRoute(AppRoute.OFFER)}/:id`}>
           <RoomPage />
         </Route>
