@@ -6,7 +6,7 @@ import { useCitiesList } from '../../hooks/selectors/use-cities-list';
 import { useIsEmpty } from '../../hooks/selectors/use-is-empty';
 import { useParams, Redirect } from 'react-router-dom';
 import NotFound from './not-found';
-import { AppRoute, SortingType } from '../../const';
+import { AppRoute } from '../../const';
 import { getRoute } from '../../utils/common';
 import { useCurrentHotels } from '../../hooks/selectors/use-current-hotels';
 import Spinner from '../features/spinner';
