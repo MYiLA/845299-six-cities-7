@@ -30,14 +30,8 @@ function Bookmark(props: BookmarkParams): ReactElement {
     const changedStatus = !isFavorite ? 1 : 0;
     const data = {id, status: changedStatus};
     const apiResult = favoriteStatus(data);
-    console.log(data)
 
-    apiResult.unwrap().then((hotel) => {
-      // TODO настроить обновление компонентов. Компонент фаворита встречается в руме и в карточке.
-      // Нужно его вынести, чтобы не копипастить логику работы
-      console.log('фавориты добавлены')
-      console.log(hotel)
-    })
+    apiResult.unwrap()
     .catch(({data}) => {
       // TODO вывести сообщение с ошибкой
       throw new Error(data.error);

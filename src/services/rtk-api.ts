@@ -22,7 +22,7 @@ const customFetchBaseQuery: FetchBaseQuery = (baseArg) => {
     const customSignal = customController.signal;
 
     signal.addEventListener("abort", () => customController.abort());
-    setTimeout(() => { customController.abort }, REQUEST_TIMEOUT);
+    setTimeout(() => { customController.abort() }, REQUEST_TIMEOUT);
 
     return real(args, { signal: customSignal, dispatch, getState }, extraOptions);
   }
@@ -43,7 +43,7 @@ export const api = createApi({
       return headers;
     }
   }),
-  tagTypes: ['login', 'favorite'],
+  tagTypes: ['favorite'],
   endpoints: (builder) => ({
     getHotels: builder.query<Hotel[], void>({
       query: () => APIRoute.HOTELS,
@@ -68,7 +68,6 @@ export const api = createApi({
     }),
     postFavoriteStatus: builder.mutation<Hotel, {id: number, status: number}>({
       query: ({id, status}) => {
-        console.log(status)
         return {
         url: `${APIRoute.FAVORITE}/${id}/${status}`,
         method: 'POST',
@@ -91,10 +90,8 @@ export const api = createApi({
 
     getLogin: builder.query<LoginGet, void>({
       query: () => {
-        console.log({token: sessionStorage.getItem('token'), ts: performance.now()})
         return APIRoute.LOGIN
       },
-      providesTags: ['login'],
       transformResponse: (data: any) => adaptLoginToClient(data)
     }),
     postLogin: builder.mutation<LoginGet, LoginPost>({
@@ -103,14 +100,12 @@ export const api = createApi({
         method: 'POST',
         body,
       }),
-      invalidatesTags: ['login'],
     }),
     deleteLogout: builder.mutation<void, void>({
       query: () => ({
         url: APIRoute.LOGOUT,
         method: 'DELETE',
       }),
-      invalidatesTags: ['login'],
     })
   })
 });

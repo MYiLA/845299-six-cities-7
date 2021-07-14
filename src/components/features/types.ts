@@ -7,6 +7,10 @@ export interface CardParams {
   cardType?: string,
   className?: string,
   children?: ReactElement,
+  imgSize?: {
+    width: number,
+    height: number,
+  }
 }
 
 export interface OffersListParams {

@@ -21,7 +21,6 @@ function Main(): ReactElement {
 
   const { hotels, isLoading } = useCurrentHotels(activeCity);
 
-
   if ( typeof city === 'undefined' || city === '') {
     return <Redirect to={getRoute(AppRoute.DEFAULT_CITY)} />
   }

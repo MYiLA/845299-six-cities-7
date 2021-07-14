@@ -14,17 +14,12 @@ function Header(): ReactElement {
     evt.preventDefault();
     const apiResult = deleteLogout();
     apiResult.unwrap()
-    .then(()=> {
-      // sessionStorage.removeItem('token');
-    })
     .catch(({response}) => {
-      // sessionStorage.removeItem('token');
       // TODO сообщение об ошибке доделать
       throw new Error(response.error);
     }).finally(() => {
       sessionStorage.removeItem('token');
       refetch();
-      console.log('token remouved');
     })
   }
 

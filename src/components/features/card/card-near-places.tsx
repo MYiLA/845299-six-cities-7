@@ -6,6 +6,10 @@ import Card from './card';
 function CardCities(props: CardParams): ReactElement {
   const { className = '', cardData, onMouseOver } = props;
   const { isPremium } = cardData;
+  const imgSize = {
+    width: 260,
+    height: 200,
+  };
 
   return (
     <Card
@@ -13,6 +17,7 @@ function CardCities(props: CardParams): ReactElement {
       cardData={cardData}
       cardType={CardType.NEAR_PLACES}
       onMouseOver={onMouseOver}
+      imgSize={imgSize}
     >
       {isPremium
         ? (

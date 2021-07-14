@@ -9,6 +9,10 @@ import BookmarkPlaceCard from '../bookmark/bookmark-place-card'
 // Если какая-то часть интерфейса многократно в нём повторяется (Button, Panel, Avatar)
 // или сама по себе достаточно сложная (App, FeedStory, Comment), имеет смысл её вынести
 // в независимый компонент.
+const imgSizeDefault = {
+  width: 260,
+  height: 200,
+}
 
 function Card(props: CardParams): ReactElement {
   const {
@@ -16,6 +20,7 @@ function Card(props: CardParams): ReactElement {
     cardType = CardType.CITIES,
     className,
     children,
+    imgSize = imgSizeDefault,
     onMouseOver,
   } = props;
 
@@ -26,21 +31,21 @@ function Card(props: CardParams): ReactElement {
   return (
     <article
       className={`place-card ${className}`}
+      role="button"
+      tabIndex={0}
+      onMouseEnter={onMouseOver}
+      onMouseLeave={onMouseOver}
     >
-      <div
-        role="button"
-        tabIndex={0}
-        onMouseEnter={onMouseOver}
-        onMouseLeave={onMouseOver}
-      >
+      {/* TODO поправить отображение при снятии мышки и настроить отображение текущего норода в карточке на карте */}
+
         {children}
         <div className={`${cardType}__image-wrapper place-card__image-wrapper`}>
           <Link to={getRoute(AppRoute.OFFER, id)}>
             <img
               className="place-card__image"
               src={previewImage}
-              width={260}
-              height={200}
+              width={imgSize.width}
+              height={imgSize.height}
               alt="Place"
             />
           </Link>
@@ -49,10 +54,11 @@ function Card(props: CardParams): ReactElement {
           <div className="place-card__price-wrapper">
             <div className="place-card__price">
               <b className="place-card__price-value">
-                €
-                {price}
+                &euro;{price}
               </b>
-              <span className="place-card__price-text">/&nbsp;night</span>
+              <span className="place-card__price-text">
+                &#47;&nbsp;night
+              </span>
             </div>
             <BookmarkPlaceCard id={id} isFavorite={isFavorite} />
           </div>
@@ -67,7 +73,7 @@ function Card(props: CardParams): ReactElement {
           </h2>
           <p className="place-card__type">{type}</p>
         </div>
-      </div>
+
     </article>
   );
 }

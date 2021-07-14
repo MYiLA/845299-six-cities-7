@@ -1,5 +1,5 @@
 import { FormEvent, ReactElement, useEffect, useState } from 'react';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { AppRoute, RegularExpression } from '../../const';
 import { useGetLoginQuery, usePostLoginMutation } from '../../services/rtk-api';
 import { getRoute } from '../../utils/common';
@@ -66,7 +66,6 @@ function SignIn(): ReactElement {
       const apiResult = postLogin(data);
 
       apiResult.unwrap().then((user) => {
-        console.log({user, ts: performance.now()})
         sessionStorage.setItem('token', user.token)
         refetch();
         history.push(AppRoute.DEFAULT_CITY);
@@ -76,7 +75,7 @@ function SignIn(): ReactElement {
         throw new Error(data.error);
       })
     }
-  }, [postLogin, emailCheck, passwordCheck]);
+  }, [postLogin, emailCheck, passwordCheck, history, refetch]);
 
 
   return (

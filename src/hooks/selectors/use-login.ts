@@ -11,6 +11,6 @@ export const useLogin = (): {
 } => {
   const isAuth = authorized();
   const { data, isLoading, refetch } = api.endpoints.getLogin.useQuery();
-  console.log({ data, isLoading, refetch, isAuth })
+
   return { data, isLoading, isAuth, refetch };
 };

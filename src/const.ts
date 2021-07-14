@@ -83,6 +83,6 @@ export const Cities = [
 ];
 
 export const RegularExpression = {
-  EMAIL: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+  EMAIL: /^[^\s@]{3,}@[^\s@]{2,}\.[^\s@]{2,}$/,
   ONE_SIMBOL: /\S/,
 }
