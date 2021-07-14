@@ -2,7 +2,7 @@ import { PropsWithChildren, ReactElement, useState } from 'react';
 import { City, Hotel } from '../../data-type';
 import CardCities from './card/card-cities';
 import Map from './map';
-import DropdownSort from './dropdown-sort'
+import SortingDropdown from './sorting-dropdown'
 
 //TODO вынести интерфейсы в отдельный файл
 interface OffersListParams {
@@ -43,7 +43,7 @@ function OffersList(params: PropsWithChildren<OffersListParams>): ReactElement {
             {' '}
             {activeCity.name}
           </b>
-          <DropdownSort />
+          <SortingDropdown />
           <div className="cities__places-list places__list tabs__content">
             {hotels.map((item) => (
               <CardCities
