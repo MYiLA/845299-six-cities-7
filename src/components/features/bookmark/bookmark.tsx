@@ -23,7 +23,7 @@ function Bookmark(props: BookmarkParams): ReactElement {
     evt.preventDefault();
 
     if (!isAuth) {
-      history.push(AppRoute.LOGIN);
+      history.push(`/${AppRoute.LOGIN}`);
       return
     }
 
