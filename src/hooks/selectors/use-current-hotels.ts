@@ -1,7 +1,15 @@
+import { SortingType } from "../../const";
 import { City, Hotel } from "../../data-type";
 import { api } from "../../services/rtk-api";
+import { sorting } from "../../utils/sorting";
 
-export const useCurrentHotels = (activeCity: City | undefined ): { hotels: Hotel[] | any[], isLoading: boolean } => {
+interface useCurrentHotelsParams {
+  activeCity?: City,
+  sortingType?: string
+}
+
+export const useCurrentHotels = (params: useCurrentHotelsParams): { hotels: Hotel[] | any[], isLoading: boolean } => {
+  const { activeCity, sortingType = SortingType.POPULAR } = params;
     if (activeCity === undefined) {
       // TODO показать ошибку, что такого города в меню сайта нет
       return { hotels: [], isLoading: false }
@@ -18,5 +26,5 @@ export const useCurrentHotels = (activeCity: City | undefined ): { hotels: Hotel
       (hotel) => (hotel.city.name === activeCity?.name),
     );
 
-    return { hotels: activeHotels , isLoading };
+    return { hotels: sorting[sortingType](activeHotels), isLoading };
   }

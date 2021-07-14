@@ -19,7 +19,7 @@ function Main(): ReactElement {
   const isEmpty = useIsEmpty();
   const { activeCity, cities } = useCitiesList(city);
 
-  const { hotels, isLoading } = useCurrentHotels(activeCity);
+  const { hotels, isLoading } = useCurrentHotels({activeCity});
 
   if ( typeof city === 'undefined' || city === '') {
     return <Redirect to={getRoute(AppRoute.DEFAULT_CITY)} />
