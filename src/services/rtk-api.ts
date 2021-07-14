@@ -43,30 +43,38 @@ export const api = createApi({
       return headers;
     }
   }),
-  tagTypes: ['login'],
+  tagTypes: ['login', 'favorite'],
   endpoints: (builder) => ({
     getHotels: builder.query<Hotel[], void>({
       query: () => APIRoute.HOTELS,
+      providesTags: ['favorite'],
       transformResponse: (data: any) => adaptHotelsToClient(data)
     }),
     getHotelId: builder.query<Hotel, number>({
       query: (id) => `${APIRoute.HOTELS}/${id}`,
+      providesTags: ['favorite'],
       transformResponse: (data: any) => adaptHotelIdToClient(data)
     }),
     getHotelIdNearby: builder.query<Hotel[], number>({
       query: (id) => `${APIRoute.HOTELS}/${id}/nearby`,
+      providesTags: ['favorite'],
       transformResponse: (data: any) => adaptHotelsToClient(data)
     }),
 
     getFavorites: builder.query<Hotel[], void>({
       query: () => APIRoute.FAVORITE,
+      providesTags: ['favorite'],
       transformResponse: (data: any) => adaptHotelsToClient(data)
     }),
     postFavoriteStatus: builder.mutation<Hotel, {id: number, status: number}>({
-      query: ({id, status}) => ({
-        url: `${APIRoute.FAVORITE}/:${id}/:${status}`,
+      query: ({id, status}) => {
+        console.log(status)
+        return {
+        url: `${APIRoute.FAVORITE}/${id}/${status}`,
         method: 'POST',
-      }),
+      }},
+      invalidatesTags: ['favorite'],
+      transformResponse: (data: any) => adaptHotelIdToClient(data),
     }),
 
     getComments: builder.query<CommentGet[], number>({
@@ -75,14 +83,17 @@ export const api = createApi({
     }),
     postComment: builder.mutation<CommentGet[], {id: number, body: CommentPost}>({
       query: ({id, body}) => ({
-        url: `${APIRoute.COMMENTS}/:${id}`,
+        url: `${APIRoute.COMMENTS}/${id}`,
         method: 'POST',
         body,
       }),
     }),
 
     getLogin: builder.query<LoginGet, void>({
-      query: () => APIRoute.LOGIN,
+      query: () => {
+        console.log({token: sessionStorage.getItem('token'), ts: performance.now()})
+        return APIRoute.LOGIN
+      },
       providesTags: ['login'],
       transformResponse: (data: any) => adaptLoginToClient(data)
     }),

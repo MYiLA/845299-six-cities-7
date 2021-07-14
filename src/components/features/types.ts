@@ -18,3 +18,13 @@ export interface MapParams {
   selectedPoint?: Hotel,
   hotels: Hotel[]
 }
+
+export interface BookmarkParams {
+  id: number,
+  isFavorite: boolean,
+  style?: {
+   type: string,
+   width: number,
+   height: number,
+  },
+}

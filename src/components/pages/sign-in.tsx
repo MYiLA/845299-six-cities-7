@@ -1,7 +1,7 @@
 import { FormEvent, ReactElement, useEffect, useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import { AppRoute, RegularExpression } from '../../const';
-import { usePostLoginMutation } from '../../services/rtk-api';
+import { useGetLoginQuery, usePostLoginMutation } from '../../services/rtk-api';
 import { getRoute } from '../../utils/common';
 import Header from '../features/header';
 
@@ -12,8 +12,9 @@ interface InputCheckType {
 };
 
 function SignIn(): ReactElement {
+  const { refetch } = useGetLoginQuery();
   const [postLogin] = usePostLoginMutation();
-  const [isRedirect, setIsRedirect] = useState<boolean>(false);
+  const history = useHistory();
   const [emailCheck, setEmailCheck] = useState<InputCheckType>({
     data: '',
     message: '',
@@ -65,8 +66,10 @@ function SignIn(): ReactElement {
       const apiResult = postLogin(data);
 
       apiResult.unwrap().then((user) => {
+        console.log({user, ts: performance.now()})
         sessionStorage.setItem('token', user.token)
-        setIsRedirect(true);
+        refetch();
+        history.push(AppRoute.DEFAULT_CITY);
       })
       .catch(({data}) => {
         // TODO вывести сообщение с ошибкой
@@ -75,9 +78,6 @@ function SignIn(): ReactElement {
     }
   }, [emailCheck, passwordCheck]);
 
-  if (isRedirect) {
-    return <Redirect to={getRoute(AppRoute.DEFAULT_CITY)} />
-  }
 
   return (
     <>

@@ -1,5 +1,5 @@
 
-import { ReactElement } from 'react';
+import { ReactElement, MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useLogin } from '../../hooks/selectors/use-login';
@@ -7,22 +7,30 @@ import { api } from '../../services/rtk-api';
 import { getRoute } from '../../utils/common';
 
 function Header(): ReactElement {
-  const { data, isAuth } = useLogin()
+  const { data, isAuth, refetch } = useLogin()
   const [deleteLogout] = api.endpoints.deleteLogout.useMutation();
 
-  const onSignOut = () => {
+  const onSignOut = (evt: MouseEvent<HTMLElement>) => {
+    evt.preventDefault();
     const apiResult = deleteLogout();
-    apiResult.unwrap().then(() => {
-      sessionStorage.removeItem('token')
+    apiResult.unwrap()
+    .then(()=> {
+      // sessionStorage.removeItem('token');
     })
     .catch(({response}) => {
+      // sessionStorage.removeItem('token');
+      // TODO сообщение об ошибке доделать
       throw new Error(response.error);
+    }).finally(() => {
+      sessionStorage.removeItem('token');
+      refetch();
+      console.log('token remouved');
     })
   }
 
   const avatarStyles = {
     backgroundImage: `url(${data?.avatarUrl})`,
- } as React.CSSProperties;
+  } as React.CSSProperties;
 
   return (
     <header className="header">
@@ -45,9 +53,9 @@ function Header(): ReactElement {
               )}
               <li className="header__nav-item">
                 {(isAuth &&
-                <Link className="header__nav-link" to={getRoute(AppRoute.DEFAULT_CITY)} onClick={onSignOut}>
+                <a className="header__nav-link" href="/" onClick={onSignOut}>
                   <span className="header__signout">Sign out</span>
-                </Link>
+                </a>
                 )}
                 {(!isAuth &&
                 <Link className="header__nav-link" to={getRoute(AppRoute.LOGIN)}>

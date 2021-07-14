@@ -7,6 +7,7 @@ import CardNearPlaces from '../features/card/card-near-places';
 import NewComment from '../features/new-comment';
 import Map from '../features/map';
 import NotFoundPage from './not-found';
+import BookmarkProperty from '../features/bookmark/bookmark-property'
 
 const isLogged = true;
 
@@ -53,12 +54,7 @@ function Room(): ReactElement {
                   <h1 className="property__name">
                     {hotel.title}
                   </h1>
-                  <button className={`property__bookmark-button button ${hotel.isFavorite ? 'property__bookmark-button--active' : ''}`} type="button">
-                    <svg className="property__bookmark-icon" width={31} height={33}>
-                      <use xlinkHref="#icon-bookmark" />
-                    </svg>
-                    <span className="visually-hidden">To bookmarks</span>
-                  </button>
+                  <BookmarkProperty id={hotel.id} isFavorite={hotel.isFavorite} />
                 </div>
                 <div className="property__rating rating">
                   <div className="property__stars rating__stars">

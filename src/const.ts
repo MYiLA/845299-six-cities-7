@@ -20,6 +20,11 @@ export enum CardType {
   NEAR_PLACES = 'near-places'
 }
 
+export enum BookmarkType {
+  PROPERTY = 'property',
+  PLACE_CARD = 'place-card',
+}
+
 export enum AuthorizationStatus {
   AUTH = 'AUTH',
   NO_AUTH = 'NO_AUTH',

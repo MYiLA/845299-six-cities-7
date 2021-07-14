@@ -7,9 +7,10 @@ export const useLogin = (): {
   data: LoginGet | undefined,
   isLoading: boolean,
   isAuth: boolean,
+  refetch: () => void,
 } => {
   const isAuth = authorized();
-  const { data, isLoading } = api.endpoints.getLogin.useQuery();
-
-  return { data, isLoading, isAuth };
+  const { data, isLoading, refetch } = api.endpoints.getLogin.useQuery();
+  console.log({ data, isLoading, refetch, isAuth })
+  return { data, isLoading, isAuth, refetch };
 };
