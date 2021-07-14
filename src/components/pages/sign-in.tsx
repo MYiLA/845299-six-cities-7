@@ -72,7 +72,7 @@ function SignIn(): ReactElement {
         throw new Error(data.error);
       })
     }
-  }, [emailCheck, passwordCheck]);
+  }, [postLogin, emailCheck, passwordCheck]);
 
   if (isAuthorized) {
     return <Redirect to={getRoute(AppRoute.DEFAULT_CITY)} />
