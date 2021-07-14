@@ -1,17 +1,17 @@
-export const AppRoute = {
-  MAIN: 'main',
-  LOGIN: 'login',
-  FAVORITES: 'favorites',
-  OFFER: 'offer',
-  DEFAULT_CITY: 'Paris'
+export enum AppRoute {
+  MAIN = 'main',
+  LOGIN = 'login',
+  FAVORITES = 'favorites',
+  OFFER = 'offer',
+  DEFAULT_CITY = 'Paris'
 };
 
-export const APIRoute = {
-  HOTELS: '/hotels',
-  FAVORITE: '/favorite',
-  COMMENTS: '/comments',
-  LOGIN: '/login',
-  LOGOUT: '/logout',
+export enum APIRoute {
+  HOTELS = '/hotels',
+  FAVORITE = '/favorite',
+  COMMENTS = '/comments',
+  LOGIN = '/login',
+  LOGOUT = '/logout',
 };
 
 export enum CardType {
@@ -20,10 +20,15 @@ export enum CardType {
   NEAR_PLACES = 'near-places'
 }
 
-export const AuthorizationStatus = {
-  AUTH: 'AUTH',
-  NO_AUTH: 'NO_AUTH',
-  UNKNOWN: 'UNKNOWN',
+export enum BookmarkType {
+  PROPERTY = 'property',
+  PLACE_CARD = 'place-card',
+}
+
+export enum AuthorizationStatus {
+  AUTH = 'AUTH',
+  NO_AUTH = 'NO_AUTH',
+  UNKNOWN = 'UNKNOWN',
 };
 
 export const Cities = [
@@ -76,3 +81,8 @@ export const Cities = [
     name: 'Dusseldorf',
   },
 ];
+
+export const RegularExpression = {
+  EMAIL: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+  ONE_SIMBOL: /\S/,
+}
