@@ -1,7 +1,7 @@
 import { FormEvent, ReactElement, useEffect, useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import { AppRoute } from '../../const';
-import { usePostLoginMutation } from '../../services/rtk-api';
+import { Link, useHistory } from 'react-router-dom';
+import { AppRoute, RegularExpression } from '../../const';
+import { useGetLoginQuery, usePostLoginMutation } from '../../services/rtk-api';
 import { getRoute } from '../../utils/common';
 import Header from '../features/header';
 
@@ -12,8 +12,9 @@ interface InputCheckType {
 };
 
 function SignIn(): ReactElement {
+  const { refetch } = useGetLoginQuery();
   const [postLogin] = usePostLoginMutation();
-  const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
+  const history = useHistory();
   const [emailCheck, setEmailCheck] = useState<InputCheckType>({
     data: '',
     message: '',
@@ -31,27 +32,27 @@ function SignIn(): ReactElement {
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
 
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    RegularExpression.EMAIL.test(email)
     ? setEmailCheck({
       data: email,
-      message: '',
+      message: 'Email is correct',
       success: true
     })
     : setEmailCheck({
       data: email,
-      message: 'В емейле опечатка',
+      message: 'Typo in email',
       success: false
     });
 
-    /\S/.test(password)
+    RegularExpression.ONE_SIMBOL.test(password)
     ? setPasswordCheck({
       data: password,
-      message: '',
+      message: 'Password is correct',
       success: true
     })
     : setPasswordCheck({
       data: password,
-      message: 'Пароль не должен состоять из одних пробелов',
+      message: 'Password should not consist of only spaces',
       success: false
     });
   }
@@ -64,19 +65,18 @@ function SignIn(): ReactElement {
       }
       const apiResult = postLogin(data);
 
-      apiResult.unwrap().then(() => {
-        setIsAuthorized(true);
+      apiResult.unwrap().then((user) => {
+        sessionStorage.setItem('token', user.token)
+        refetch();
+        history.push(AppRoute.DEFAULT_CITY);
       })
       .catch(({data}) => {
         // TODO вывести сообщение с ошибкой
         throw new Error(data.error);
       })
     }
-  }, [emailCheck, passwordCheck]);
+  }, [postLogin, emailCheck, passwordCheck, history, refetch]);
 
-  if (isAuthorized) {
-    return <Redirect to={getRoute(AppRoute.DEFAULT_CITY)} />
-  }
 
   return (
     <>

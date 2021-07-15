@@ -1,12 +1,14 @@
 import { ReactElement } from 'react';
 import { getRating } from '../../utils/common';
-import { useHotel } from '../../utils/selectors/use-hotel';
+import { useHotel } from '../../hooks/selectors/use-hotel';
 import Header from '../features/header';
 import Comment from '../features/comment';
 import CardNearPlaces from '../features/card/card-near-places';
 import NewComment from '../features/new-comment';
 import Map from '../features/map';
 import NotFoundPage from './not-found';
+import BookmarkProperty from '../features/bookmark/bookmark-property'
+import { maxImagesInRoomPage } from '../../const'
 
 const isLogged = true;
 
@@ -32,7 +34,7 @@ function Room(): ReactElement {
           <section className="property">
             <div className="property__gallery-container container">
               <div className="property__gallery">
-                {hotel.images.map((image, idImg) => {
+                {hotel.images.slice(0, maxImagesInRoomPage).map((image, idImg) => {
                   const keyValue = `${idImg}-${image}`;
                   return (
                     <div key={keyValue} className="property__image-wrapper">
@@ -53,12 +55,7 @@ function Room(): ReactElement {
                   <h1 className="property__name">
                     {hotel.title}
                   </h1>
-                  <button className={`property__bookmark-button button ${hotel.isFavorite ? 'property__bookmark-button--active' : ''}`} type="button">
-                    <svg className="property__bookmark-icon" width={31} height={33}>
-                      <use xlinkHref="#icon-bookmark" />
-                    </svg>
-                    <span className="visually-hidden">To bookmarks</span>
-                  </button>
+                  <BookmarkProperty id={hotel.id} isFavorite={hotel.isFavorite} />
                 </div>
                 <div className="property__rating rating">
                   <div className="property__stars rating__stars">
@@ -125,12 +122,6 @@ function Room(): ReactElement {
                     <p className="property__text">
                       {hotel.description}
                     </p>
-                    {/* TODO возможно тут разбиение на абзацы, уточнить в ТЗ
-                     <p className="property__text">
-                      An independent House, strategically located between Rembrand
-                      Square and National Opera, but where the bustle of the city comes
-                      to rest in this alley flowery and colorful.
-                    </p> */}
                   </div>
                 </div>
                 <section className="property__reviews reviews">

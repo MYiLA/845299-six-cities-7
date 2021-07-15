@@ -1,11 +1,15 @@
 import { ReactElement } from 'react';
-import { CardProps } from '../types';
+import { CardParams } from '../types';
 import { CardType } from '../../../const';
 import Card from './card';
 
-function CardCities(props: CardProps): ReactElement {
+function CardCities(props: CardParams): ReactElement {
   const { className = '', cardData, onMouseOver } = props;
   const { isPremium } = cardData;
+  const imgSize = {
+    width: 260,
+    height: 200,
+  };
 
   return (
     <Card
@@ -13,6 +17,7 @@ function CardCities(props: CardProps): ReactElement {
       cardData={cardData}
       cardType={CardType.CITIES}
       onMouseOver={onMouseOver}
+      imgSize={imgSize}
     >
       {isPremium
         ? (

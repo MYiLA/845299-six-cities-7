@@ -1,18 +1,29 @@
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { CardType, AppRoute } from '../../../const';
-import { CardProps } from '../types';
+import { CardParams } from '../types';
 import { getRating, getRoute } from '../../../utils/common';
+import BookmarkPlaceCard from '../bookmark/bookmark-place-card'
 
 // TODO
 // Если какая-то часть интерфейса многократно в нём повторяется (Button, Panel, Avatar)
 // или сама по себе достаточно сложная (App, FeedStory, Comment), имеет смысл её вынести
 // в независимый компонент.
+const imgSizeDefault = {
+  width: 260,
+  height: 200,
+}
 
-function Card(props: CardProps): ReactElement {
+function Card(props: CardParams): ReactElement {
   const {
-    cardData, cardType = CardType.CITIES, className, children, onMouseOver,
+    cardData,
+    cardType = CardType.CITIES,
+    className,
+    children,
+    imgSize = imgSizeDefault,
+    onMouseOver,
   } = props;
+
   const {
     isFavorite, previewImage, price, rating, title, type, id,
   } = cardData;
@@ -20,21 +31,21 @@ function Card(props: CardProps): ReactElement {
   return (
     <article
       className={`place-card ${className}`}
+      role="button"
+      tabIndex={0}
+      onMouseEnter={onMouseOver}
+      onMouseLeave={onMouseOver}
     >
-      <div
-        role="button"
-        tabIndex={0}
-        onMouseEnter={onMouseOver}
-        onMouseLeave={onMouseOver}
-      >
+      {/* TODO поправить отображение при снятии мышки и настроить отображение текущего норода в карточке на карте */}
+
         {children}
         <div className={`${cardType}__image-wrapper place-card__image-wrapper`}>
           <Link to={getRoute(AppRoute.OFFER, id)}>
             <img
               className="place-card__image"
               src={previewImage}
-              width={260}
-              height={200}
+              width={imgSize.width}
+              height={imgSize.height}
               alt="Place"
             />
           </Link>
@@ -43,18 +54,13 @@ function Card(props: CardProps): ReactElement {
           <div className="place-card__price-wrapper">
             <div className="place-card__price">
               <b className="place-card__price-value">
-                €
-                {price}
+                &euro;{price}
               </b>
-              <span className="place-card__price-text">/&nbsp;night</span>
+              <span className="place-card__price-text">
+                &#47;&nbsp;night
+              </span>
             </div>
-            {/* TODO isFavorite сохранить в стейт */}
-            <button className={`place-card__bookmark-button button ${isFavorite ? 'place-card__bookmark-button--active' : ''}`} type="button">
-              <svg className="place-card__bookmark-icon" width={18} height={19}>
-                <use xlinkHref="#icon-bookmark" />
-              </svg>
-              <span className="visually-hidden">To bookmarks</span>
-            </button>
+            <BookmarkPlaceCard id={id} isFavorite={isFavorite} />
           </div>
           <div className="place-card__rating rating">
             <div className="place-card__stars rating__stars">
@@ -67,7 +73,7 @@ function Card(props: CardProps): ReactElement {
           </h2>
           <p className="place-card__type">{type}</p>
         </div>
-      </div>
+
     </article>
   );
 }
