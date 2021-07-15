@@ -38,7 +38,13 @@ export interface CommentGet {
   comment: string,
   date: string,
   id: number,
-  rating: number
+  rating: number,
+  user: {
+    avatarUrl: string,
+    id: number,
+    isPro: boolean,
+    name: string,
+  },
 }
 
 export interface CommentPost {

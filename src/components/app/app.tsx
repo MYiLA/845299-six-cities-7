@@ -24,7 +24,7 @@ function App(): ReactElement {
           <SignInPage />
         </PrivateRoute>
         <Route exact path={`${getRoute(AppRoute.OFFER)}/:id`}>
-          <RoomPage />
+          <RoomPage isAuth={isAuth}/>
         </Route>
         <Route exact path={`${getRoute(AppRoute.MAIN)}:city?/:sorting?`}>
           <MainPage />

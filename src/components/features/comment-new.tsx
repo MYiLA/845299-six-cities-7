@@ -3,7 +3,7 @@ import { CommentPost } from '../../data-type';
 
 const stars = [5, 4, 3, 2, 1];
 
-function NewComment(): ReactElement {
+function CommentNew(): ReactElement {
   const [userComment, setUserComment] = useState<CommentPost>(
     {
       comment: '',
@@ -79,4 +79,4 @@ function NewComment(): ReactElement {
   );
 }
 
-export default NewComment;
+export default CommentNew;

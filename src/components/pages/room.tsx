@@ -1,18 +1,20 @@
-import { ReactElement } from 'react';
+import { PropsWithChildren, ReactElement } from 'react';
 import { getRating } from '../../utils/common';
 import { useHotel } from '../../hooks/selectors/use-hotel';
 import Header from '../features/header';
-import Comment from '../features/comment';
 import CardNearPlaces from '../features/card/card-near-places';
-import NewComment from '../features/new-comment';
+import CommentsList from '../features/comments-list';
 import Map from '../features/map';
 import NotFoundPage from './not-found';
 import BookmarkProperty from '../features/bookmark/bookmark-property'
 import { maxImagesInRoomPage } from '../../const'
 
-const isLogged = true;
+interface RoomParams {
+  isAuth?: boolean,
+}
 
-function Room(): ReactElement {
+function Room(params: PropsWithChildren<RoomParams>): ReactElement {
+  const { isAuth } = params;
   const { hotels = [], hotel } = useHotel();
 
   if (hotel === undefined) {
@@ -124,20 +126,7 @@ function Room(): ReactElement {
                     </p>
                   </div>
                 </div>
-                <section className="property__reviews reviews">
-                  <h2 className="reviews__title">
-                    Reviews ·
-                    {' '}
-                    <span className="reviews__amount">1</span>
-                  </h2>
-                  {/* TODO подключить данные для комментариев */}
-                  <ul className="reviews__list">
-                    <Comment />
-                  </ul>
-                  {isLogged && (
-                    <NewComment />
-                  )}
-                </section>
+                <CommentsList isAuth={isAuth} hotelId={hotel.id} />
               </div>
             </div>
             <section className="property__map map" >
