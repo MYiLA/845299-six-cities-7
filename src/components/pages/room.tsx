@@ -8,6 +8,7 @@ import Map from '../features/map';
 import NotFoundPage from './not-found';
 import BookmarkProperty from '../features/bookmark/bookmark-property'
 import { maxImagesInRoomPage } from '../../const'
+import Spinner from '../features/spinner';
 
 interface RoomParams {
   isAuth?: boolean,
@@ -15,7 +16,11 @@ interface RoomParams {
 
 function Room(params: PropsWithChildren<RoomParams>): ReactElement {
   const { isAuth } = params;
-  const { hotels = [], hotel } = useHotel();
+  const { hotels = [], hotel, isLoadingHotel } = useHotel();
+
+  if (isLoadingHotel) {
+    return <Spinner />
+  }
 
   if (hotel === undefined) {
     return <NotFoundPage />

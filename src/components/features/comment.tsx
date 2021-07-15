@@ -5,7 +5,7 @@ import { getRating } from '../../utils/common';
 
 interface CommentParams {
   commentData: CommentGet
-}
+};
 
 function Comment(params: PropsWithChildren<CommentParams>): ReactElement {
   const{ commentData } = params;
