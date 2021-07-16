@@ -12,7 +12,6 @@ interface CommentsListParams {
 
 function CitiesList( params: PropsWithChildren<CommentsListParams> ): ReactElement {
   const { isAuth = false, hotelId } = params;
-
   const {comments, isLoading} = useCommentsList(hotelId)
   const shownComments = [...comments].sort(
     (comment1, comment2) => sortByNowToOld(comment1.date, comment2.date)
@@ -35,7 +34,7 @@ function CitiesList( params: PropsWithChildren<CommentsListParams> ): ReactEleme
       ))}
       </ul>
       {isAuth && (
-        <CommentNew />
+        <CommentNew hotelId={hotelId} />
       )}
     </section>
   );

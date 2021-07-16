@@ -26,6 +26,8 @@ function Room(params: PropsWithChildren<RoomParams>): ReactElement {
     return <NotFoundPage />
   }
 
+  const hotelsInMap = [...hotels, hotel];
+
   return (
     <>
       <div style={{ display: 'none' }}>
@@ -135,7 +137,7 @@ function Room(params: PropsWithChildren<RoomParams>): ReactElement {
               </div>
             </div>
             <section className="property__map map" >
-              <Map activeCity={hotel.city} hotels={hotels} />
+              <Map activeCity={hotel.city} hotels={hotelsInMap} selectedPoint={hotel} />
             </section>
           </section>
           <div className="container">
