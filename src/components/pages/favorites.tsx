@@ -1,11 +1,8 @@
 import { ReactElement } from 'react';
-import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
 import Header from '../features/header';
 import Footer from '../features/footer';
-import CardFavorites from '../features/card/card-favorites';
 import { useFavoritesHotels } from '../../hooks/selectors/use-favorites-hotels';
-import { getRoute } from '../../utils/common';
+import OffersListLocations from '../features/offers-list-locations';
 
 function Favorites(): ReactElement {
   const hotels = useFavoritesHotels();
@@ -26,49 +23,8 @@ function Favorites(): ReactElement {
           <div className="page__favorites-container container">
             {!isEmpty
             && (
-              // TODO разнести карточки по городам и отрендерить для каждого города свой блок
-              // выделить город в отдельный компонент
-              <section className="favorites">
-                <h1 className="favorites__title">Saved listing</h1>
-                <ul className="favorites__list">
-                  <li className="favorites__locations-items">
-                    <div className="favorites__locations locations locations--current">
-                      <div className="locations__item">
-                        <Link className="locations__item-link" to={getRoute(AppRoute.DEFAULT_CITY)}>
-                          <span>Amsterdam</span>
-                        </Link>
-                      </div>
-                    </div>
-                    <div className="favorites__places">
-                      {hotels.map((item) => (
-                        <CardFavorites
-                          key={item.id}
-                          cardData={item}
-                        />
-                      ))}
-                    </div>
-                  </li>
-                  <li className="favorites__locations-items">
-                    <div className="favorites__locations locations locations--current">
-                      <div className="locations__item">
-                        <Link className="locations__item-link" to={getRoute(AppRoute.OFFER)}>
-                          <span>Cologne</span>
-                        </Link>
-                      </div>
-                    </div>
-                    <div className="favorites__places">
-                      {hotels.map((item) => (
-                        <CardFavorites
-                          key={item.id}
-                          cardData={item}
-                        />
-                      ))}
-                    </div>
-                  </li>
-                </ul>
-              </section>
+              <OffersListLocations hotels={hotels} />
             )}
-
             {isEmpty
             && (
               <section className="favorites favorites--empty">

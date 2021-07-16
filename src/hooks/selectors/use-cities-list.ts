@@ -3,7 +3,7 @@ import { City } from "../../data-type";
 import { InitialStateType } from "../../store/reducer";
 
 export const useCitiesList = (activeCityName: string | undefined): {
-  activeCity: City | undefined;
+  activeCity?: City;
   cities: City[];
 } => {
   const activeCity = useSelector((state: InitialStateType) => state.cities.find(

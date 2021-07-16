@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ReactElement } from 'react';
-import { PropsWithChildren } from 'react';
+import { ReactElement, PropsWithChildren } from 'react';
 import { City } from '../../data-type';
 import { getRoute } from '../../utils/common';
 

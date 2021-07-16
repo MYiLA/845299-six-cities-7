@@ -43,7 +43,7 @@ export const api = createApi({
       return headers;
     }
   }),
-  tagTypes: ['favorite'],
+  tagTypes: ['favorite', 'comment'],
   endpoints: (builder) => ({
     getHotels: builder.query<Hotel[], void>({
       query: () => APIRoute.HOTELS,
@@ -78,6 +78,7 @@ export const api = createApi({
 
     getComments: builder.query<CommentGet[], number>({
       query: (id) => `${APIRoute.COMMENTS}/${id}`,
+      providesTags: ['comment'],
       transformResponse: (data: any) => adaptCommentsToClient(data)
     }),
     postComment: builder.mutation<CommentGet[], {id: number, body: CommentPost}>({
@@ -86,6 +87,7 @@ export const api = createApi({
         method: 'POST',
         body,
       }),
+      invalidatesTags: ['comment'],
     }),
 
     getLogin: builder.query<LoginGet, void>({

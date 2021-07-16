@@ -1,4 +1,5 @@
 export const maxImagesInRoomPage = 6;
+export const messageDisplayTime = 5000;
 
 export enum AppRoute {
   MAIN = 'main',
