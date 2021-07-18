@@ -1,14 +1,11 @@
-import { AuthorizationStatus, Cities } from '../const';
+import { сities } from '../const';
 import { configureStore } from '@reduxjs/toolkit';
 import { api } from '../services/rtk-api';
-import { City, Hotel } from '../data-type';
 
+// TODO коллбеки тестировать отдельно. Поведение редьюсера списка городов всегда возвращает список констант
 export const store = configureStore({
   reducer: {
-    cities: (state: City[] = Cities) => state,
-    hotels: (state: Hotel[] = []) => state,
-    hotelsNearby: (state: Hotel[] = []) => state,
-    authorizationStatus: (state: string = AuthorizationStatus.NO_AUTH) => state,
+    cities: () => сities,
     [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(api.middleware),

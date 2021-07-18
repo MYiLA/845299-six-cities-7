@@ -1,6 +1,8 @@
 import { ReactElement } from 'react';
 
-function ErrorMessage({ text }: { text: string } ): ReactElement {
+function ErrorMessage(params: {text: string}): ReactElement {
+  const { text } = params;
+
   return (
     <div className="container fixed">
       <div className="form__submit">

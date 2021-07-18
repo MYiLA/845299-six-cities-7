@@ -3,7 +3,8 @@ import { City, Hotel } from '../../data-type';
 
 export interface CardParams {
   cardData: Hotel,
-  onMouseOver?: () => void,
+  onMouseEnter?: () => void,
+  onMouseLeave?: () => void,
   cardType?: string,
   className?: string,
   children?: ReactElement,

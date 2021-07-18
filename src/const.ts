@@ -1,5 +1,6 @@
 export const maxImagesInRoomPage = 6;
 export const messageDisplayTime = 5000;
+export const stars = [5, 4, 3, 2, 1];
 
 export enum AppRoute {
   MAIN = 'main',
@@ -34,7 +35,7 @@ export enum AuthorizationStatus {
   UNKNOWN = 'UNKNOWN',
 };
 
-export const Cities = [
+export const сities = [
   {
     location: {
       latitude: 48.85,

@@ -3,14 +3,14 @@ import { BookmarkParams } from '../types';
 import { BookmarkType } from '../../../const';
 import Bookmark from './bookmark';
 
-function BookmarkProperty(props: BookmarkParams): ReactElement {
-  const { id, isFavorite } = props;
+const style = {
+  type: BookmarkType.PROPERTY,
+  width: 31,
+  height: 33,
+}
 
-  const style = {
-    type: BookmarkType.PROPERTY,
-    width: 31,
-    height: 33,
-  }
+function BookmarkProperty(params: BookmarkParams): ReactElement {
+  const { id, isFavorite } = params;
 
   return (
     <Bookmark

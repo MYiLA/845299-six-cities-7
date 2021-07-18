@@ -48,9 +48,10 @@ function OffersList(params: PropsWithChildren<OffersListParams>): ReactElement {
             {hotels.map((item) => (
               <CardCities
                 key={item.id}
-                onMouseOver={() => {
+                onMouseEnter={() => {
                   setActiveCard(item);
                 }}
+                onMouseLeave={() => setActiveCard(undefined)}
                 cardData={item}
               />
             ))}
