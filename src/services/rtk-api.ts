@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { BaseQueryFn, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import {
   FetchArgs, FetchBaseQueryArgs, FetchBaseQueryError, FetchBaseQueryMeta

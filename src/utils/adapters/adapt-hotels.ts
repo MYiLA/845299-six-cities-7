@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { ServerResponse } from 'http';
 import { Hotel } from '../../data-type';
 
 const itemToHotel = (item: any): Hotel => {
@@ -23,7 +25,7 @@ const itemToHotel = (item: any): Hotel => {
   return hotel;
 };
 
-export const adaptHotelsToClient = (data: any): Hotel[] => {
+export const adaptHotelsToClient = (data: ServerResponse): Hotel[] => {
   if (!Array.isArray(data)) {
     throw new Error('Пришли подозрительные данные с сервера. Это НЕ список отелей');
   }
@@ -31,7 +33,7 @@ export const adaptHotelsToClient = (data: any): Hotel[] => {
   return data.map((item) => itemToHotel(item));
 };
 
-export const adaptHotelIdToClient = (data: any): Hotel => {
+export const adaptHotelIdToClient = (data: ServerResponse): Hotel => {
   if (data.constructor.name !== 'Object') {
     throw new Error('Пришли подозрительные данные с сервера. Это НЕ отель');
   }

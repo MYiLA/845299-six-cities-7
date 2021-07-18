@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { ServerResponse } from 'http';
 import { LoginGet } from '../../data-type';
 
 const itemToLogin = (item: any): LoginGet => {
@@ -13,7 +15,7 @@ const itemToLogin = (item: any): LoginGet => {
   return login;
 };
 
-const adaptLoginToClient = (data: any): LoginGet => {
+const adaptLoginToClient = (data: ServerResponse): LoginGet => {
   if (data.constructor.name !== 'Object') {
     throw new Error('Пришли подозрительные данные с сервера. Это НЕ логин');
   }

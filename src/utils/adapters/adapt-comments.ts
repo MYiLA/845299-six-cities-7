@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { ServerResponse } from 'http';
 import { CommentGet } from '../../data-type';
 
 const itemToComment = (item: any): CommentGet => {
@@ -14,7 +16,7 @@ const itemToComment = (item: any): CommentGet => {
   return comment;
 };
 
-const adaptCommentsToClient = (data: any): CommentGet[] => {
+const adaptCommentsToClient = (data: ServerResponse): CommentGet[] => {
   if (!Array.isArray(data)) {
     throw new Error('Пришли подозрительные данные с сервера. Это НЕ список комментариев');
   }
