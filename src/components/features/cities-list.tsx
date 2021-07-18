@@ -8,8 +8,8 @@ interface CitiesListParams {
   cities: City[]
 }
 
-function CitiesList( params: PropsWithChildren<CitiesListParams> ): ReactElement {
-  const { activeCity, cities } = params
+function CitiesList(params: PropsWithChildren<CitiesListParams>): ReactElement {
+  const { activeCity, cities } = params;
 
   return (
     <div className="tabs">

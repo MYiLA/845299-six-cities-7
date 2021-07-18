@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import { CardType, AppRoute } from '../../../const';
 import { CardParams } from '../types';
 import { getRating, getRoute } from '../../../utils/common';
-import BookmarkPlaceCard from '../bookmark/bookmark-place-card'
+import BookmarkPlaceCard from '../bookmark/bookmark-place-card';
 
 const imgSizeDefault = {
   width: 260,
   height: 200,
-}
+};
 
 function Card(params: CardParams): ReactElement {
   const {
@@ -28,8 +28,7 @@ function Card(params: CardParams): ReactElement {
   return (
     <article
       className={`place-card ${className}`}
-      role="button"
-      tabIndex={0}
+      role="presentation"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
@@ -49,7 +48,8 @@ function Card(params: CardParams): ReactElement {
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">
-              &euro;{price}
+              &euro;
+              {price}
             </b>
             <span className="place-card__price-text">
               &#47;&nbsp;night

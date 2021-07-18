@@ -1,9 +1,9 @@
-import { PropsWithChildren, ReactElement } from "react";
+import { PropsWithChildren, ReactElement } from 'react';
 import Header from '../features/header';
 import OffersList from '../features/offers-list';
 import CitiesList from '../features/cities-list';
 import Spinner from '../features/spinner';
-import { City, Hotel } from "../../data-type";
+import { City, Hotel } from '../../data-type';
 
 interface MainViewParams {
   isLoading: boolean,
@@ -11,10 +11,12 @@ interface MainViewParams {
   isEmpty: boolean,
   cities: City[],
   hotels: Hotel[],
-};
+}
 
 function MainView(params: PropsWithChildren<MainViewParams>): ReactElement {
-  const { isLoading, activeCity, isEmpty, cities, hotels } = params;
+  const {
+    isLoading, activeCity, isEmpty, cities, hotels,
+  } = params;
 
   return (
     <>
@@ -39,7 +41,7 @@ function MainView(params: PropsWithChildren<MainViewParams>): ReactElement {
         </main>
       </div>
     </>
-  )
+  );
 }
 
 export default MainView;

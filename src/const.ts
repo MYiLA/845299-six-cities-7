@@ -8,7 +8,7 @@ export enum AppRoute {
   FAVORITES = 'favorites',
   OFFER = 'offer',
   DEFAULT_CITY = 'Paris'
-};
+}
 
 export enum APIRoute {
   HOTELS = '/hotels',
@@ -16,7 +16,7 @@ export enum APIRoute {
   COMMENTS = '/comments',
   LOGIN = '/login',
   LOGOUT = '/logout',
-};
+}
 
 export enum CardType {
   FAVORITES = 'favorites',
@@ -33,7 +33,7 @@ export enum AuthorizationStatus {
   AUTH = 'AUTH',
   NO_AUTH = 'NO_AUTH',
   UNKNOWN = 'UNKNOWN',
-};
+}
 
 export const сities = [
   {
@@ -89,7 +89,7 @@ export const сities = [
 export const RegularExpression = {
   EMAIL: /^[^\s@]{3,}@[^\s@]{2,}\.[^\s@]{2,}$/,
   ONE_SIMBOL: /\S/,
-}
+};
 
 export const SortingType = {
   POPULAR: {
@@ -108,4 +108,4 @@ export const SortingType = {
     name: 'Top rated first',
     path: 'top-rated-first',
   },
-}
+};

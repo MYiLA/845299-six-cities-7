@@ -7,7 +7,7 @@ const style = {
   type: BookmarkType.PLACE_CARD,
   width: 18,
   height: 19,
-}
+};
 
 function BookmarkPlaceCard(params: BookmarkParams): ReactElement {
   const { id, isFavorite } = params;

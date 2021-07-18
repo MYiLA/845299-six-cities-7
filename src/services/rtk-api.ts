@@ -1,31 +1,35 @@
 import { BaseQueryFn, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { LoginGet, CommentGet, Hotel, LoginPost, CommentPost } from '../data-type';
+import {
+  FetchArgs, FetchBaseQueryArgs, FetchBaseQueryError, FetchBaseQueryMeta
+} from '@reduxjs/toolkit/dist/query/fetchBaseQuery';
+import {
+  LoginGet, CommentGet, Hotel, LoginPost, CommentPost
+} from '../data-type';
 import { adaptHotelsToClient, adaptHotelIdToClient } from '../utils/adapters/adapt-hotels';
-import { adaptCommentsToClient } from '../utils/adapters/adapt-comments';
-import { adaptLoginToClient } from '../utils/adapters/adapt-login';
+import adaptCommentsToClient from '../utils/adapters/adapt-comments';
+import adaptLoginToClient from '../utils/adapters/adapt-login';
 import { APIRoute } from '../const';
-import { FetchArgs, FetchBaseQueryArgs, FetchBaseQueryError, FetchBaseQueryMeta } from '@reduxjs/toolkit/dist/query/fetchBaseQuery';
 
 const BACKEND_URL = 'https://7.react.pages.academy/six-cities';
 const REQUEST_TIMEOUT = 5000;
 
-type FetchBaseQuery = (p?: FetchBaseQueryArgs) => BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError, {}, FetchBaseQueryMeta>;
+type FetchBaseQuery = (p?: FetchBaseQueryArgs) => BaseQueryFn<string | FetchArgs,
+unknown, FetchBaseQueryError, Record<string, unknown>, FetchBaseQueryMeta>;
 
 const customFetchBaseQuery: FetchBaseQuery = (baseArg) => {
   const real = fetchBaseQuery(baseArg);
 
-  const result: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError, {}, FetchBaseQueryMeta>
-  = (args, api, extraOptions) => {
-
+  const result: BaseQueryFn<string | FetchArgs, unknown,
+  FetchBaseQueryError, Record<string, unknown>, FetchBaseQueryMeta> = (args, api, extraOptions) => {
     const { signal, dispatch, getState } = api;
     const customController = new AbortController();
     const customSignal = customController.signal;
 
-    signal.addEventListener("abort", () => customController.abort());
-    setTimeout(() => { customController.abort() }, REQUEST_TIMEOUT);
+    signal.addEventListener('abort', () => customController.abort());
+    setTimeout(() => { customController.abort(); }, REQUEST_TIMEOUT);
 
     return real(args, { signal: customSignal, dispatch, getState }, extraOptions);
-  }
+  };
 
   return result;
 };
@@ -41,37 +45,36 @@ export const api = createApi({
       }
 
       return headers;
-    }
+    },
   }),
   tagTypes: ['favorite', 'comment'],
   endpoints: (builder) => ({
     getHotels: builder.query<Hotel[], void>({
       query: () => APIRoute.HOTELS,
       providesTags: ['favorite'],
-      transformResponse: (data: any) => adaptHotelsToClient(data)
+      transformResponse: (data: any) => adaptHotelsToClient(data),
     }),
     getHotelId: builder.query<Hotel, number>({
       query: (id) => `${APIRoute.HOTELS}/${id}`,
       providesTags: ['favorite'],
-      transformResponse: (data: any) => adaptHotelIdToClient(data)
+      transformResponse: (data: any) => adaptHotelIdToClient(data),
     }),
     getHotelIdNearby: builder.query<Hotel[], number>({
       query: (id) => `${APIRoute.HOTELS}/${id}/nearby`,
       providesTags: ['favorite'],
-      transformResponse: (data: any) => adaptHotelsToClient(data)
+      transformResponse: (data: any) => adaptHotelsToClient(data),
     }),
 
     getFavorites: builder.query<Hotel[], void>({
       query: () => APIRoute.FAVORITE,
       providesTags: ['favorite'],
-      transformResponse: (data: any) => adaptHotelsToClient(data)
+      transformResponse: (data: any) => adaptHotelsToClient(data),
     }),
     postFavoriteStatus: builder.mutation<Hotel, {id: number, status: number}>({
-      query: ({id, status}) => {
-        return {
+      query: ({ id, status }) => ({
         url: `${APIRoute.FAVORITE}/${id}/${status}`,
         method: 'POST',
-      }},
+      }),
       invalidatesTags: ['favorite'],
       transformResponse: (data: any) => adaptHotelIdToClient(data),
     }),
@@ -79,10 +82,10 @@ export const api = createApi({
     getComments: builder.query<CommentGet[], number>({
       query: (id) => `${APIRoute.COMMENTS}/${id}`,
       providesTags: ['comment'],
-      transformResponse: (data: any) => adaptCommentsToClient(data)
+      transformResponse: (data: any) => adaptCommentsToClient(data),
     }),
     postComment: builder.mutation<CommentGet[], {id: number, body: CommentPost}>({
-      query: ({id, body}) => ({
+      query: ({ id, body }) => ({
         url: `${APIRoute.COMMENTS}/${id}`,
         method: 'POST',
         body,
@@ -91,10 +94,8 @@ export const api = createApi({
     }),
 
     getLogin: builder.query<LoginGet, void>({
-      query: () => {
-        return APIRoute.LOGIN
-      },
-      transformResponse: (data: any) => adaptLoginToClient(data)
+      query: () => APIRoute.LOGIN,
+      transformResponse: (data: any) => adaptLoginToClient(data),
     }),
     postLogin: builder.mutation<LoginGet, LoginPost>({
       query: (body) => ({
@@ -108,8 +109,8 @@ export const api = createApi({
         url: APIRoute.LOGOUT,
         method: 'DELETE',
       }),
-    })
-  })
+    }),
+  }),
 });
 
 export const {
@@ -128,5 +129,5 @@ export const {
 
   useGetLoginQuery,
   useDeleteLogoutMutation,
-  usePostLoginMutation
+  usePostLoginMutation,
 } = api;

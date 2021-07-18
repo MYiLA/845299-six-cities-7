@@ -10,8 +10,10 @@ interface CommentsListViewParams {
   hotelId: number
 }
 
-function CommentsListView( params: PropsWithChildren<CommentsListViewParams> ): ReactElement {
-  const { commentsTotal, shownComments, isAuth, hotelId } = params;
+function CommentsListView(params: PropsWithChildren<CommentsListViewParams>): ReactElement {
+  const {
+    commentsTotal, shownComments, isAuth, hotelId,
+  } = params;
 
   return (
     <section className="property__reviews reviews">
@@ -21,9 +23,9 @@ function CommentsListView( params: PropsWithChildren<CommentsListViewParams> ): 
         <span className="reviews__amount">{commentsTotal}</span>
       </h2>
       <ul className="reviews__list">
-      {shownComments.map((comment) => (
-        <Comment key={comment.id} commentData={comment} />
-      ))}
+        {shownComments.map((comment) => (
+          <Comment key={comment.id} commentData={comment} />
+        ))}
       </ul>
       {isAuth && (
         <CommentNew hotelId={hotelId} />

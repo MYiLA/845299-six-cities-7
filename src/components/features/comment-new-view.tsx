@@ -13,11 +13,18 @@ interface CommentNewViewParams {
 }
 
 function CommentNewView(params: CommentNewViewParams): ReactElement {
-  const { onSubmit, onChange, rating, setRating, isFormDisabled, comment, setComment, isSubmitDisabled } = params;
+  const {
+    onSubmit, onChange, rating, setRating, isFormDisabled, comment, setComment, isSubmitDisabled,
+  } = params;
 
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={onSubmit} onChange={onChange}>
-      <label className="reviews__label form__label" htmlFor="review">Your review</label>
+      <label
+        className="reviews__label form__label"
+        htmlFor="review"
+      >
+        Your review
+      </label>
       <div className="reviews__rating-form form__rating">
         {stars.map((star) => (
           <Fragment key={star}>
@@ -31,7 +38,7 @@ function CommentNewView(params: CommentNewViewParams): ReactElement {
               onChange={() => setRating(star)}
               disabled={isFormDisabled}
             />
-            <label htmlFor={`${star}-stars`} className="reviews__rating-label form__rating-label" title="perfect">
+            <label className="reviews__rating-label form__rating-label" htmlFor={`${star}-stars`} title="perfect">
               <svg className="form__star-image" width={37} height={33}>
                 <use xlinkHref="#icon-star" />
               </svg>
@@ -46,7 +53,7 @@ function CommentNewView(params: CommentNewViewParams): ReactElement {
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={comment}
         onChange={({ target }) => setComment(target.value)}
-        disabled={ isFormDisabled }
+        disabled={isFormDisabled}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">

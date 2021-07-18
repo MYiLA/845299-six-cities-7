@@ -7,7 +7,7 @@ const style = {
   type: BookmarkType.PROPERTY,
   width: 31,
   height: 33,
-}
+};
 
 function BookmarkProperty(params: BookmarkParams): ReactElement {
   const { id, isFavorite } = params;

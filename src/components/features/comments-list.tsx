@@ -1,6 +1,6 @@
-import {PropsWithChildren, ReactElement} from 'react';
-import {useCommentsList} from '../../hooks/selectors/use-comments-list';
-import {sortByNowToOld} from '../../utils/common';
+import { PropsWithChildren, ReactElement } from 'react';
+import useCommentsList from '../../hooks/selectors/use-comments-list';
+import { sortByNowToOld } from '../../utils/common';
 import Spinner from './spinner';
 import CommentsListView from './comments-list-view';
 
@@ -9,15 +9,15 @@ interface CommentsListParams {
   isAuth?: boolean,
 }
 
-function CommentsList( params: PropsWithChildren<CommentsListParams> ): ReactElement {
-  const {isAuth = false, hotelId} = params;
-  const {comments, isLoading} = useCommentsList(hotelId)
+function CommentsList(params: PropsWithChildren<CommentsListParams>): ReactElement {
+  const { isAuth = false, hotelId } = params;
+  const { comments, isLoading } = useCommentsList(hotelId);
   const shownComments = [...comments].sort(
-    (comment1, comment2) => sortByNowToOld(comment1.date, comment2.date)
+    (comment1, comment2) => sortByNowToOld(comment1.date, comment2.date),
   ).slice(0, 10);
 
   if (isLoading) {
-    return <Spinner />
+    return <Spinner />;
   }
 
   return (

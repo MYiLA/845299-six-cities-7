@@ -2,9 +2,9 @@ import { PropsWithChildren, ReactElement, useState } from 'react';
 import { City, Hotel } from '../../data-type';
 import CardCities from './card/card-cities';
 import Map from './map';
-import SortingDropdown from './sorting-dropdown'
+import SortingDropdown from './sorting-dropdown';
 
-//TODO вынести интерфейсы в отдельный файл
+// TODO вынести интерфейсы в отдельный файл
 interface OffersListParams {
   activeCity: City,
   hotels: Hotel[],
@@ -12,7 +12,7 @@ interface OffersListParams {
 }
 
 function OffersList(params: PropsWithChildren<OffersListParams>): ReactElement {
-  const { activeCity, hotels } = params
+  const { activeCity, hotels } = params;
   const [activeCard, setActiveCard] = useState<Hotel>();
 
   if (hotels.length === 0) {
@@ -28,7 +28,7 @@ function OffersList(params: PropsWithChildren<OffersListParams>): ReactElement {
           <div className="cities__right-section" />
         </div>
       </div>
-    )
+    );
   }
 
   return (

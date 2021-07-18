@@ -9,7 +9,9 @@ const imgSize = {
 };
 
 function CardCities(params: CardParams): ReactElement {
-  const { className = '', cardData, onMouseEnter, onMouseLeave } = params;
+  const {
+    className = '', cardData, onMouseEnter, onMouseLeave,
+  } = params;
   const { isPremium } = cardData;
 
   return (

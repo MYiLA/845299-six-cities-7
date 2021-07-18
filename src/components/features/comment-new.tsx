@@ -9,7 +9,7 @@ const isValidComment = (comment: string) => {
     return true;
   }
   return false;
-}
+};
 
 function CommentNew(params: {hotelId: number}): ReactElement {
   const { hotelId } = params;
@@ -24,7 +24,7 @@ function CommentNew(params: {hotelId: number}): ReactElement {
     if (isValidComment(comment) && rating !== 0) {
       setIsSubmitDisabled(false);
     }
-  }
+  };
 
   const onSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -32,7 +32,7 @@ function CommentNew(params: {hotelId: number}): ReactElement {
     setIsFormDisabled(true);
     setIsSubmitDisabled(true);
 
-    const data = {id: hotelId, body: { comment, rating }};
+    const data = { id: hotelId, body: { comment, rating } };
     const apiResult = postComment(data);
 
     apiResult.unwrap().then(() => {
@@ -43,14 +43,14 @@ function CommentNew(params: {hotelId: number}): ReactElement {
       setIsFormDisabled(false);
       setIsSubmitDisabled(false);
       setIsShowError(true);
-      setTimeout(()=> setIsShowError(false), messageDisplayTime);
-    })
-  }
+      setTimeout(() => setIsShowError(false), messageDisplayTime);
+    });
+  };
 
   return (
     <>
-      {(isShowError &&
-        <ErrorMessage text="Не удалось отправить сообщение. Попробуйте ещё раз" />
+      {(isShowError
+        && <ErrorMessage text="Не удалось отправить сообщение. Попробуйте ещё раз" />
       )}
       <CommentNewView
         onSubmit={onSubmit}

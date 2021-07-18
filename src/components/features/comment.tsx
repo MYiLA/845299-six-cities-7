@@ -5,11 +5,13 @@ import { getRating } from '../../utils/common';
 
 interface CommentParams {
   commentData: CommentGet
-};
+}
 
 function Comment(params: PropsWithChildren<CommentParams>): ReactElement {
-  const{ commentData } = params;
-  const { user, rating, comment, date } = commentData;
+  const { commentData } = params;
+  const {
+    user, rating, comment, date,
+  } = commentData;
   const { avatarUrl, name } = user;
 
   return (
