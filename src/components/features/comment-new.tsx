@@ -1,4 +1,6 @@
-import { FormEvent, ReactElement, useState } from 'react';
+import {
+  FormEvent, ReactElement, useCallback, useState
+} from 'react';
 import { messageDisplayTime } from '../../const';
 import ErrorMessage from './error-message';
 import { usePostCommentMutation } from '../../services/rtk-api';
@@ -20,13 +22,13 @@ function CommentNew(params: {hotelId: number}): ReactElement {
   const [comment, setComment] = useState<string>('');
   const [rating, setRating] = useState<number>(0);
 
-  const onChange = () => {
+  const onChange = useCallback(() => {
     if (isValidComment(comment) && rating !== 0) {
       setIsSubmitDisabled(false);
     }
-  };
+  }, [comment, rating]);
 
-  const onSubmit = (evt: FormEvent<HTMLFormElement>) => {
+  const onSubmit = useCallback((evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
     setIsFormDisabled(true);
@@ -45,7 +47,7 @@ function CommentNew(params: {hotelId: number}): ReactElement {
       setIsShowError(true);
       setTimeout(() => setIsShowError(false), messageDisplayTime);
     });
-  };
+  }, [comment, rating]);
 
   return (
     <>

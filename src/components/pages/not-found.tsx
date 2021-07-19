@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { getRoute } from '../../utils/common';
 
-// TODO перепроверить классы, возможно есть что то лишнее
 function NotFound(): ReactElement {
   return (
     <div className="page page--gray page--login">

@@ -1,17 +1,12 @@
 import {
-  FormEvent, ReactElement, useEffect, useState
+  FormEvent, ReactElement, useCallback, useEffect, useState
 } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { AppRoute, RegularExpression } from '../../const';
 import { useGetLoginQuery, usePostLoginMutation } from '../../services/rtk-api';
 import { getRoute } from '../../utils/common';
+import { InputCheckType } from './type';
 import Header from '../features/header';
-
-interface InputCheckType {
-  data: string,
-  message: string,
-  success: boolean
-}
 
 function SignIn(): ReactElement {
   const { refetch } = useGetLoginQuery();
@@ -60,14 +55,14 @@ function SignIn(): ReactElement {
     });
   };
 
-  const onSubmit = (evt: FormEvent<HTMLFormElement>) => {
+  const onSubmit = useCallback((evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     const formData = new FormData(evt.currentTarget);
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
 
     checkedFormData(email, password);
-  };
+  }, []);
 
   useEffect(() => {
     if (emailCheck.success && passwordCheck.success) {

@@ -1,4 +1,6 @@
-import { ReactElement, MouseEvent, useState } from 'react';
+import {
+  ReactElement, MouseEvent, useState, useCallback
+} from 'react';
 import { useHistory } from 'react-router-dom';
 import { AppRoute, BookmarkType, messageDisplayTime } from '../../../const';
 import useLogin from '../../../hooks/selectors/use-login';
@@ -22,7 +24,8 @@ function Bookmark(params: BookmarkParams): ReactElement {
   const history = useHistory();
   const [favoriteStatus] = usePostFavoriteStatusMutation();
 
-  const onSetFavorite = (evt: MouseEvent<HTMLElement>) => {
+  const onSetFavorite = useCallback((evt: MouseEvent<HTMLElement>) => {
+    console.log('функция');
     evt.preventDefault();
 
     if (!isAuth) {
@@ -39,7 +42,7 @@ function Bookmark(params: BookmarkParams): ReactElement {
         setIsShowError(true);
         setTimeout(() => setIsShowError(false), messageDisplayTime);
       });
-  };
+  }, [isAuth, isFavorite]);
 
   return (
     <>

@@ -1,5 +1,5 @@
 import {
-  ReactElement, MouseEvent, CSSProperties, useState
+  ReactElement, MouseEvent, CSSProperties, useState, useCallback
 } from 'react';
 import useLogin from '../../hooks/selectors/use-login';
 import { api } from '../../services/rtk-api';
@@ -12,7 +12,7 @@ function Header(): ReactElement {
   const [deleteLogout] = api.endpoints.deleteLogout.useMutation();
   const [isShowError, setIsShowError] = useState<boolean>(false);
 
-  const onSignOut = (evt: MouseEvent<HTMLElement>) => {
+  const onSignOut = useCallback((evt: MouseEvent<HTMLElement>) => {
     evt.preventDefault();
     const apiResult = deleteLogout();
     apiResult.unwrap()
@@ -23,7 +23,7 @@ function Header(): ReactElement {
         sessionStorage.removeItem('token');
         refetch();
       });
-  };
+  }, [isAuth]);
 
   const avatarStyles = {
     backgroundImage: `url(${data?.avatarUrl})`,
