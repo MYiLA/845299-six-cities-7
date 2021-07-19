@@ -1,11 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { ReactElement } from 'react';
-import { Redirect, Route, RouteProps } from 'react-router';
-
-export type PrivateRouteParams = {
-  isAuth: boolean;
-  authPath: string;
-} & RouteProps;
+import { Redirect, Route } from 'react-router';
+import { PrivateRouteParams } from './types';
 
 export default function PrivateRoute(
   { isAuth, authPath, ...routeProps }: PrivateRouteParams,

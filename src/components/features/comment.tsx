@@ -1,11 +1,7 @@
 import dayjs from 'dayjs';
 import { PropsWithChildren, ReactElement } from 'react';
-import { CommentGet } from '../../data-type';
 import { getRating } from '../../utils/common';
-
-interface CommentParams {
-  commentData: CommentGet
-}
+import { CommentParams } from './types';
 
 function Comment(params: PropsWithChildren<CommentParams>): ReactElement {
   const { commentData } = params;

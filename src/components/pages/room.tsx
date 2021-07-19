@@ -75,8 +75,6 @@ function Room(params: PropsWithChildren<RoomParams>): ReactElement {
                 </div>
                 <ul className="property__features">
                   <li className="property__feature property__feature--entire">
-                    {/* TODO подумать как красивее оформить различие текста.
-                    Тип пишется с заглавной Apartment. Пока захардкодила */}
                     {hotel.type}
                   </li>
                   <li className="property__feature property__feature--bedrooms">

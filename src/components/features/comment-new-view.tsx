@@ -1,16 +1,6 @@
-import { FormEvent, Fragment, ReactElement } from 'react';
+import { Fragment, ReactElement } from 'react';
 import { stars } from '../../const';
-
-interface CommentNewViewParams {
-  onSubmit: (evt: FormEvent<HTMLFormElement>) => void,
-  onChange: () => void,
-  rating: number,
-  setRating: (star: number) => void,
-  isFormDisabled: boolean,
-  comment: string,
-  setComment: (value: string) => void,
-  isSubmitDisabled: boolean,
-}
+import { CommentNewViewParams } from './types';
 
 function CommentNewView(params: CommentNewViewParams): ReactElement {
   const {

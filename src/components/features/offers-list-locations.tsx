@@ -3,14 +3,7 @@ import { Link } from 'react-router-dom';
 import { Hotel } from '../../data-type';
 import { getRoute } from '../../utils/common';
 import CardFavorites from './card/card-favorites';
-
-interface OffersListLocationParams {
-  hotels: Hotel[],
-}
-
-interface Location {
-  [key: string]: Hotel[];
-}
+import { OffersListLocationParams, Location } from './types';
 
 function OffersListLocations(params: PropsWithChildren<OffersListLocationParams>): ReactElement {
   const { hotels } = params;

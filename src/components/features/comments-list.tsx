@@ -3,11 +3,7 @@ import useCommentsList from '../../hooks/selectors/use-comments-list';
 import { sortByNowToOld } from '../../utils/common';
 import Spinner from './spinner';
 import CommentsListView from './comments-list-view';
-
-interface CommentsListParams {
-  hotelId: number,
-  isAuth?: boolean,
-}
+import { CommentsListParams } from './types';
 
 function CommentsList(params: PropsWithChildren<CommentsListParams>): ReactElement {
   const { isAuth = false, hotelId } = params;

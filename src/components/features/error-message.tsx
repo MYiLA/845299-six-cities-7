@@ -1,6 +1,7 @@
-import { ReactElement } from 'react';
+import { PropsWithChildren, ReactElement } from 'react';
+import { ErrorMessageParams } from './types';
 
-function ErrorMessage(params: {text: string}): ReactElement {
+function ErrorMessage(params: PropsWithChildren<ErrorMessageParams>): ReactElement {
   const { text } = params;
 
   return (

@@ -1,12 +1,5 @@
-import { ReactElement, MouseEvent } from 'react';
-
-interface BookmarkViewParams {
-  onSetFavorite: (evt: MouseEvent<HTMLElement>) => void,
-  type: string,
-  isFavorite: boolean,
-  width: number,
-  height: number,
-}
+import { ReactElement } from 'react';
+import { BookmarkViewParams } from '../types';
 
 function BookmarkView(params: BookmarkViewParams): ReactElement {
   const {

@@ -1,14 +1,7 @@
 import { PropsWithChildren, ReactElement } from 'react';
 import CommentNew from './comment-new';
 import Comment from './comment';
-import { CommentGet } from '../../data-type';
-
-interface CommentsListViewParams {
-  commentsTotal: number,
-  shownComments: CommentGet[],
-  isAuth: boolean,
-  hotelId: number
-}
+import { CommentsListViewParams } from './types';
 
 function CommentsListView(params: PropsWithChildren<CommentsListViewParams>): ReactElement {
   const {

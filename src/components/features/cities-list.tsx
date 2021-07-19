@@ -1,12 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ReactElement, PropsWithChildren } from 'react';
-import { City } from '../../data-type';
 import { getRoute } from '../../utils/common';
-
-interface CitiesListParams {
-  activeCity: City,
-  cities: City[]
-}
+import { CitiesListParams } from './types';
 
 function CitiesList(params: PropsWithChildren<CitiesListParams>): ReactElement {
   const { activeCity, cities } = params;

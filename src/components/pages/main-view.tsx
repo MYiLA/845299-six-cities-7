@@ -4,6 +4,7 @@ import OffersList from '../features/offers-list';
 import CitiesList from '../features/cities-list';
 import Spinner from '../features/spinner';
 import { City, Hotel } from '../../data-type';
+import OffersListEmpty from '../features/offers-list-empty';
 
 interface MainViewParams {
   isLoading: boolean,
@@ -35,7 +36,10 @@ function MainView(params: PropsWithChildren<MainViewParams>): ReactElement {
           {isLoading && (
             <Spinner />
           )}
-          {!isLoading && (
+          {!isLoading && hotels.length === 0 && (
+            <OffersListEmpty activeCityName={activeCity.name} />
+          )}
+          {!isLoading && hotels.length !== 0 && (
             <OffersList activeCity={activeCity} hotels={hotels} />
           )}
         </main>
