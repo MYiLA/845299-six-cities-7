@@ -3,12 +3,13 @@ import { CardParams } from '../types';
 import { CardType } from '../../../const';
 import Card from './card';
 
-function CardCities(props: CardParams): ReactElement {
-  const { className = '', cardData } = props;
-  const imgSize = {
-    width: 150,
-    height: 110,
-  };
+const imgSize = {
+  width: 150,
+  height: 110,
+};
+
+function CardCities(params: CardParams): ReactElement {
+  const { className = '', cardData } = params;
 
   return (
     <Card

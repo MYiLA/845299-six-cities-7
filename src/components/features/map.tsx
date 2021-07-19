@@ -1,4 +1,6 @@
-import { PropsWithChildren, ReactElement, useEffect, useRef } from 'react';
+import {
+  PropsWithChildren, ReactElement, useEffect, useRef
+} from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { MapParams } from './types';
@@ -40,9 +42,9 @@ function Map(params: PropsWithChildren<MapParams>): ReactElement {
   useEffect(() => {
     map?.setView(
       leaflet.latLng(activeCity.location.latitude, activeCity.location.longitude),
-      activeCity.location.zoom
-    )
-  }, [map, activeCity])
+      activeCity.location.zoom,
+    );
+  }, [map, activeCity]);
 
   return (
     <div

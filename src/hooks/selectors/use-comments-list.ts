@@ -1,7 +1,7 @@
-import { CommentGet } from "../../data-type";
-import { api } from "../../services/rtk-api";
+import { CommentGet } from '../../data-type';
+import { api } from '../../services/rtk-api';
 
-export const useCommentsList = (hotelId: number): {
+const useCommentsList = (hotelId: number): {
   comments: CommentGet[],
   isLoading: boolean,
 } => {
@@ -9,3 +9,5 @@ export const useCommentsList = (hotelId: number): {
 
   return { comments: data ?? [], isLoading };
 };
+
+export default useCommentsList;

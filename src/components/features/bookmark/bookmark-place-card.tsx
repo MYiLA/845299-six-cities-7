@@ -3,14 +3,14 @@ import { BookmarkParams } from '../types';
 import { BookmarkType } from '../../../const';
 import Bookmark from './bookmark';
 
-function BookmarkPlaceCard(props: BookmarkParams): ReactElement {
-  const { id, isFavorite } = props;
+const style = {
+  type: BookmarkType.PLACE_CARD,
+  width: 18,
+  height: 19,
+};
 
-  const style = {
-    type: BookmarkType.PLACE_CARD,
-    width: 18,
-    height: 19,
-  }
+function BookmarkPlaceCard(params: BookmarkParams): ReactElement {
+  const { id, isFavorite } = params;
 
   return (
     <Bookmark

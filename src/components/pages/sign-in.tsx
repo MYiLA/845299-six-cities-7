@@ -1,15 +1,12 @@
-import { FormEvent, ReactElement, useEffect, useState } from 'react';
+import {
+  FormEvent, ReactElement, useCallback, useEffect, useState
+} from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { AppRoute, RegularExpression } from '../../const';
 import { useGetLoginQuery, usePostLoginMutation } from '../../services/rtk-api';
 import { getRoute } from '../../utils/common';
+import { InputCheckType } from './type';
 import Header from '../features/header';
-
-interface InputCheckType {
-  data: string,
-  message: string,
-  success: boolean
-};
 
 function SignIn(): ReactElement {
   const { refetch } = useGetLoginQuery();
@@ -18,65 +15,74 @@ function SignIn(): ReactElement {
   const [emailCheck, setEmailCheck] = useState<InputCheckType>({
     data: '',
     message: '',
-    success: false
+    success: false,
   });
   const [passwordCheck, setPasswordCheck] = useState<InputCheckType>({
     data: '',
     message: '',
-    success: false
+    success: false,
   });
 
-  const onSubmit = (evt: FormEvent<HTMLFormElement>) => {
+  const checkedFormData = (email: string, password: string) => {
+    if (!RegularExpression.EMAIL.test(email)) {
+      setEmailCheck({
+        data: email,
+        message: 'Typo in email',
+        success: false,
+      });
+      return;
+    }
+
+    setEmailCheck({
+      data: email,
+      message: '',
+      success: true,
+    });
+
+    if (!RegularExpression.ONE_SIMBOL.test(password)) {
+      setPasswordCheck({
+        data: password,
+        message: 'Password should not consist of only spaces',
+        success: false,
+      });
+      return;
+    }
+
+    setPasswordCheck({
+      data: password,
+      message: '',
+      success: true,
+    });
+  };
+
+  const onSubmit = useCallback((evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     const formData = new FormData(evt.currentTarget);
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
 
-    RegularExpression.EMAIL.test(email)
-    ? setEmailCheck({
-      data: email,
-      message: 'Email is correct',
-      success: true
-    })
-    : setEmailCheck({
-      data: email,
-      message: 'Typo in email',
-      success: false
-    });
+    checkedFormData(email, password);
+  }, []);
 
-    RegularExpression.ONE_SIMBOL.test(password)
-    ? setPasswordCheck({
-      data: password,
-      message: 'Password is correct',
-      success: true
-    })
-    : setPasswordCheck({
-      data: password,
-      message: 'Password should not consist of only spaces',
-      success: false
-    });
-  }
-
-  useEffect(()=>{
+  useEffect(() => {
     if (emailCheck.success && passwordCheck.success) {
-      const data = {
+      const formData = {
         email: emailCheck.data,
         password: passwordCheck.data,
-      }
-      const apiResult = postLogin(data);
+      };
+      const apiResult = postLogin(formData);
 
       apiResult.unwrap().then((user) => {
-        sessionStorage.setItem('token', user.token)
+        sessionStorage.setItem('token', user.token);
         refetch();
         history.push(AppRoute.DEFAULT_CITY);
       })
-      .catch(({data}) => {
+        .catch(({ data }) => {
         // TODO вывести сообщение с ошибкой
-        throw new Error(data.error);
-      })
+          throw new Error(data.error);
+        });
     }
   }, [postLogin, emailCheck, passwordCheck, history, refetch]);
-
 
   return (
     <>

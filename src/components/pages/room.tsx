@@ -1,13 +1,13 @@
 import { PropsWithChildren, ReactElement } from 'react';
 import { getRating } from '../../utils/common';
-import { useHotel } from '../../hooks/selectors/use-hotel';
+import useHotel from '../../hooks/selectors/use-hotel';
 import Header from '../features/header';
 import CardNearPlaces from '../features/card/card-near-places';
 import CommentsList from '../features/comments-list';
 import Map from '../features/map';
 import NotFoundPage from './not-found';
-import BookmarkProperty from '../features/bookmark/bookmark-property'
-import { maxImagesInRoomPage } from '../../const'
+import BookmarkProperty from '../features/bookmark/bookmark-property';
+import { maxImagesInRoomPage } from '../../const';
 import Spinner from '../features/spinner';
 
 interface RoomParams {
@@ -19,11 +19,11 @@ function Room(params: PropsWithChildren<RoomParams>): ReactElement {
   const { hotels = [], hotel, isLoadingHotel } = useHotel();
 
   if (isLoadingHotel) {
-    return <Spinner />
+    return <Spinner />;
   }
 
   if (hotel === undefined) {
-    return <NotFoundPage />
+    return <NotFoundPage />;
   }
 
   const hotelsInMap = [...hotels, hotel];
@@ -75,8 +75,6 @@ function Room(params: PropsWithChildren<RoomParams>): ReactElement {
                 </div>
                 <ul className="property__features">
                   <li className="property__feature property__feature--entire">
-                    {/* TODO подумать как красивее оформить различие текста.
-                    Тип пишется с заглавной Apartment. Пока захардкодила */}
                     {hotel.type}
                   </li>
                   <li className="property__feature property__feature--bedrooms">
@@ -136,7 +134,7 @@ function Room(params: PropsWithChildren<RoomParams>): ReactElement {
                 <CommentsList isAuth={isAuth} hotelId={hotel.id} />
               </div>
             </div>
-            <section className="property__map map" >
+            <section className="property__map map">
               <Map activeCity={hotel.city} hotels={hotelsInMap} selectedPoint={hotel} />
             </section>
           </section>

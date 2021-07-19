@@ -1,9 +1,9 @@
-import { LoginGet } from "../../data-type";
-import { api } from "../../services/rtk-api";
+import { LoginGet } from '../../data-type';
+import { api } from '../../services/rtk-api';
 
-const authorized = (): boolean => !!sessionStorage.getItem("token") ?? false;
+const authorized = (): boolean => !!sessionStorage.getItem('token') ?? false;
 
-export const useLogin = (): {
+const useLogin = (): {
   data: LoginGet | undefined,
   isLoading: boolean,
   isAuth: boolean,
@@ -12,5 +12,9 @@ export const useLogin = (): {
   const isAuth = authorized();
   const { data, isLoading, refetch } = api.endpoints.getLogin.useQuery();
 
-  return { data, isLoading, isAuth, refetch };
+  return {
+    data, isLoading, isAuth, refetch,
+  };
 };
+
+export default useLogin;

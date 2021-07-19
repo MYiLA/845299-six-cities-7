@@ -8,23 +8,30 @@ import RoomPage from '../pages/room';
 import SignInPage from '../pages/sign-in';
 import NotFoundPage from '../pages/not-found';
 import PrivateRoute from '../features/private-route';
-import { useLogin } from '../../hooks/selectors/use-login';
+import useLogin from '../../hooks/selectors/use-login';
 
 function App(): ReactElement {
-  const { isAuth } = useLogin()
+  const { isAuth } = useLogin();
 
   return (
-    <>
     <BrowserRouter>
       <Switch>
-        <PrivateRoute isAuth={isAuth} authPath={getRoute(AppRoute.LOGIN)} path={getRoute(AppRoute.FAVORITES)} >
+        <PrivateRoute
+          isAuth={isAuth}
+          authPath={getRoute(AppRoute.LOGIN)}
+          path={getRoute(AppRoute.FAVORITES)}
+        >
           <FavoritesPage />
         </PrivateRoute>
-        <PrivateRoute isAuth={!isAuth} authPath={getRoute(AppRoute.MAIN)} path={getRoute(AppRoute.LOGIN)} >
+        <PrivateRoute
+          isAuth={!isAuth}
+          authPath={getRoute(AppRoute.MAIN)}
+          path={getRoute(AppRoute.LOGIN)}
+        >
           <SignInPage />
         </PrivateRoute>
         <Route exact path={`${getRoute(AppRoute.OFFER)}/:id`}>
-          <RoomPage isAuth={isAuth}/>
+          <RoomPage isAuth={isAuth} />
         </Route>
         <Route exact path={`${getRoute(AppRoute.MAIN)}:city?/:sorting?`}>
           <MainPage />
@@ -34,7 +41,6 @@ function App(): ReactElement {
         </Route>
       </Switch>
     </BrowserRouter>
-    </>
   );
 }
 

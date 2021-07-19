@@ -1,6 +1,9 @@
-import { ReactElement } from 'react';
+import { PropsWithChildren, ReactElement } from 'react';
+import { ErrorMessageParams } from './types';
 
-function ErrorMessage({ text }: { text: string } ): ReactElement {
+function ErrorMessage(params: PropsWithChildren<ErrorMessageParams>): ReactElement {
+  const { text } = params;
+
   return (
     <div className="container fixed">
       <div className="form__submit">

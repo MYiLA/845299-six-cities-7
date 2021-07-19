@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import Header from '../features/header';
 import Footer from '../features/footer';
-import { useFavoritesHotels } from '../../hooks/selectors/use-favorites-hotels';
+import useFavoritesHotels from '../../hooks/selectors/use-favorites-hotels';
 import OffersListLocations from '../features/offers-list-locations';
 
 function Favorites(): ReactElement {
