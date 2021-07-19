@@ -7,7 +7,7 @@ import CommentsList from '../features/comments-list';
 import Map from '../features/map';
 import NotFoundPage from './not-found';
 import BookmarkProperty from '../features/bookmark/bookmark-property';
-import { MAX_IMAGES_IN_ROOM_PAGE } from '../../const';
+import { MAX_IMAGES_IN_ROOM_PAGE, MESSAGE_NOT_INTERNET } from '../../const';
 import Spinner from '../features/spinner';
 import ErrorMessage from '../features/error-message';
 
@@ -25,6 +25,10 @@ function Room(params: PropsWithChildren<RoomParams>): ReactElement {
     return <Spinner />;
   }
 
+  if (isError) {
+    return <ErrorMessage text={`Не удалось загрузить информацио об отеле. ${MESSAGE_NOT_INTERNET}`} />;
+  }
+
   if (hotel === undefined) {
     return <NotFoundPage />;
   }
@@ -33,9 +37,6 @@ function Room(params: PropsWithChildren<RoomParams>): ReactElement {
 
   return (
     <>
-      {(isError
-      && <ErrorMessage text="Не удалось загрузить информацио об отеле. Проверьте интернет-соединение и перезагрузите страницу" />
-      )}
       <div style={{ display: 'none' }}>
         <svg xmlns="http://www.w3.org/2000/svg">
           <symbol id="icon-arrow-select" viewBox="0 0 7 4"><path fillRule="evenodd" clipRule="evenodd" d="M0 0l3.5 2.813L7 0v1.084L3.5 4 0 1.084V0z" /></symbol>

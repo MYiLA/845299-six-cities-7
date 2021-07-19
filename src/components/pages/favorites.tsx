@@ -5,6 +5,7 @@ import useFavoritesHotels from '../../hooks/selectors/use-favorites-hotels';
 import OffersListLocations from '../features/offers-list-locations';
 import OffersListLocationsEmpty from '../features/offers-list-locations-empty';
 import ErrorMessage from '../features/error-message';
+import { MESSAGE_NOT_INTERNET } from '../../const';
 
 function Favorites(): ReactElement {
   const { hotels, isError } = useFavoritesHotels();
@@ -13,7 +14,7 @@ function Favorites(): ReactElement {
   return (
     <>
       {(isError
-      && <ErrorMessage text="Не удалось загрузить избранные Вами отели. Проверьте интернет-соединение и перезагрузите страницу" />
+      && <ErrorMessage text={`Не удалось загрузить избранные Вами отели. ${MESSAGE_NOT_INTERNET}`} />
       )}
       <div style={{ display: 'none' }}>
         <svg xmlns="http://www.w3.org/2000/svg">

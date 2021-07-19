@@ -2,7 +2,9 @@ import {
   ReactElement, MouseEvent, useState, useCallback
 } from 'react';
 import { useHistory } from 'react-router-dom';
-import { AppRoute, BookmarkType, MESSAGE_DISPLAY_TIME } from '../../../const';
+import {
+  AppRoute, BookmarkType, MESSAGE_DISPLAY_TIME, MESSAGE_NOT_INTERNET
+} from '../../../const';
 import useLogin from '../../../hooks/selectors/use-login';
 import { usePostFavoriteStatusMutation } from '../../../services/rtk-api';
 import { BookmarkParams } from '../types';
@@ -47,7 +49,7 @@ function Bookmark(params: BookmarkParams): ReactElement {
   return (
     <>
       {(isShowError
-    && <ErrorMessage text="Проблема с серверорм. Попробуйте позже" />
+      && <ErrorMessage text={`Не удалось изменить статус карточки. ${MESSAGE_NOT_INTERNET}`} />
       )}
       <BookmarkView
         onSetFavorite={onSetFavorite}

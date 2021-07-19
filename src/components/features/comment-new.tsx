@@ -1,7 +1,7 @@
 import {
   FormEvent, ReactElement, useCallback, useState
 } from 'react';
-import { MESSAGE_DISPLAY_TIME } from '../../const';
+import { MESSAGE_DISPLAY_TIME, MESSAGE_NOT_INTERNET } from '../../const';
 import ErrorMessage from './error-message';
 import { usePostCommentMutation } from '../../services/rtk-api';
 import CommentNewView from './comment-new-view';
@@ -52,7 +52,7 @@ function CommentNew(params: {hotelId: number}): ReactElement {
   return (
     <>
       {(isShowError
-        && <ErrorMessage text="Не удалось отправить сообщение. Попробуйте ещё раз" />
+        && <ErrorMessage text={`Не удалось отправить сообщение. ${MESSAGE_NOT_INTERNET}`} />
       )}
       <CommentNewView
         onSubmit={onSubmit}

@@ -2,7 +2,9 @@ import {
   FormEvent, ReactElement, useCallback, useEffect, useState
 } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { AppRoute, MESSAGE_DISPLAY_TIME, RegularExpression } from '../../const';
+import {
+  AppRoute, MESSAGE_DISPLAY_TIME, RegularExpression, MESSAGE_NOT_INTERNET
+} from '../../const';
 import { useGetLoginQuery, usePostLoginMutation } from '../../services/rtk-api';
 import { getRoute } from '../../utils/common';
 import { InputCheckType } from './type';
@@ -88,7 +90,7 @@ function SignIn(): ReactElement {
   return (
     <>
       {(isShowError
-      && <ErrorMessage text="Не удалось зарегистрироваться. Проверьте интернет-соединение и перезагрузите страницу" />
+      && <ErrorMessage text={`Не удалось зарегистрироваться. ${MESSAGE_NOT_INTERNET}`} />
       )}
       <div style={{ display: 'none' }}>
         <svg xmlns="http://www.w3.org/2000/svg">

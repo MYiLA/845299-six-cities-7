@@ -4,7 +4,7 @@ import MainView from './main-view';
 import NotFound from './not-found';
 import { useCitiesList } from '../../hooks/selectors/use-cities-list';
 import useIsEmpty from '../../hooks/selectors/use-is-empty';
-import { AppRoute } from '../../const';
+import { AppRoute, MESSAGE_NOT_INTERNET } from '../../const';
 import { getRoute } from '../../utils/common';
 import useCurrentHotels from '../../hooks/selectors/use-current-hotels';
 import ErrorMessage from '../features/error-message';
@@ -26,7 +26,7 @@ function Main(): ReactElement {
   return (
     <>
       {(isError
-      && <ErrorMessage text="Не удалось загрузить отели. Проверьте интернет-соединение и перезагрузите страницу" />
+      && <ErrorMessage text={`Не удалось загрузить отели. ${MESSAGE_NOT_INTERNET}`} />
       )}
       <MainView
         isLoading={isLoading}

@@ -5,6 +5,7 @@ import Spinner from './spinner';
 import CommentsListView from './comments-list-view';
 import { CommentsListParams } from './types';
 import ErrorMessage from './error-message';
+import { MESSAGE_NOT_INTERNET } from '../../const';
 
 function CommentsList(params: PropsWithChildren<CommentsListParams>): ReactElement {
   const { isAuth = false, hotelId } = params;
@@ -20,7 +21,7 @@ function CommentsList(params: PropsWithChildren<CommentsListParams>): ReactEleme
   return (
     <>
       {(isError
-      && <ErrorMessage text="Не удалось загрузить список сообщений. Проверьте интернет-соединение и перезагрузите страницу" />
+      && <ErrorMessage text={`Не удалось загрузить список сообщений. ${MESSAGE_NOT_INTERNET}`} />
       )}
       <CommentsListView
         commentsTotal={comments.length}

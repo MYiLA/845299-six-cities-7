@@ -4,7 +4,7 @@ import {
 import useLogin from '../../hooks/selectors/use-login';
 import { api } from '../../services/rtk-api';
 import HeaderView from './header-view';
-import { MESSAGE_DISPLAY_TIME } from '../../const';
+import { MESSAGE_DISPLAY_TIME, MESSAGE_NOT_INTERNET } from '../../const';
 import ErrorMessage from './error-message';
 
 function Header(): ReactElement {
@@ -32,7 +32,7 @@ function Header(): ReactElement {
   return (
     <>
       {(isShowError
-        && <ErrorMessage text="Есть проблемы с интернет-соединением. Но, несмотря на это, мы очистили ваши данные :-)" />
+        && <ErrorMessage text={`${MESSAGE_NOT_INTERNET} Не беспокойтесь о ваших данных. Мы их успешно очистили :-)`} />
       )}
       <HeaderView
         isAuth={isAuth}

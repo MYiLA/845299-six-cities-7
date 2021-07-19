@@ -1,6 +1,7 @@
 export const MAX_IMAGES_IN_ROOM_PAGE = 6;
 export const MESSAGE_DISPLAY_TIME = 5000;
 export const Stars = [5, 4, 3, 2, 1];
+export const MESSAGE_NOT_INTERNET = 'Проверьте интернет-соединение и перезагрузите страницу.';
 
 export enum AppRoute {
   MAIN = 'main',
