@@ -2,11 +2,12 @@ import {
   FormEvent, ReactElement, useCallback, useEffect, useState
 } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { AppRoute, RegularExpression } from '../../const';
+import { AppRoute, MESSAGE_DISPLAY_TIME, RegularExpression } from '../../const';
 import { useGetLoginQuery, usePostLoginMutation } from '../../services/rtk-api';
 import { getRoute } from '../../utils/common';
 import { InputCheckType } from './type';
 import Header from '../features/header';
+import ErrorMessage from '../features/error-message';
 
 function SignIn(): ReactElement {
   const { refetch } = useGetLoginQuery();
@@ -22,7 +23,7 @@ function SignIn(): ReactElement {
     message: '',
     success: false,
   });
-
+  const [isShowError, setIsShowError] = useState<boolean>(false);
   const checkedFormData = (email: string, password: string) => {
     if (!RegularExpression.EMAIL.test(email)) {
       setEmailCheck({
@@ -77,15 +78,18 @@ function SignIn(): ReactElement {
         refetch();
         history.push(AppRoute.DEFAULT_CITY);
       })
-        .catch(({ data }) => {
-        // TODO вывести сообщение с ошибкой
-          throw new Error(data.error);
+        .catch(() => {
+          setIsShowError(true);
+          setTimeout(() => setIsShowError(false), MESSAGE_DISPLAY_TIME);
         });
     }
   }, [postLogin, emailCheck, passwordCheck, history, refetch]);
 
   return (
     <>
+      {(isShowError
+      && <ErrorMessage text="Не удалось зарегистрироваться. Проверьте интернет-соединение и перезагрузите страницу" />
+      )}
       <div style={{ display: 'none' }}>
         <svg xmlns="http://www.w3.org/2000/svg">
           <symbol id="icon-arrow-select" viewBox="0 0 7 4"><path fillRule="evenodd" clipRule="evenodd" d="M0 0l3.5 2.813L7 0v1.084L3.5 4 0 1.084V0z" /></symbol>

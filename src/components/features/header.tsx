@@ -4,7 +4,7 @@ import {
 import useLogin from '../../hooks/selectors/use-login';
 import { api } from '../../services/rtk-api';
 import HeaderView from './header-view';
-import { messageDisplayTime } from '../../const';
+import { MESSAGE_DISPLAY_TIME } from '../../const';
 import ErrorMessage from './error-message';
 
 function Header(): ReactElement {
@@ -18,7 +18,7 @@ function Header(): ReactElement {
     apiResult.unwrap()
       .catch(() => {
         setIsShowError(true);
-        setTimeout(() => setIsShowError(false), messageDisplayTime);
+        setTimeout(() => setIsShowError(false), MESSAGE_DISPLAY_TIME);
       }).finally(() => {
         sessionStorage.removeItem('token');
         refetch();

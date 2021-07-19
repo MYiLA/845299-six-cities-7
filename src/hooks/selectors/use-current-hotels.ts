@@ -10,20 +10,21 @@ interface useCurrentHotelsParams {
 
 const useCurrentHotels = (params: useCurrentHotelsParams): {
   hotels: Hotel[] | [],
-  isLoading: boolean
+  isLoading: boolean,
+  isError: boolean
 } => {
   const { activeCity, sortingType = SortingType.POPULAR.path } = params;
-  const { data: hotels = [], isLoading } = api.endpoints.getHotels.useQuery();
+  const { data: hotels = [], isLoading, isError } = api.endpoints.getHotels.useQuery();
 
   if (hotels.length === 0) {
-    return { hotels, isLoading };
+    return { hotels, isLoading, isError };
   }
 
   const activeHotels = hotels.filter(
     (hotel) => (hotel.city.name === activeCity?.name),
   );
 
-  return { hotels: sorting[sortingType](activeHotels), isLoading };
+  return { hotels: sorting[sortingType](activeHotels), isLoading, isError };
 };
 
 export default useCurrentHotels;

@@ -1,6 +1,12 @@
 import { Hotel } from '../../data-type';
 import { api } from '../../services/rtk-api';
 
-const useFavoritesHotels = (): Hotel[] => api.endpoints.getFavorites.useQuery().data ?? [];
+const useFavoritesHotels = (): {
+  hotels: Hotel[],
+  isError: boolean,
+} => {
+  const { data: hotels = [], isError } = api.endpoints.getFavorites.useQuery();
+  return { hotels, isError };
+};
 
 export default useFavoritesHotels;

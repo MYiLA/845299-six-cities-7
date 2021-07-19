@@ -4,10 +4,11 @@ import { sortByNowToOld } from '../../utils/common';
 import Spinner from './spinner';
 import CommentsListView from './comments-list-view';
 import { CommentsListParams } from './types';
+import ErrorMessage from './error-message';
 
 function CommentsList(params: PropsWithChildren<CommentsListParams>): ReactElement {
   const { isAuth = false, hotelId } = params;
-  const { comments, isLoading } = useCommentsList(hotelId);
+  const { comments, isLoading, isError } = useCommentsList(hotelId);
   const shownComments = [...comments].sort(
     (comment1, comment2) => sortByNowToOld(comment1.date, comment2.date),
   ).slice(0, 10);
@@ -17,12 +18,17 @@ function CommentsList(params: PropsWithChildren<CommentsListParams>): ReactEleme
   }
 
   return (
-    <CommentsListView
-      commentsTotal={comments.length}
-      shownComments={shownComments}
-      isAuth={isAuth}
-      hotelId={hotelId}
-    />
+    <>
+      {(isError
+      && <ErrorMessage text="Не удалось загрузить список сообщений. Проверьте интернет-соединение и перезагрузите страницу" />
+      )}
+      <CommentsListView
+        commentsTotal={comments.length}
+        shownComments={shownComments}
+        isAuth={isAuth}
+        hotelId={hotelId}
+      />
+    </>
   );
 }
 

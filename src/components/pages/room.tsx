@@ -7,8 +7,9 @@ import CommentsList from '../features/comments-list';
 import Map from '../features/map';
 import NotFoundPage from './not-found';
 import BookmarkProperty from '../features/bookmark/bookmark-property';
-import { maxImagesInRoomPage } from '../../const';
+import { MAX_IMAGES_IN_ROOM_PAGE } from '../../const';
 import Spinner from '../features/spinner';
+import ErrorMessage from '../features/error-message';
 
 interface RoomParams {
   isAuth?: boolean,
@@ -16,7 +17,9 @@ interface RoomParams {
 
 function Room(params: PropsWithChildren<RoomParams>): ReactElement {
   const { isAuth } = params;
-  const { hotels = [], hotel, isLoadingHotel } = useHotel();
+  const {
+    hotels = [], hotel, isLoadingHotel, isError,
+  } = useHotel();
 
   if (isLoadingHotel) {
     return <Spinner />;
@@ -30,6 +33,9 @@ function Room(params: PropsWithChildren<RoomParams>): ReactElement {
 
   return (
     <>
+      {(isError
+      && <ErrorMessage text="Не удалось загрузить информацио об отеле. Проверьте интернет-соединение и перезагрузите страницу" />
+      )}
       <div style={{ display: 'none' }}>
         <svg xmlns="http://www.w3.org/2000/svg">
           <symbol id="icon-arrow-select" viewBox="0 0 7 4"><path fillRule="evenodd" clipRule="evenodd" d="M0 0l3.5 2.813L7 0v1.084L3.5 4 0 1.084V0z" /></symbol>
@@ -43,7 +49,7 @@ function Room(params: PropsWithChildren<RoomParams>): ReactElement {
           <section className="property">
             <div className="property__gallery-container container">
               <div className="property__gallery">
-                {hotel.images.slice(0, maxImagesInRoomPage).map((image, idImg) => {
+                {hotel.images.slice(0, MAX_IMAGES_IN_ROOM_PAGE).map((image, idImg) => {
                   const keyValue = `${idImg}-${image}`;
                   return (
                     <div key={keyValue} className="property__image-wrapper">

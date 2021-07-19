@@ -2,7 +2,7 @@ import {
   ReactElement, MouseEvent, useState, useCallback
 } from 'react';
 import { useHistory } from 'react-router-dom';
-import { AppRoute, BookmarkType, messageDisplayTime } from '../../../const';
+import { AppRoute, BookmarkType, MESSAGE_DISPLAY_TIME } from '../../../const';
 import useLogin from '../../../hooks/selectors/use-login';
 import { usePostFavoriteStatusMutation } from '../../../services/rtk-api';
 import { BookmarkParams } from '../types';
@@ -40,7 +40,7 @@ function Bookmark(params: BookmarkParams): ReactElement {
     apiResult.unwrap()
       .catch(() => {
         setIsShowError(true);
-        setTimeout(() => setIsShowError(false), messageDisplayTime);
+        setTimeout(() => setIsShowError(false), MESSAGE_DISPLAY_TIME);
       });
   }, [isAuth, isFavorite]);
 

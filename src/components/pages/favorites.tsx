@@ -3,13 +3,18 @@ import Header from '../features/header';
 import Footer from '../features/footer';
 import useFavoritesHotels from '../../hooks/selectors/use-favorites-hotels';
 import OffersListLocations from '../features/offers-list-locations';
+import OffersListLocationsEmpty from '../features/offers-list-locations-empty';
+import ErrorMessage from '../features/error-message';
 
 function Favorites(): ReactElement {
-  const hotels = useFavoritesHotels();
+  const { hotels, isError } = useFavoritesHotels();
   const isEmpty = (hotels.length === 0);
 
   return (
     <>
+      {(isError
+      && <ErrorMessage text="Не удалось загрузить избранные Вами отели. Проверьте интернет-соединение и перезагрузите страницу" />
+      )}
       <div style={{ display: 'none' }}>
         <svg xmlns="http://www.w3.org/2000/svg">
           <symbol id="icon-arrow-select" viewBox="0 0 7 4"><path fillRule="evenodd" clipRule="evenodd" d="M0 0l3.5 2.813L7 0v1.084L3.5 4 0 1.084V0z" /></symbol>
@@ -27,13 +32,7 @@ function Favorites(): ReactElement {
             )}
             {isEmpty
             && (
-              <section className="favorites favorites--empty">
-                <h1 className="visually-hidden">Favorites (empty)</h1>
-                <div className="favorites__status-wrapper">
-                  <b className="favorites__status">Nothing yet saved.</b>
-                  <p className="favorites__status-description">Save properties to narrow down search or plan your future trips.</p>
-                </div>
-              </section>
+              <OffersListLocationsEmpty />
             )}
           </div>
         </main>

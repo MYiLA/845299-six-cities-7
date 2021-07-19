@@ -1,7 +1,7 @@
 import {
   FormEvent, ReactElement, useCallback, useState
 } from 'react';
-import { messageDisplayTime } from '../../const';
+import { MESSAGE_DISPLAY_TIME } from '../../const';
 import ErrorMessage from './error-message';
 import { usePostCommentMutation } from '../../services/rtk-api';
 import CommentNewView from './comment-new-view';
@@ -45,7 +45,7 @@ function CommentNew(params: {hotelId: number}): ReactElement {
       setIsFormDisabled(false);
       setIsSubmitDisabled(false);
       setIsShowError(true);
-      setTimeout(() => setIsShowError(false), messageDisplayTime);
+      setTimeout(() => setIsShowError(false), MESSAGE_DISPLAY_TIME);
     });
   }, [comment, rating]);
 
