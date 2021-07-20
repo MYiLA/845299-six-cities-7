@@ -3,16 +3,8 @@ import Header from '../features/header';
 import OffersList from '../features/offers-list';
 import CitiesList from '../features/cities-list';
 import Spinner from '../features/spinner';
-import { City, Hotel } from '../../data-type';
 import OffersListEmpty from '../features/offers-list-empty';
-
-interface MainViewParams {
-  isLoading: boolean,
-  activeCity: City,
-  isEmpty: boolean,
-  cities: City[],
-  hotels: Hotel[],
-}
+import { MainViewParams } from './type';
 
 function MainView(params: PropsWithChildren<MainViewParams>): ReactElement {
   const {

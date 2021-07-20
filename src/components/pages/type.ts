@@ -1,4 +1,4 @@
-import { Hotel } from '../../data-type';
+import { City, Hotel } from '../../data-type';
 
 export interface InputCheckType {
   data: string,
@@ -13,5 +13,13 @@ export interface RoomParams {
 export interface RoomViewParams {
   isAuth: boolean,
   hotel: Hotel,
+  hotels: Hotel[],
+}
+
+export interface MainViewParams {
+  isLoading: boolean,
+  activeCity: City,
+  isEmpty: boolean,
+  cities: City[],
   hotels: Hotel[],
 }

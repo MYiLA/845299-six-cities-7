@@ -8,15 +8,15 @@ import {
 
 export interface CardParams {
   cardData: Hotel,
-  onMouseEnter?: () => void,
-  onMouseLeave?: () => void,
   cardType?: string,
   className?: string,
   children?: ReactElement,
   imgSize?: {
     width: number,
     height: number,
-  }
+  },
+  onMouseEnter?: () => void,
+  onMouseLeave?: () => void,
 }
 
 export interface OffersListParams {
@@ -27,8 +27,8 @@ export interface OffersListParams {
 
 export interface MapParams {
   activeCity: City,
-  selectedPoint?: Hotel,
   hotels: Hotel[]
+  selectedPoint?: Hotel,
 }
 
 export interface BookmarkParams {
@@ -42,11 +42,11 @@ export interface BookmarkParams {
 }
 
 export interface BookmarkViewParams {
-  onSetFavorite: (evt: MouseEvent<HTMLElement>) => void,
   type: string,
   isFavorite: boolean,
   width: number,
   height: number,
+  onSetFavorite: (evt: MouseEvent<HTMLElement>) => void,
 }
 
 export interface CitiesListParams {
@@ -55,14 +55,14 @@ export interface CitiesListParams {
 }
 
 export interface CommentNewViewParams {
+  rating: number,
+  comment: string,
+  isFormDisabled: boolean,
+  isSubmitDisabled: boolean,
+  setComment: (value: string) => void,
+  setRating: (star: number) => void,
   onSubmit: (evt: FormEvent<HTMLFormElement>) => void,
   onChange: () => void,
-  rating: number,
-  setRating: (star: number) => void,
-  isFormDisabled: boolean,
-  comment: string,
-  setComment: (value: string) => void,
-  isSubmitDisabled: boolean,
 }
 
 export interface CommentParams {
@@ -73,12 +73,12 @@ export interface CommentsListViewParams {
   commentsTotal: number,
   shownComments: CommentGet[],
   isAuth: boolean,
-  hotelId: number
+  hotelId: number,
 }
 
 export interface CommentsListParams {
-  hotelId: number,
   isAuth?: boolean,
+  hotelId: number,
 }
 
 export interface ErrorMessageParams {
