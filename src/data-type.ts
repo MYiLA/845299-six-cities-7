@@ -6,17 +6,19 @@ export interface City {
   },
   name: string,
 }
+
+export interface Host {
+  avatarUrl: string,
+  id: number,
+  isPro: boolean,
+  name: string,
+}
 export interface Hotel {
   bedrooms: number,
   city: City,
   description: string,
   goods: string[],
-  host: {
-    avatarUrl: string,
-    id: number,
-    isPro: boolean,
-    name: string,
-  },
+  host: Host,
   id: number,
   images: string[],
   isFavorite: boolean,

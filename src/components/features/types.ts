@@ -2,7 +2,9 @@ import {
   ReactElement, MouseEvent, FormEvent, CSSProperties
 } from 'react';
 import { RouteProps } from 'react-router';
-import { City, CommentGet, Hotel } from '../../data-type';
+import {
+  City, CommentGet, Host, Hotel
+} from '../../data-type';
 
 export interface CardParams {
   cardData: Hotel,
@@ -113,4 +115,8 @@ export interface SortingDropdownBtnParams {
     path: string
   },
   city: string
+}
+
+export interface HostParams {
+  host: Host,
 }
