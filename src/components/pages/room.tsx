@@ -33,6 +33,25 @@ function Room(params: PropsWithChildren<RoomParams>): ReactElement {
     return <NotFoundPage />;
   }
 
+  const {
+    type: hotelType,
+    images,
+    isPremium,
+    title,
+    id: hotelId,
+    isFavorite,
+    rating,
+    bedrooms,
+    maxAdults,
+    price,
+    goods,
+    host,
+    description,
+    city,
+  } = hotel;
+
+  const { name, avatarUrl, isPro } = host;
+
   const hotelsInMap = [...hotels, hotel];
 
   return (
@@ -50,11 +69,11 @@ function Room(params: PropsWithChildren<RoomParams>): ReactElement {
           <section className="property">
             <div className="property__gallery-container container">
               <div className="property__gallery">
-                {hotel.images.slice(0, MAX_IMAGES_IN_ROOM_PAGE).map((image, idImg) => {
+                {images.slice(0, MAX_IMAGES_IN_ROOM_PAGE).map((image, idImg) => {
                   const keyValue = `${idImg}-${image}`;
                   return (
                     <div key={keyValue} className="property__image-wrapper">
-                      <img className="property__image" src={image} alt="studio" />
+                      <img className="property__image" src={image} alt={hotelType} />
                     </div>
                   );
                 })}
@@ -62,37 +81,37 @@ function Room(params: PropsWithChildren<RoomParams>): ReactElement {
             </div>
             <div className="property__container container">
               <div className="property__wrapper">
-                {hotel.isPremium && (
+                {isPremium && (
                   <div className="property__mark">
                     <span>Premium</span>
                   </div>
                 )}
                 <div className="property__name-wrapper">
                   <h1 className="property__name">
-                    {hotel.title}
+                    {title}
                   </h1>
-                  <BookmarkProperty id={hotel.id} isFavorite={hotel.isFavorite} />
+                  <BookmarkProperty id={hotelId} isFavorite={isFavorite} />
                 </div>
                 <div className="property__rating rating">
                   <div className="property__stars rating__stars">
-                    <span style={{ width: getRating(hotel.rating) }} />
+                    <span style={{ width: getRating(rating) }} />
                     <span className="visually-hidden">Rating</span>
                   </div>
-                  <span className="property__rating-value rating__value">{hotel.rating}</span>
+                  <span className="property__rating-value rating__value">{rating}</span>
                 </div>
                 <ul className="property__features">
                   <li className="property__feature property__feature--entire">
-                    {hotel.type}
+                    {hotelType}
                   </li>
                   <li className="property__feature property__feature--bedrooms">
-                    {hotel.bedrooms}
+                    {bedrooms}
                     {' '}
                     Bedrooms
                   </li>
                   <li className="property__feature property__feature--adults">
                     Max
                     {' '}
-                    {hotel.maxAdults}
+                    {maxAdults}
                     {' '}
                     adults
                   </li>
@@ -100,14 +119,14 @@ function Room(params: PropsWithChildren<RoomParams>): ReactElement {
                 <div className="property__price">
                   <b className="property__price-value">
                     €
-                    {hotel.price}
+                    {price}
                   </b>
                   <span className="property__price-text">&nbsp;night</span>
                 </div>
                 <div className="property__inside">
                   <h2 className="property__inside-title">What&lsquo;s inside</h2>
                   <ul className="property__inside-list">
-                    {hotel.goods.map((item, idItem) => {
+                    {goods.map((item, idItem) => {
                       const keyValue = `${idItem}-${item}`;
                       return (
                         <li key={keyValue} className="property__inside-item">
@@ -120,13 +139,13 @@ function Room(params: PropsWithChildren<RoomParams>): ReactElement {
                 <div className="property__host">
                   <h2 className="property__host-title">Meet the host</h2>
                   <div className="property__host-user user">
-                    <div className={`property__avatar-wrapper user__avatar-wrapper ${hotel.host.isPro ? 'property__avatar-wrapper--pro' : ''}`}>
-                      <img className="property__avatar user__avatar" src={hotel.host.avatarUrl} width={74} height={74} alt="Host avatar" />
+                    <div className={`property__avatar-wrapper user__avatar-wrapper ${isPro ? 'property__avatar-wrapper--pro' : ''}`}>
+                      <img className="property__avatar user__avatar" src={avatarUrl} width={74} height={74} alt={`Avatar ${name}`} />
                     </div>
                     <span className="property__user-name">
-                      {hotel.host.name}
+                      {name}
                     </span>
-                    {hotel.host.isPro && (
+                    {isPro && (
                       <span className="property__user-status">
                         Pro
                       </span>
@@ -134,15 +153,15 @@ function Room(params: PropsWithChildren<RoomParams>): ReactElement {
                   </div>
                   <div className="property__description">
                     <p className="property__text">
-                      {hotel.description}
+                      {description}
                     </p>
                   </div>
                 </div>
-                <CommentsList isAuth={isAuth} hotelId={hotel.id} />
+                <CommentsList isAuth={isAuth} hotelId={hotelId} />
               </div>
             </div>
             <section className="property__map map">
-              <Map activeCity={hotel.city} hotels={hotelsInMap} selectedPoint={hotel} />
+              <Map activeCity={city} hotels={hotelsInMap} selectedPoint={hotel} />
             </section>
           </section>
           <div className="container">
