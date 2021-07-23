@@ -27,7 +27,6 @@ function Bookmark(params: BookmarkParams): ReactElement {
   const [favoriteStatus] = usePostFavoriteStatusMutation();
 
   const onSetFavorite = useCallback((evt: MouseEvent<HTMLElement>) => {
-    console.log('функция');
     evt.preventDefault();
 
     if (!isAuth) {

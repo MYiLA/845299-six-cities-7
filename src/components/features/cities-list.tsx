@@ -5,7 +5,6 @@ import { CitiesListParams } from './types';
 
 function CitiesList(params: PropsWithChildren<CitiesListParams>): ReactElement {
   const { activeCity, cities } = params;
-
   return (
     <div className="tabs">
       <section className="locations container">

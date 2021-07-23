@@ -9,6 +9,7 @@ function SortingDropdown(): ReactElement {
     sorting: string | undefined
   }>();
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
   const sortingArr = Object.values(SortingType);
   const activeSortType = sortingArr.find((sort) => sort.path === sorting) ?? SortingType.POPULAR;
 

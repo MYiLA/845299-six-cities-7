@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { api } from '../services/rtk-api';
 
-const сities = [
+export const сities = [
   {
     location: {
       latitude: 48.85,

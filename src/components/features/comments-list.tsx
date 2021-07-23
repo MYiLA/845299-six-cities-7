@@ -10,6 +10,7 @@ import { MESSAGE_NOT_INTERNET } from '../../const';
 function CommentsList(params: PropsWithChildren<CommentsListParams>): ReactElement {
   const { isAuth = false, hotelId } = params;
   const { comments, isLoading, isError } = useCommentsList(hotelId);
+
   const shownComments = [...comments].sort(
     (comment1, comment2) => sortByNowToOld(comment1.date, comment2.date),
   ).slice(0, 10);
