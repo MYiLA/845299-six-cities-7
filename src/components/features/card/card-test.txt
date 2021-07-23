@@ -1,0 +1,108 @@
+// import { render } from '@testing-library/react';
+// import { Router } from 'react-router-dom';
+// import { Provider } from 'react-redux';
+// import configureStore from 'redux-mock-store';
+// import { createMemoryHistory, MemoryHistory } from 'history';
+// import { PropsWithChildren } from 'react';
+// import { AnyAction, Store } from 'redux';
+// import { CardType, SNAP_DESC } from '../../../const';
+// import Card from './card';
+
+// // TODO Проблема во вложенных частях.
+// // Там используется роутер и стор, но я их тестировать не хочу.
+// // Надо посмотреть, как решается этот вопрос
+
+// const mockStore = configureStore({});
+
+// const renderOptions = (history: MemoryHistory<unknown>, store: Store<any, AnyAction>) => ({
+//   wrapper: (props: PropsWithChildren<unknown>) => {
+//     function Wrapper(propsWrapper: PropsWithChildren<unknown>) {
+//       const { children } = propsWrapper;
+//       return (
+//         <Provider store={store}>
+//           <Router history={history}>
+//             {children}
+//           </Router>
+//         </Provider>
+//       );
+//     }
+//     return Wrapper(props);
+//   },
+// });
+
+// const cardData = {
+//   bedrooms: 1,
+//   city: {
+//     location: {
+//       latitude: 48.85661,
+//       longitude: 2.351499,
+//       zoom: 13,
+//     },
+//     name: 'Paris',
+//   },
+//   description: 'Discover daily description test',
+//   goods: ['Baby seat', 'Breakfast', 'Washer', 'Air conditioning', 'Laptop friendly workspace'],
+//   host: {
+//     avatarUrl: 'img/avatar-angelina.jpg',
+//     id: 25,
+//     isPro: true,
+//     name: 'Angelina',
+//   },
+//   id: 80,
+//   images: [
+//     'https://7.react.pages.academy/static/hotel/18.jpg',
+//     'https://7.react.pages.academy/static/hotel/16.jpg',
+//     'https://7.react.pages.academy/static/hotel/1.jpg',
+//     'https://7.react.pages.academy/static/hotel/15.jpg',
+//     'https://7.react.pages.academy/static/hotel/12.jpg',
+//   ],
+//   isFavorite: false,
+//   isPremium: false,
+//   location: {
+//     latitude: 48.87861,
+//     longitude: 2.357499,
+//     zoom: 16,
+//   },
+//   maxAdults: 1,
+//   previewImage: 'https://7.react.pages.academy/static/hotel/10.jpg',
+//   price: 136,
+//   rating: 2.2,
+//   title: 'Amazing and Extremely Central Flat',
+//   type: 'room',
+// };
+
+// const cardType = CardType.FAVORITES;
+// const className = 'favorites__card';
+// const imgSize = {
+//   width: 150,
+//   height: 110,
+// };
+
+// let isSelected = false;
+// const onMouseEnter = () => { isSelected = true; };
+// const onMouseLeave = () => { isSelected = false; };
+
+// describe('поведение компонента bookmark-view', () => {
+//   // it('делает разметку на экране', () => {
+//   // const {container} = render(<Mistakes count={mistakesCount} />);
+//   // expect(container.querySelectorAll('.game__mistakes .wrong').length).toBe(mistakesCount);
+//   // });
+
+//   it(SNAP_DESC, () => {
+//     const history = createMemoryHistory();
+//     const store = mockStore({});
+
+//     const { container } = render(
+//       <Card
+//         cardData={cardData}
+//         cardType={cardType}
+//         className={className}
+//         imgSize={imgSize}
+//         onMouseEnter={onMouseEnter}
+//         onMouseLeave={onMouseLeave}
+//       />,
+//       renderOptions(history, store),
+//     );
+//     expect(container).toMatchSnapshot();
+//   });
+// });

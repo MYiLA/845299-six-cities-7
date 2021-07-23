@@ -1,0 +1,51 @@
+import { render } from '@testing-library/react';
+import { SNAP_DESC } from '../../const';
+import CitiesList from './cities-list';
+
+const activeCity = {
+  location: {
+    latitude: 48.85,
+    longitude: 2.35,
+    zoom: 10,
+  },
+  name: 'Paris',
+};
+
+const cities = [
+  {
+    location: {
+      latitude: 48.85,
+      longitude: 2.35,
+      zoom: 10,
+    },
+    name: 'Paris',
+  },
+  {
+    location: {
+      latitude: 50.9375,
+      longitude: 6.9603,
+      zoom: 10,
+    },
+    name: 'Cologne',
+  },
+  {
+    location: {
+      latitude: 50.8503,
+      longitude: 4.3517,
+      zoom: 10,
+    },
+    name: 'Brussels',
+  },
+];
+
+describe('поведение компонента bookmark-view', () => {
+  // it('делает разметку на экране', () => {
+  //   // const {container} = render(<Mistakes count={mistakesCount} />);
+  //   // expect(container.querySelectorAll('.game__mistakes .wrong').length).toBe(mistakesCount);
+  // });
+
+  it(SNAP_DESC, () => {
+    const { container } = render(<CitiesList activeCity={activeCity} cities={cities} />);
+    expect(container).toMatchSnapshot();
+  });
+});

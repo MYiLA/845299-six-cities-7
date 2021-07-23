@@ -1,0 +1,16 @@
+// import { render } from '@testing-library/react';
+// import { SNAP_DESC } from '../../const';
+
+// // const mistakesCount = 3;
+
+// describe('поведение компонента bookmark-view', () => {
+//   it('делает разметку на экране', () => {
+//     // const {container} = render(<Mistakes count={mistakesCount} />);
+//     // expect(container.querySelectorAll('.game__mistakes .wrong').length).toBe(mistakesCount);
+//   });
+
+//   it(SNAP_DESC, () => {
+//     // const {container} = render(<Mistakes count={mistakesCount} />);
+//     // expect(container).toMatchSnapshot();
+//   });
+// });

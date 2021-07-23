@@ -22,14 +22,16 @@ describe('поведение компонента not found', () => {
   it('делает разметку на экране', () => {
     const history = createMemoryHistory();
     const { getByText } = render(<NotFound />, renderOptions(history));
+
     expect(getByText('404 Not Found')).toBeTruthy();
+    expect(getByText('Go back')).toBeTruthy();
   });
 
-  it('делает разметку ссылки на стартовую страницу', () => {
+  it('Правильно отображается', () => {
     const history = createMemoryHistory();
-    const { getByText } = render(<NotFound />, renderOptions(history));
-    const link = getByText('Go back');
-    expect(link).toBeTruthy();
+    const component = render(<NotFound />, renderOptions(history));
+
+    expect(component).toMatchSnapshot();
   });
 
   it('переходит на париж по клику', () => {
@@ -37,6 +39,7 @@ describe('поведение компонента not found', () => {
     const { getByText } = render(<NotFound />, renderOptions(history));
     const link = getByText('Go back');
     fireEvent.click(link);
+
     expect(history.location.pathname).toBe('/Paris');
   });
 });

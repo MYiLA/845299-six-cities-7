@@ -1,0 +1,82 @@
+import { render } from '@testing-library/react';
+import { Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
+import { Provider } from 'react-redux';
+import { store } from '../../store/reducer';
+import App from './app';
+import { SNAP_DESC } from '../../const';
+// import { AppRoute } from '../../const';
+// import { getRoute } from '../../utils/common';
+
+let history = null;
+let fakeApp = null;
+// const hotelId = 1;
+
+describe('поведение компонента App', () => {
+  beforeAll(() => {
+    history = createMemoryHistory();
+    fakeApp = (
+      <Provider store={store}>
+        <Router history={history}>
+          <App />
+        </Router>
+      </Provider>
+    );
+  });
+
+  it(SNAP_DESC, () => {
+    const component = render(fakeApp);
+    expect(component).toMatchSnapshot();
+  });
+
+  // it(`отображает экран "${AppRoute.MAIN}" ,
+  // когда пользователь переходит по ссылке "${getRoute(AppRoute.MAIN)}"
+  // `, () => {
+  //   history.push(getRoute(AppRoute.MAIN));
+  //   render(fakeApp);
+
+  //   expect(screen.getByAltText('6 cities logo')).toBeInTheDocument();
+  //   expect(screen.getByText('Sort by')).toBeInTheDocument();
+  //   expect(screen.getByText('places to stay in')).toBeTruthy();
+  // });
+
+  // it(`отображает экран "${AppRoute.LOGIN}",
+  // когда пользователь переходит по ссылке "${getRoute(AppRoute.LOGIN)}"`, () => {
+  //   history.push(getRoute(AppRoute.LOGIN));
+  //   console.log(history);
+  //   render(fakeApp);
+
+  //   expect(screen.getByText('Sign in')).toBeInTheDocument();
+  //   expect(screen.getByLabelText('E-mail')).toBeInTheDocument();
+  //   expect(screen.getByLabelText('Password')).toBeInTheDocument();
+  // });
+
+  // it(`отображает экран "${AppRoute.LOGIN}",
+  // когда пользователь переходит по ссылке "${getRoute(AppRoute.FAVORITES)}"`, () => {
+  //   history.push(getRoute(AppRoute.FAVORITES));
+  //   render(fakeApp);
+
+  //   expect(screen.getByText('Sign in')).toBeInTheDocument();
+  //   expect(screen.getByLabelText('E-mail')).toBeInTheDocument();
+  //   expect(screen.getByLabelText('Password')).toBeInTheDocument();
+  // });
+
+  // it(`отображает экран "${AppRoute.OFFER}" отеля с id ${hotelId},
+  // когда пользователь переходит по ссылке "${getRoute(AppRoute.OFFER, hotelId)}"`, () => {
+  //   history.push(getRoute(AppRoute.OFFER, hotelId));
+  //   render(fakeApp);
+
+  //   expect(screen.getByText('What‘s inside')).toBeInTheDocument();
+  //   expect(screen.getByText('Meet the host')).toBeInTheDocument();
+  //   expect(screen.getByText('Reviews ·')).toBeInTheDocument();
+  // });
+
+  // it('отображает экран "404 Not Found",
+  // когда пользователь переходит по несуществующему маршруту', () => {
+  //   history.push('/non-existent-route');
+  //   render(fakeApp);
+
+  //   expect(screen.getByText('404 Not Found')).toBeInTheDocument();
+  //   expect(screen.getByText('Go back')).toBeInTheDocument();
+  // });
+});
