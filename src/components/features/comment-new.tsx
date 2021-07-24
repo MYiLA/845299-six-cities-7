@@ -1,13 +1,13 @@
 import {
   FormEvent, ReactElement, useCallback, useState
 } from 'react';
-import { MESSAGE_DISPLAY_TIME, MESSAGE_NOT_INTERNET } from '../../const';
+import { CommentOptions, MESSAGE_DISPLAY_TIME, MESSAGE_NOT_INTERNET } from '../../const';
 import ErrorMessage from './error-message';
 import { usePostCommentMutation } from '../../services/rtk-api';
 import CommentNewView from './comment-new-view';
 
 const isValidComment = (comment: string) => {
-  if (comment.length >= 50 && comment.length <= 300) {
+  if (comment.length >= CommentOptions.MIN_LENGTH && comment.length <= CommentOptions.MAX_LENGTH) {
     return true;
   }
   return false;
@@ -25,7 +25,9 @@ function CommentNew(params: {hotelId: number}): ReactElement {
   const onChange = useCallback(() => {
     if (isValidComment(comment) && rating !== 0) {
       setIsSubmitDisabled(false);
+      return;
     }
+    setIsSubmitDisabled(true);
   }, [comment, rating]);
 
   const onSubmit = useCallback((evt: FormEvent<HTMLFormElement>) => {

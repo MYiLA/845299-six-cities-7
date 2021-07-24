@@ -1,7 +1,12 @@
 export const MAX_IMAGES_IN_ROOM_PAGE = 6;
 export const MESSAGE_DISPLAY_TIME = 5000;
-export const Stars = [5, 4, 3, 2, 1];
+export const STARS = [5, 4, 3, 2, 1];
 export const MESSAGE_NOT_INTERNET = 'Проверьте интернет-соединение и перезагрузите страницу.';
+
+export enum CommentOptions {
+  MIN_LENGTH = 50,
+  MAX_LENGTH = 300,
+}
 
 export enum AppRoute {
   MAIN = 'main',
@@ -28,12 +33,6 @@ export enum CardType {
 export enum BookmarkType {
   PROPERTY = 'property',
   PLACE_CARD = 'place-card',
-}
-
-export enum AuthorizationStatus {
-  AUTH = 'AUTH',
-  NO_AUTH = 'NO_AUTH',
-  UNKNOWN = 'UNKNOWN',
 }
 
 export const RegularExpression = {

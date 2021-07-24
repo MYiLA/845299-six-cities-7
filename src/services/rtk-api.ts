@@ -118,17 +118,8 @@ export const {
   reducer,
   reducerPath,
 
-  useGetHotelsQuery,
-  useGetHotelIdQuery,
-  useGetHotelIdNearbyQuery,
-
-  useGetFavoritesQuery,
   usePostFavoriteStatusMutation,
-
-  useGetCommentsQuery,
   usePostCommentMutation,
-
   useGetLoginQuery,
-  useDeleteLogoutMutation,
   usePostLoginMutation,
 } = api;
