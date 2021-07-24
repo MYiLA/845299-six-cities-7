@@ -1,5 +1,5 @@
 import { Fragment, ReactElement } from 'react';
-import { Stars } from '../../const';
+import { STARS } from '../../const';
 import { CommentNewViewParams } from './types';
 
 function CommentNewView(params: CommentNewViewParams): ReactElement {
@@ -16,7 +16,7 @@ function CommentNewView(params: CommentNewViewParams): ReactElement {
         Your review
       </label>
       <div className="reviews__rating-form form__rating">
-        {Stars.map((star) => (
+        {STARS.map((star) => (
           <Fragment key={star}>
             <input
               className="form__rating-input visually-hidden"
