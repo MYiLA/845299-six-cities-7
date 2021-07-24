@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`поведение компонента bookmark-view нет изменений в разметке, по сравнению с прошлым тестом 1`] = `
+<div>
+  <button
+    class="property__bookmark-button button property__bookmark-button--active"
+    type="button"
+  >
+    <svg
+      class="property__bookmark-icon"
+      height="33"
+      width="31"
+    >
+      <use
+        xlink:href="#icon-bookmark"
+      />
+    </svg>
+    <span
+      class="visually-hidden"
+    >
+      To bookmarks
+    </span>
+  </button>
+</div>
+`;

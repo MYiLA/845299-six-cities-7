@@ -1,12 +1,12 @@
 import { fireEvent, render } from '@testing-library/react';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory, MemoryHistory } from 'history';
-import { PropsWithChildren } from 'react';
 import { BookmarkType, SNAP_DESC } from '../../../const';
 import BookmarkView from './bookmark-view';
 
 let history = {} as MemoryHistory<unknown>;
-let isFavorite = true;
+let onSetFavorite = () => null;
+const isFavorite = true;
 const type = BookmarkType.PROPERTY;
 const width = 31;
 const height = 33;
@@ -14,10 +14,10 @@ const height = 33;
 describe('поведение компонента bookmark-view', () => {
   beforeEach(() => {
     history = createMemoryHistory();
+    onSetFavorite = jest.fn();
   });
 
   it('делает разметку на экране', () => {
-    const onSetFavorite = jest.fn();
     const { container } = render(
       <Router history={history}>
         <BookmarkView
@@ -39,10 +39,7 @@ describe('поведение компонента bookmark-view', () => {
     }
   });
 
-  it('обрабатывает клик по кнопке', () => {
-    const onSetFavorite = jest.fn(() => {
-      isFavorite = !isFavorite;
-    });
+  it('обрабатывает клик по флажку-кнопке', () => {
     const { container } = render(
       <Router history={history}>
         <BookmarkView
@@ -59,21 +56,19 @@ describe('поведение компонента bookmark-view', () => {
     if (button !== null) {
       fireEvent.click(button);
     }
-    expect(container.querySelector(`.${type}__bookmark-button--active`)).toBe(undefined);
+    expect(onSetFavorite).toBeCalled();
   });
 
-  // it(SNAP_DESC, () => {
-  //   const history = createMemoryHistory();
-  //   const { container } = render(
-  //     <BookmarkView
-  //       isFavorite={isFavorite}
-  //       onSetFavorite={onSetFavorite}
-  //       type={type}
-  //       width={width}
-  //       height={height}
-  //     />,
-  //     renderOptions(history),
-  //   );
-  //   expect(container).toMatchSnapshot();
-  // });
+  it(SNAP_DESC, () => {
+    const { container } = render(
+      <BookmarkView
+        isFavorite={isFavorite}
+        onSetFavorite={onSetFavorite}
+        type={type}
+        width={width}
+        height={height}
+      />,
+    );
+    expect(container).toMatchSnapshot();
+  });
 });
