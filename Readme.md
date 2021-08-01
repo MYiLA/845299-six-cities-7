@@ -12,6 +12,7 @@
 # Руководство по работе с проектом
 
 Ссылка на опубликованный проект https://myila.github.io/845299-six-cities-7/
+
 Данный проект создан с помощью [Create React App](https://github.com/facebook/create-react-app)
 
 ## Структура проекта
