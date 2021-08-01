@@ -11,9 +11,11 @@
 
 # Руководство по работе с проектом
 
-[Посмотреть опубликованный проект](https://myila.github.io/845299-six-cities-7/)
-
 Данный проект создан с помощью [Create React App](https://github.com/facebook/create-react-app)
+
+Посмотреть [опубликованный проект](https://myila.github.io/845299-six-cities-7/)
+
+Посмотреть [сертификат](https://assets.htmlacademy.ru/certificates/intensive/183/845299.pdf?1627502602&_ga=2.239385675.957325660.1627850411-1321747880.1620999137)
 
 ## Структура проекта
 
