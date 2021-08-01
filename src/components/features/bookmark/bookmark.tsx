@@ -10,6 +10,7 @@ import { usePostFavoriteStatusMutation } from '../../../services/rtk-api';
 import { BookmarkParams } from '../types';
 import BookmarkView from './bookmark-view';
 import ErrorMessage from '../error-message';
+import { getRoute } from '../../../utils/common';
 
 const defaultStyle = {
   type: BookmarkType.PROPERTY,
@@ -30,7 +31,7 @@ function Bookmark(params: BookmarkParams): ReactElement {
     evt.preventDefault();
 
     if (!isAuth) {
-      history.push(`/${AppRoute.LOGIN}`);
+      history.push(getRoute(AppRoute.LOGIN));
       return;
     }
 
