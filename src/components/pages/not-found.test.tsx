@@ -2,6 +2,7 @@ import { render, fireEvent } from '@testing-library/react';
 import { createMemoryHistory, MemoryHistory } from 'history';
 import { PropsWithChildren } from 'react';
 import { Router } from 'react-router-dom';
+import { HOMEPAGE } from '../../utils/common';
 import NotFound from './not-found';
 
 const renderOptions = (history: MemoryHistory<unknown>) => ({
@@ -37,6 +38,6 @@ describe('поведение компонента not found', () => {
     const { getByText } = render(<NotFound />, renderOptions(history));
     const link = getByText('Go back');
     fireEvent.click(link);
-    expect(history.location.pathname).toBe('/Paris');
+    expect(history.location.pathname).toBe(`${HOMEPAGE}Paris`);
   });
 });
