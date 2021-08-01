@@ -23,7 +23,7 @@ function Comment(params: PropsWithChildren<CommentParams>): ReactElement {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: getRating(rating) }} />
+            <span style={{ width: getRating(rating) }} data-testid="rating" />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
