@@ -3,6 +3,7 @@ import { AppRoute } from '../const';
 
 const PERCENT = 100;
 const TOTAL_RATING = 5;
+const HOMEPAGE = '/845299-six-cities-7/';
 
 export const getRating = (part = 0):string => `${Math.round(part) * (PERCENT / TOTAL_RATING)}%`;
 export const sortByNowToOld = (date1: string, date2: string) :number => dayjs(date2)
@@ -11,10 +12,10 @@ export const sortByNowToOld = (date1: string, date2: string) :number => dayjs(da
 export const getRoute = (target: string, id?: number): string => {
   switch (target) {
     case AppRoute.MAIN:
-      return '/';
+      return HOMEPAGE;
     case AppRoute.OFFER:
-      return `/${target}${id ? `/${id}` : ''}`;
+      return `${HOMEPAGE}${target}${id ? `/${id}` : ''}`;
     default:
-      return `/${target}`;
+      return `${HOMEPAGE}${target}`;
   }
 };
